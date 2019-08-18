@@ -1,10 +1,15 @@
 package com.bitspilani.bosm2019;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,11 +22,13 @@ import java.util.ArrayList;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
     ArrayList<Fixture> fixtures;
+    Context context;
+    String[] teams;
 
 
-
-    public CustomAdapter(ArrayList<Fixture> fixtures) {
+    public CustomAdapter(ArrayList<Fixture> fixtures, Context context) {
         this.fixtures=fixtures;
+        this.context=context;
     }
 
     @NonNull
@@ -44,6 +51,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         holder.Time1.setText(fixtures.get(position).getTime());
         holder.Venue1.setText(fixtures.get(position).getVenue());
 
+        //teams = new String[]{};
+
+
+
         holder.fc.initialize(30,500, Color.parseColor("#ffffff"),0);
 
         holder.fc.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +69,24 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         });
 
 
+
+        holder.amount.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                holder.bet.setText(""+progress);
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     @Override
@@ -65,11 +94,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         return fixtures.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView Team1,Team2,Team11,Team21;
         TextView Time,Venue,Time1,Venue1;
         final FoldingCell fc;
         FrameLayout content,title;
+        Button simple,power;
+        SeekBar amount;
+        TextView bet;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -84,7 +116,46 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             fc=itemView.findViewById(R.id.folding_cell);
             content=itemView.findViewById(R.id.cell_content_view);
             title=itemView.findViewById(R.id.cell_title_view);
+            simple=itemView.findViewById(R.id.simple);
+            power=itemView.findViewById(R.id.power);
+            amount=itemView.findViewById(R.id.amount);
+            bet=itemView.findViewById(R.id.bet);
+
+            simple.setOnClickListener(this);
+            power.setOnClickListener(this);
+
 
         }
+
+        @Override
+        public void onClick(View v) {
+            if(v.getId()==simple.getId())
+                buildDialog(new String[]{Team1.getText().toString(),Team2.getText().toString()});
+            else
+                buildDialog(new String[]{Team1.getText().toString(),Team2.getText().toString()});
+        }
+
+        void buildDialog(String[] teams){
+
+            AlertDialog.Builder builder=new AlertDialog.Builder(context);
+            builder.setTitle("I will place my bet on")
+                    .setCancelable(true)
+                    .setSingleChoiceItems(teams, -1,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int i) {
+
+                                }
+                            }).setPositiveButton("Yay", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            builder.show();
+        }
+
+
     }
+
 }

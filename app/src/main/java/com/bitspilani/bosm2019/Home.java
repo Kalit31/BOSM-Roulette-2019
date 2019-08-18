@@ -92,7 +92,7 @@ public class Home extends Fragment{
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new CustomAdapter(fixtures);
+        mAdapter = new CustomAdapter(fixtures,getActivity());
         recyclerView.setAdapter(mAdapter);
         return view;
     }

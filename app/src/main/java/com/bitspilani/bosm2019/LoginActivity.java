@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.gms.auth.api.Auth;
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
     TextView gmail;
+
 SignInButton button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ SignInButton button;
         getSupportActionBar().hide();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
          button = findViewById(R.id.googlelogin);
@@ -52,13 +55,19 @@ SignInButton button;
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        mProgressDialog.show();
                         signIn();
+
                     }
                 }
         );
 // ...
 // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user=mAuth.getCurrentUser();
+        if (user!=null){
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        }
     }
 
     private void signIn() {
@@ -94,18 +103,20 @@ SignInButton button;
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            mProgressDialog.dismiss();
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
+startActivity(new Intent(LoginActivity.this,MainActivity.class));
 
                         } else {
+                            mProgressDialog.dismiss();
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-
+                            Toast.makeText(getApplicationContext(),R.string.app_name,Toast.LENGTH_LONG).show();
                         }
 
-                        // ...
+
                     }
                 });
     }

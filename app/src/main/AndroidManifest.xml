@@ -9,19 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
 
+
         android:theme="@style/BOSMAppTheme">
-        <activity android:name=".Wallet"
-        android:theme="@style/BOSMAppTheme"/>
-        <activity android:name=".activity.MainActivity">
+
+
+        <activity android:name=".Wallet">
+
+        </activity>
+        <activity android:name=".LoginActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity">
 
-        </activity>
+
+        <activity android:name=".MainActivity"></activity>
+
 
         <meta-data
             android:name="preloaded_fonts"

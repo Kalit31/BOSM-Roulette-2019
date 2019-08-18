@@ -1,6 +1,7 @@
 package com.bitspilani.bosm2019;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,14 +16,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Home.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Home#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Home extends Fragment{
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,8 +27,8 @@ public class Home extends Fragment{
 
     private String mParam1;
     private String mParam2;
+    SharedPreferences sharedPreferences;
 
-    private OnFragmentInteractionListener mListener;
 
     public Home() {
         // Required empty public constructor
@@ -74,8 +67,7 @@ public class Home extends Fragment{
         View view= inflater.inflate(R.layout.fragment_home, container, false);
 
         ArrayList<Fixture> fixtures=new ArrayList();
-
-        fixtures.add(new Fixture("BITS","TITS","SAC","1:30pm"));
+                fixtures.add(new Fixture("BITS","TITS","SAC","1:30pm"));
         fixtures.add(new Fixture("BITS","DTU","SAC","2:30pm"));
         fixtures.add(new Fixture("MITS","LSR","SAC","3:30pm"));
         fixtures.add(new Fixture("BITS","TITS","SAC","4:30pm"));
@@ -98,30 +90,21 @@ public class Home extends Fragment{
     }
 
     public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+
     }
 
 
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
-    }
+
 }

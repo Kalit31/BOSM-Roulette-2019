@@ -1,89 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/Home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+>
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:background="@drawable/toolbargradient"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?actionBarSize"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="start"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:fontFamily="@font/cerapro_bold"-->
+            <!--android:paddingTop="18dp"-->
+            <!--android:text="Ayush Singh"-->
+            <!--android:textColor="#000000"-->
+            <!--android:textSize="20sp"-->
+            <!--android:textStyle="bold" />-->
+
+        <!--<Button-->
+            <!--android:background="@drawable/buttonround"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:layout_gravity="end"-->
+            <!--android:text="50"-->
+            <!--android:textSize="16sp"-->
+            <!--android:textColor="#EEFF41"-->
+            <!--android:paddingLeft="5dp"-->
+
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:drawableLeft="@drawable/walletsmall"-->
+            <!--android:layout_height="wrap_content" />-->
+    <!--</RelativeLayout>-->
+
+    <FrameLayout
+
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_nav_bar"
+
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp">
+
+    </FrameLayout>
+    <com.gauravk.bubblenavigation.BubbleNavigationConstraintView
+        android:id="@+id/bottom_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:padding="12dp"
+        app:bnc_mode="spread" >
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="@color/colorAccent"
+            app:bt_colorInactive="@color/colorPrimaryDark"
+            app:bt_title="Home"
+            app:bt_icon="@drawable/ic_home"/>
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/roulette"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="@color/colorAccent"
+            app:bt_colorInactive="@color/colorPrimaryDark"
+            app:bt_title="Roulette"
+            app:bt_icon="@drawable/ic_home"/>
+
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/mybets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="@color/colorAccent"
+            app:bt_colorInactive="@color/colorPrimaryDark"
+            app:bt_title="My Bets"
+            app:bt_icon="@drawable/ic_home"
+            />
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/leaderboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="@color/colorAccent"
+            app:bt_colorInactive="@color/colorPrimaryDark"
+            app:bt_title="Leaderboard"
+            app:bt_icon="@drawable/ic_home"/>
+        <com.gauravk.bubblenavigation.BubbleToggleView
+            android:id="@+id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:bt_active="true"
+            app:bt_colorActive="@color/colorAccent"
+            app:bt_colorInactive="@color/colorPrimaryDark"
+            app:bt_title="More"
+            app:bt_icon="@drawable/ic_more"/>
 
 
 
-
-   <FrameLayout
-       android:id="@+id/fragment_container"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:layout_above="@+id/bottom_nav_bar"
-       android:layout_marginStart="0dp"
-       android:layout_marginEnd="0dp"
-       android:layout_marginBottom="0dp"
-        />
-
-
-   <com.gauravk.bubblenavigation.BubbleNavigationConstraintView
-       android:id="@+id/bottom_nav_bar"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_alignParentStart="true"
-       android:layout_alignParentBottom="true"
-       android:background="@color/white"
-       android:elevation="4dp"
-       android:padding="12dp"
-       app:bnc_mode="spread" >
-
-      <com.gauravk.bubblenavigation.BubbleToggleView
-          android:id="@+id/home"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:bt_active="true"
-          app:bt_colorActive="@color/colorAccent"
-          app:bt_colorInactive="@color/colorPrimaryDark"
-          app:bt_title="Home"
-          app:bt_icon="@drawable/ic_home"/>
-
-      <com.gauravk.bubblenavigation.BubbleToggleView
-          android:id="@+id/roulette"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:bt_active="true"
-          app:bt_colorActive="@color/colorAccent"
-          app:bt_colorInactive="@color/colorPrimaryDark"
-          app:bt_title="Roulette"
-          app:bt_icon="@drawable/ic_home"/>
-
-      <com.gauravk.bubblenavigation.BubbleToggleView
-          android:id="@+id/mybets"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:bt_active="true"
-          app:bt_colorActive="@color/colorAccent"
-          app:bt_colorInactive="@color/colorPrimaryDark"
-          app:bt_title="My Bets"
-          app:bt_icon="@drawable/ic_home"
-          />
-      <com.gauravk.bubblenavigation.BubbleToggleView
-          android:id="@+id/leaderboard"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:bt_active="true"
-          app:bt_colorActive="@color/colorAccent"
-          app:bt_colorInactive="@color/colorPrimaryDark"
-          app:bt_title="Leaderboard"
-          app:bt_icon="@drawable/ic_home"/>
-      <com.gauravk.bubblenavigation.BubbleToggleView
-          android:id="@+id/more"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:bt_active="true"
-          app:bt_colorActive="@color/colorAccent"
-          app:bt_colorInactive="@color/colorPrimaryDark"
-          app:bt_title="More"
-          app:bt_icon="@drawable/ic_more"/>
-
-      <!-- Add more child items here - max upto 5 -->
-
-   </com.gauravk.bubblenavigation.BubbleNavigationConstraintView>
-
-
+    </com.gauravk.bubblenavigation.BubbleNavigationConstraintView>
 </RelativeLayout>
+
+
+
+
+
+
+

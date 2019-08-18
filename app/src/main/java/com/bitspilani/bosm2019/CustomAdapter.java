@@ -4,7 +4,9 @@ package com.bitspilani.bosm2019;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +28,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     Context context;
     String[] teams;
 
-
+int betAmount=100;
     public CustomAdapter(ArrayList<Fixture> fixtures, Context context) {
         this.fixtures=fixtures;
         this.context=context;
@@ -75,7 +77,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 holder.bet.setText(""+progress);
-
+                betAmount=progress;
             }
 
             @Override
@@ -103,6 +105,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         Button simple,power;
         SeekBar amount;
         TextView bet;
+        SharedPreferences sharedPreferences = context.getSharedPreferences("WalletAmount",Context.MODE_PRIVATE);;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -150,7 +153,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                             }).setPositiveButton("Yay", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    int a=betAmount;
+                    editor.putInt("amount",100);
+                    editor.commit();
                 }
             });
             builder.show();

@@ -20,7 +20,7 @@
         android:fontFamily="@font/convergence"
         android:text="Welcome to BOSM Roulette"
 
-        android:textColor="#EEFF41"
+        android:textColor="#000000"
         android:textSize="26sp"
         android:textStyle="bold" />
 
@@ -37,10 +37,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:fontFamily="serif"
+        android:fontFamily="@font/cerapro_bold"
         android:text="Feeling Lucky? Login and start betting.\n May the odds be in your favour"
         android:textAlignment="center"
-        android:textColor="#ffffff"
+        android:textColor="#651FFF"
         android:textSize="20sp" />
 
     <com.google.android.gms.common.SignInButton

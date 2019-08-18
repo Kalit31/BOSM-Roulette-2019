@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.RouletteFrag"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Button
+        android:id="@+id/spinBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="SPIN"
+        android:background = "@drawable/rounded_button"
+        android:layout_marginBottom="15dp" />
+
+
+    <ImageView
+        android:id="@+id/wheel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/wheel"
+        android:adjustViewBounds="true" />
+
+    <ImageView
+        android:id="@+id/triangle"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/wheel"
+        android:layout_marginBottom="-10dp"
+        app:srcCompat="@drawable/tri"
+        />
+
+    <TextView
+        android:id="@+id/stamp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="My Wallet:"
+        android:layout_marginTop="4dp"
+        android:textColor="#000000"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/score_val"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@id/stamp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="0"
+        android:textColor="#000000"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000000"
+        android:text="Unlucky twice? Bonus 100!"
+        android:layout_marginBottom="95dp"
+        />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="31dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="2dp"
+        app:srcCompat="@drawable/coins"
+        android:layout_toRightOf="@id/score_val"/>
+
+</RelativeLayout>

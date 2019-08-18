@@ -34,12 +34,14 @@ public class MyBetsFrag extends Fragment {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_my_bets, container, false);
         betlist = v.findViewById(R.id.myBets_rv);
-        items.add(new MyBetsModel("TITS vs MNITS",200,"Bet type",false,true));
-        items.add(new MyBetsModel("TITS vs MNITS",200,"Bet type",false,false));
-        items.add(new MyBetsModel("TITS vs MNITS",200,"Bet type",false,false));
-        items.add(new MyBetsModel("TITS vs MNITS",200,"Bet type",false,true));
-        items.add(new MyBetsModel("TITS vs MNITS",200,"Bet type",false,false));
-        items.add(new MyBetsModel("TITS vs MNITS",200,"Bet type",false,true));
+        if(items.isEmpty()) {
+            items.add(new MyBetsModel("TITS vs MNITS", 200, "Bet type", false, true));
+            items.add(new MyBetsModel("TITS vs MNITS", 200, "Bet type", false, false));
+            items.add(new MyBetsModel("TITS vs MNITS", 200, "Bet type", false, false));
+            items.add(new MyBetsModel("TITS vs MNITS", 200, "Bet type", false, true));
+            items.add(new MyBetsModel("TITS vs MNITS", 200, "Bet type", false, false));
+            items.add(new MyBetsModel("TITS vs MNITS", 200, "Bet type", false, true));
+        }
         adapter = new MyBetAdapter(items,getContext());
         betlist.setLayoutManager(new LinearLayoutManager(getContext()));
         betlist.setHasFixedSize(true);

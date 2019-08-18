@@ -37,8 +37,9 @@ public class LoginActivity extends AppCompatActivity {
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
     TextView gmail;
-
 SignInButton button;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +57,10 @@ SignInButton button;
                     @Override
                     public void onClick(View v) {
                         mProgressDialog.show();
-                        signIn();
 
                     }
-                }
-        );
+                });
+
 // ...
 // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -69,6 +69,7 @@ SignInButton button;
             startActivity(new Intent(LoginActivity.this,MainActivity.class));
         }
     }
+
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -107,13 +108,17 @@ SignInButton button;
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
 startActivity(new Intent(LoginActivity.this,MainActivity.class));
+
 
                         } else {
                             mProgressDialog.dismiss();
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
+
                             Toast.makeText(getApplicationContext(),R.string.app_name,Toast.LENGTH_LONG).show();
+
                         }
 
 

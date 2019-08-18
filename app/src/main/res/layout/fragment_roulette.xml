@@ -13,6 +13,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="SPIN"
+        android:textColor="#ffffff"
         android:background = "@drawable/rounded_button"
         android:layout_marginBottom="15dp" />
 
@@ -42,10 +43,14 @@
         android:id="@+id/stamp"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_alignStart="@+id/wheel"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="number"
+        android:gravity="left|center"
         android:text="My Wallet:"
-        android:layout_marginTop="4dp"
         android:textColor="#000000"
         android:textSize="20dp" />
 
@@ -53,9 +58,11 @@
         android:id="@+id/score_val"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginTop="4dp"
+        android:layout_alignTop="@+id/stamp"
+        android:layout_toEndOf="@+id/stamp"
         android:layout_toRightOf="@id/stamp"
         android:ems="10"
+        android:gravity="center"
         android:inputType="number"
         android:text="0"
         android:textColor="#000000"
@@ -74,10 +81,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="31dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="2dp"
-        app:srcCompat="@drawable/coins"
-        android:layout_toRightOf="@id/score_val"/>
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/score_val"
+        android:layout_toEndOf="@+id/score_val"
+        android:layout_toRightOf="@id/score_val"
+        app:srcCompat="@drawable/coins" />
 
 </RelativeLayout>

@@ -1,3 +1,4 @@
+
 package com.bitspilani.bosm2019;
 
 import android.app.AlertDialog;
@@ -159,3 +160,5 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
 }
+
+

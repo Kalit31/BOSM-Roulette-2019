@@ -2,6 +2,8 @@ package com.bitspilani.bosm2019.fragments;
 
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -172,6 +174,12 @@ public class RouletteFrag extends Fragment {
                     }
                     t1=Integer.toString(total);
                     YT.setText(t1);
+                    /*SharedPreferences sharedPreferences=getActivity().getSharedPreferences("WalletAmount", Context.MODE_PRIVATE);
+                    int walletbalance=sharedPreferences.getInt("total",1000);
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt("total",walletbalance+total);
+                    editor.apply();*/
                 }
 
                 @Override

@@ -57,7 +57,6 @@
                 android:id="@+id/balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1000"
                 android:fontFamily="@font/cerapro_bold"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"

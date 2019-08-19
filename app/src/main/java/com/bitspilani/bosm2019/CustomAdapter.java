@@ -28,7 +28,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     Context context;
     String[] teams;
 
-int betAmount=100;
+int betAmount;
+    int walletamount;
     public CustomAdapter(ArrayList<Fixture> fixtures, Context context) {
         this.fixtures=fixtures;
         this.context=context;
@@ -72,24 +73,6 @@ int betAmount=100;
         });
 
 
-
-        holder.amount.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                holder.bet.setText(""+progress);
-                betAmount=progress;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
     }
 
     @Override
@@ -128,6 +111,24 @@ int betAmount=100;
             simple.setOnClickListener(this);
             power.setOnClickListener(this);
 
+            amount.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    bet.setText(""+progress);
+                    betAmount=progress;
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+
 
         }
 
@@ -153,10 +154,13 @@ int betAmount=100;
                             }).setPositiveButton("Yay", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    SharedPreferences sharedPreferences=context.getSharedPreferences("WalletAmount",Context.MODE_PRIVATE);
+                    int walletbalance=sharedPreferences.getInt("total",1000);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    int a=betAmount;
-                    editor.putInt("amount",100);
-                    editor.commit();
+                    if(betAmount==0)betAmount=100;
+                    editor.putInt("total",walletbalance-betAmount);
+                    editor.apply();
+
                 }
             });
             builder.show();

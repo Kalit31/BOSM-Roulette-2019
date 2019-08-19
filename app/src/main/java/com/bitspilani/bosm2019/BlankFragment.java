@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,9 +71,7 @@ int betAmount;
         View v=inflater.inflate(R.layout.fragment_blank, container, false);
         balance=v.findViewById(R.id.balance);
         sharedPreferences=getContext().getSharedPreferences("WalletAmount", Context.MODE_PRIVATE);
-        walletbalance= Integer.parseInt(balance.getText().toString());
-         betAmount= sharedPreferences.getInt("amount",0);
-        walletbalance=walletbalance-betAmount;
+        walletbalance= sharedPreferences.getInt("total",1000);
         balance.setText(String.valueOf(walletbalance));
            return v;
     }

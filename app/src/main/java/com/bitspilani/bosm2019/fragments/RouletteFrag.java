@@ -71,8 +71,6 @@ public class RouletteFrag extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -92,10 +90,9 @@ public class RouletteFrag extends Fragment {
                 spin(v);
             }
         });
-
-
         return view;
     }
+
     private void updateCountDownText() {
         int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
         int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
@@ -138,6 +135,12 @@ public class RouletteFrag extends Fragment {
 
     public void spin(View v) {
         spinbtn.setEnabled(false);
+        if(mTimerRunning){
+            spinbtn.setClickable(false);
+        }else{
+            spinbtn.setClickable(true);
+            startTimer();
+        }
 
         Timer buttonTimer = new Timer();
         buttonTimer.schedule(new TimerTask() {
@@ -151,7 +154,7 @@ public class RouletteFrag extends Fragment {
                     }
                 });
             }
-        }, 4000);
+        }, 20000);
 
         count++;
         degreeOld = degree % 360;
@@ -188,7 +191,8 @@ public class RouletteFrag extends Fragment {
             // we start the animation
             wheel.startAnimation(rotateAnim);
         }
-        else{
+        else
+            {
             RotateAnimation rotateAnim = new RotateAnimation(degreeOld, degree,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
             rotateAnim.setDuration(3600);

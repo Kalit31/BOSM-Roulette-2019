@@ -7,7 +7,7 @@
     android:layout_centerHorizontal="true"
     android:background="@drawable/loginbg"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".activity.LoginActivity">
 
     <TextView
         android:id="@+id/tvwelcome"

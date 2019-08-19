@@ -2,12 +2,12 @@ package com.bitspilani.bosm2019.fragments;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +20,19 @@ import android.widget.TextView;
 
 import com.bitspilani.bosm2019.R;
 
+import org.w3c.dom.Text;
+
+import java.util.Locale;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 
-public class RouletteFrag extends Fragment {
+import static android.content.Context.MODE_PRIVATE;
 
-    // sectors of our wheel (look at the image to see the sectors)
+public class RouletteFrag extends Fragment {
     private static final String[] sectors = { "32 red", "15 black",
             "19 red", "4 black", "21 red", "2 black", "25 red", "17 black", "34 red",
             "6 black", "27 red","13 black", "36 red", "11 black", "30 red", "8 black",
@@ -37,62 +41,118 @@ public class RouletteFrag extends Fragment {
             "18 red", "29 black", "7 red", "28 black", "12 red", "35 black",
             "3 red", "26 black", "zero"
     };
-    private int total=0;
-    private int count=0;
-    private TextView YT;
-    private String t1="0";
-    private Button spinBtn;
+    int total=0;
+    int count=0;
     private ImageView wheel;
+    private TextView YT;
+    private  String t1="0";
+    private Button spinbtn;
+    private static final long START_TIME_IN_MILLIS = 20000;
 
-    // We create a Random instance to make our wheel spin randomly
+    private TextView mTextViewCountDown;
+
+    private CountDownTimer mCountDownTimer;
+
+    private boolean mTimerRunning;
+
+    private long mTimeLeftInMillis;
+    private long mEndTime;
     private static final Random RANDOM = new Random();
     private int degree = 0, degreeOld = 0;
     // We have 37 sectors on the wheel, we divide 360 by this value to have angle for each sector
     // we divide by 2 to have a half sector
     private static final float HALF_SECTOR = 360f / 37f / 2f;
 
+
     public RouletteFrag() {
-        // Required empty public constructor
+
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View v =  inflater.inflate(R.layout.fragment_roulette, container, false);
+        View view = inflater.inflate(R.layout.fragment_roulette, container, false);
+        YT = view.findViewById(R.id.score_val);
+        mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
+        wheel = view.findViewById(R.id.wheel);
         ButterKnife.bind((Activity) getContext());
-        YT = v.findViewById(R.id.score_val);
+        spinbtn = view.findViewById(R.id.spinBtn);
         YT.setText(t1);
-        spinBtn = v.findViewById(R.id.spinBtn);
-        wheel = v.findViewById(R.id.wheel);
-        spinBtn.setOnClickListener(new View.OnClickListener() {
+        spinbtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                spin(view);
+            public void onClick(View v) {
+                spin(v);
             }
         });
 
-       return v;
+
+        return view;
+    }
+    private void updateCountDownText() {
+        int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
+        int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
+
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+
+        mTextViewCountDown.setText(timeLeftFormatted);
     }
 
+    private void updateButtons() {
+        if (mTimerRunning) {
+            spinbtn.setClickable(false);
+        } else {
+            mTimeLeftInMillis = START_TIME_IN_MILLIS;
+            spinbtn.setClickable(true);
+        }
+    }
+
+    private void startTimer() {
+        mEndTime = System.currentTimeMillis() + mTimeLeftInMillis;
+
+        mCountDownTimer = new CountDownTimer(mTimeLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mTimeLeftInMillis = millisUntilFinished;
+                updateCountDownText();
+            }
+
+            @Override
+            public void onFinish() {
+                mTimerRunning = false;
+                updateButtons();
+            }
+        }.start();
+
+        mTimerRunning = true;
+        updateButtons();
+    }
+
+
     public void spin(View v) {
-        spinBtn.setEnabled(false);
+        spinbtn.setEnabled(false);
 
         Timer buttonTimer = new Timer();
         buttonTimer.schedule(new TimerTask() {
 
             @Override
             public void run() {
-                getActivity().runOnUiThread(new Runnable() {
-
+                     getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        spinBtn.setEnabled(true);
+                        spinbtn.setEnabled(true);
                     }
                 });
             }
         }, 4000);
+
         count++;
         degreeOld = degree % 360;
         // we calculate random angle for rotation of our wheel
@@ -174,12 +234,6 @@ public class RouletteFrag extends Fragment {
                     }
                     t1=Integer.toString(total);
                     YT.setText(t1);
-                    /*SharedPreferences sharedPreferences=getActivity().getSharedPreferences("WalletAmount", Context.MODE_PRIVATE);
-                    int walletbalance=sharedPreferences.getInt("total",1000);
-
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("total",walletbalance+total);
-                    editor.apply();*/
                 }
 
                 @Override
@@ -194,8 +248,49 @@ public class RouletteFrag extends Fragment {
     }
 
 
+    @Override
+    public void onStop() {
+        super.onStop();
 
+        SharedPreferences prefs = getContext().getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
 
+        editor.putLong("millisLeft", mTimeLeftInMillis);
+        editor.putBoolean("timerRunning", mTimerRunning);
+        editor.putLong("endTime", mEndTime);
+        editor.apply();
+
+        if (mCountDownTimer != null) {
+            mCountDownTimer.cancel();
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        SharedPreferences prefs = getContext().getSharedPreferences("prefs", MODE_PRIVATE);
+
+        mTimeLeftInMillis = prefs.getLong("millisLeft", START_TIME_IN_MILLIS);
+        mTimerRunning = prefs.getBoolean("timerRunning", false);
+
+        updateCountDownText();
+        updateButtons();
+
+        if (mTimerRunning) {
+            mEndTime = prefs.getLong("endTime", 0);
+            mTimeLeftInMillis = mEndTime - System.currentTimeMillis();
+
+            if (mTimeLeftInMillis < 0) {
+                mTimeLeftInMillis = 0;
+                mTimerRunning = false;
+                updateCountDownText();
+                updateButtons();
+            } else {
+                startTimer();
+            }
+        }
+    }
 
     private String getSector(int degrees) {
         int i = 0;
@@ -211,12 +306,9 @@ public class RouletteFrag extends Fragment {
                 // so text is equals to sectors[i];
                 text = sectors[i];
             }
-
             i++;
-
         } while (text == null  &&  i < sectors.length);
 
         return text;
     }
-
 }

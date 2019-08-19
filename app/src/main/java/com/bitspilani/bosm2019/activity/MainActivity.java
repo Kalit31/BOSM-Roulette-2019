@@ -1,41 +1,28 @@
-package com.bitspilani.bosm2019;
+package com.bitspilani.bosm2019.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 
 import android.content.SharedPreferences;
-import android.net.Uri;
-
-import android.app.Activity;
-import android.content.Intent;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bitspilani.bosm2019.R;
+import com.bitspilani.bosm2019.fragments.BlankFragment;
+import com.bitspilani.bosm2019.fragments.Home;
 import com.bitspilani.bosm2019.fragments.LeaderBoardFrag;
 import com.bitspilani.bosm2019.fragments.MyBetsFrag;
 import com.bitspilani.bosm2019.fragments.RouletteFrag;
 import com.gauravk.bubblenavigation.BubbleNavigationConstraintView;
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
-import com.github.florent37.awesomebar.ActionItem;
-import com.github.florent37.awesomebar.AwesomeBar;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
-import re.robz.bottomnavigation.circularcolorreveal.BottomNavigationCircularColorReveal;
 
 
 public class MainActivity extends AppCompatActivity {

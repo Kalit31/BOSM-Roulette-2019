@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.RouletteFrag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.RouletteFrag">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg" >
 
     <Button
         android:id="@+id/spinBtn"
@@ -13,7 +17,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="SPIN"
-        android:textColor="#ffffff"
         android:background = "@drawable/rounded_button"
         android:layout_marginBottom="15dp" />
 
@@ -43,14 +46,10 @@
         android:id="@+id/stamp"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_alignStart="@+id/wheel"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="number"
-        android:gravity="left|center"
         android:text="My Wallet:"
+        android:layout_marginTop="4dp"
         android:textColor="#000000"
         android:textSize="20dp" />
 
@@ -58,11 +57,9 @@
         android:id="@+id/score_val"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignTop="@+id/stamp"
-        android:layout_toEndOf="@+id/stamp"
+        android:layout_marginTop="4dp"
         android:layout_toRightOf="@id/stamp"
         android:ems="10"
-        android:gravity="center"
         android:inputType="number"
         android:text="0"
         android:textColor="#000000"
@@ -81,11 +78,20 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/score_val"
-        android:layout_toEndOf="@+id/score_val"
-        android:layout_toRightOf="@id/score_val"
-        app:srcCompat="@drawable/coins" />
+        android:layout_width="31dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="2dp"
+        app:srcCompat="@drawable/coins"
+        android:layout_toRightOf="@id/score_val"/>
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/text_view_countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="145dp"
+        android:layout_alignParentBottom="true"
+        android:text="TextView" />
+
+    </RelativeLayout>
+</FrameLayout>

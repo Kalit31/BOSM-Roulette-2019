@@ -1,12 +1,11 @@
 
-package com.bitspilani.bosm2019;
+package com.bitspilani.bosm2019.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bitspilani.bosm2019.models.Fixture;
+import com.bitspilani.bosm2019.R;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.ArrayList;
@@ -160,15 +161,11 @@ int betAmount;
                     if(betAmount==0)betAmount=100;
                     editor.putInt("total",walletbalance-betAmount);
                     editor.apply();
-
                 }
             });
             builder.show();
         }
-
-
     }
-
 }
 
 

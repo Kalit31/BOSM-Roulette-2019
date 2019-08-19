@@ -1,4 +1,4 @@
-package com.bitspilani.bosm2019;
+package com.bitspilani.bosm2019.models;
 
 public class Fixture {
     private String Team1,Team2;

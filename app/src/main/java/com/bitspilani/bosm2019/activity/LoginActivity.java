@@ -26,6 +26,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "SignInActivity";
@@ -35,39 +44,36 @@ public class LoginActivity extends AppCompatActivity {
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
     TextView gmail;
-SignInButton button;
-
+    SignInButton button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
+
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-         button = findViewById(R.id.googlelogin);
+        button = findViewById(R.id.googlelogin);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
 
         button.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mProgressDialog.show();
 
+                        signIn();
                     }
                 });
+        // ...
+        // Initialize Firebase Auth
 
-// ...
-// Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user=mAuth.getCurrentUser();
-        if (user!=null){
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        }
     }
-
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -102,25 +108,72 @@ SignInButton button;
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            mProgressDialog.dismiss();
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
-startActivity(new Intent(LoginActivity.this,MainActivity.class));
-
-
+        //                    updateUI(user);
+//                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                            finish();
                         } else {
-                            mProgressDialog.dismiss();
+
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
 
-                            Toast.makeText(getApplicationContext(),R.string.app_name,Toast.LENGTH_LONG).show();
-
+                            Toast.makeText(getApplicationContext(), R.string.app_name, Toast.LENGTH_LONG).show();
                         }
-
-
                     }
                 });
     }
+
+    /*private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            final FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                    .setPersistenceEnabled(true)
+                    .build();
+            db.setFirestoreSettings(settings);
+
+            db.collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        if (task.getResult().getData() == null) {
+                            Map<String, Object> data = new HashMap<>();
+                            data.put("email", user.getEmail());
+                            data.put("name", user.getDisplayName());
+                            data.put("username", user.getUid());
+                            data.put("wallet", 1000.0);
+                            data.put("score", 0.0);
+                            data.put("slot_time", FieldValue.serverTimestamp());
+                            StringTokenizer stringTokenizer = new StringTokenizer(user.getEmail(), "@");
+                            String qrcode = stringTokenizer.nextToken();
+                            data.put("qr_code", qrcode);
+
+                            db.collection("users").document(user.getUid()).set(data, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        finish();
+                                    } else {
+
+                                        Toast.makeText(LoginActivity.this, "Connection error!", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            });
+
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                }
+            });
+        }
+
+
+    }*/
 }

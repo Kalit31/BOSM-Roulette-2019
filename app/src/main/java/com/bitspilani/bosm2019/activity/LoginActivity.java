@@ -42,7 +42,7 @@ SignInButton button;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -54,7 +54,7 @@ SignInButton button;
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mProgressDialog.show();
+                   signIn();
 
                     }
                 });
@@ -102,7 +102,7 @@ SignInButton button;
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            mProgressDialog.dismiss();
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -111,7 +111,7 @@ startActivity(new Intent(LoginActivity.this,MainActivity.class));
 
 
                         } else {
-                            mProgressDialog.dismiss();
+
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
 

@@ -147,7 +147,11 @@ public class RouletteFrag extends Fragment {
 
             @Override
             public void run() {
-                     getActivity().runOnUiThread(new Runnable() {
+
+                if(getActivity()==null)
+                    return;
+
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         spinbtn.setEnabled(true);

@@ -112,9 +112,9 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-        //                    updateUI(user);
-//                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                            finish();
+                            updateUI(user);
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                           finish();
                         } else {
 
                             // If sign in fails, display a message to the user.
@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    /*private void updateUI(FirebaseUser user) {
+    private void updateUI(FirebaseUser user) {
         if (user != null) {
             final FirebaseFirestore db = FirebaseFirestore.getInstance();
             FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -175,5 +175,5 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
-    }*/
+    }
 }

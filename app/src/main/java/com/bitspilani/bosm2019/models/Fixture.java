@@ -1,30 +1,40 @@
 package com.bitspilani.bosm2019.models;
 
 public class Fixture {
-    private String Team1,Team2;
-    private String Venue;
-    private String Time;
+    private String team1,team2;
+    private String venue;
+    private String time;
+    private String matchId;
 
-    public Fixture(String team1, String team2, String venue, String time) {
-        Team1 = team1;
-        Team2 = team2;
-        Venue = venue;
-        Time = time;
+    public Fixture(String team1, String team2, String venue, String time,String id) {
+        this.team1 = team1;
+        this.team2 = team2;
+        this.venue = venue;
+        this.time = time;
+        this.matchId = id;
     }
 
-    public String getTeam1() {
-        return Team1;
+    public String getMatchId() {
+        return matchId;
     }
 
-    public String getTeam2() {
-        return Team2;
+    public void setMatchId(String matchId) {
+        this.matchId = matchId;
     }
 
-    public String getVenue() {
-        return Venue;
+    public String getteam1() {
+        return team1;
+    }
+
+    public String getteam2() {
+        return team2;
+    }
+
+    public String getvenue() {
+        return venue;
     }
 
     public String getTime() {
-        return Time;
+        return time;
     }
 }

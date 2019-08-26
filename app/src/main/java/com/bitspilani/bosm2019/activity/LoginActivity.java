@@ -4,14 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import com.bitspilani.bosm2019.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -45,12 +45,13 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     TextView gmail;
     SignInButton button;
-
+    SharedPreferences sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+         sharedPref= getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -62,17 +63,22 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
+        if(user != null)
+        {
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("username",user.getUid());
+            editor.apply();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
+
         button.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         signIn();
                     }
                 });
-        // ...
-        // Initialize Firebase Auth
-
     }
 
     private void signIn() {
@@ -112,9 +118,9 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-        //                    updateUI(user);
-//                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                            finish();
+                            updateUI(user);
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
                         } else {
 
                             // If sign in fails, display a message to the user.
@@ -126,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    /*private void updateUI(FirebaseUser user) {
+    private void updateUI(FirebaseUser user) {
         if (user != null) {
             final FirebaseFirestore db = FirebaseFirestore.getInstance();
             FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -139,6 +145,9 @@ public class LoginActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
                         if (task.getResult().getData() == null) {
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("username",user.getUid());
+                            editor.apply();
                             Map<String, Object> data = new HashMap<>();
                             data.put("email", user.getEmail());
                             data.put("name", user.getDisplayName());
@@ -169,11 +178,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         }
                     }
-
                 }
             });
         }
-
-
-    }*/
+    }
 }

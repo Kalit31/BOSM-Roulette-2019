@@ -12,9 +12,7 @@
         android:theme="@style/BOSMAppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-
         <activity android:name=".activity.LoginActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,14 +20,8 @@
             </intent-filter>
         </activity>
 
-
         <activity android:name=".activity.MainActivity">
-
-
         </activity>
-
-
-
 
         <meta-data
             android:name="preloaded_fonts"

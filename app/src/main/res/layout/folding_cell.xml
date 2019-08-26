@@ -29,6 +29,13 @@
             android:clipToPadding="false">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/match_id"
+                android:visibility="invisible"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
                 android:id="@+id/team11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

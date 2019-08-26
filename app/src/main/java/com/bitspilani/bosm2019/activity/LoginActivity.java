@@ -121,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                             updateUI(user);
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
+
                         } else {
 
                             // If sign in fails, display a message to the user.
@@ -181,5 +182,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
+
     }
 }
+

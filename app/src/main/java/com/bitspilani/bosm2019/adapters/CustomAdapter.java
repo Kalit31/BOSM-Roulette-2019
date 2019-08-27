@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bitspilani.bosm2019.models.Fixture;
 import com.bitspilani.bosm2019.R;
 import com.bitspilani.bosm2019.models.PlaceBetModel;
+import com.bitspilani.bosm2019.models.UserBetModel;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.ramotion.foldingcell.FoldingCell;
@@ -31,10 +36,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import com.bitspilani.bosm2019.activity.LoginActivity;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+import static com.bitspilani.bosm2019.activity.LoginActivity.userBetsList;
 
-    private ArrayList<Fixture> fixtures;
+public class CustomAdapter extends FirestoreRecyclerAdapter<Fixture,CustomAdapter.ViewHolder> {
+
     private Context context;
     private String[] teams;
     private int betAmount;
@@ -42,32 +49,28 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String matchId;
 
-    public CustomAdapter(ArrayList<Fixture> fixtures, Context context) {
-        this.fixtures=fixtures;
-        this.context=context;
+    public CustomAdapter(@NonNull FirestoreRecyclerOptions<Fixture> options,Context context){
+        super(options);
+        this.context = context;
     }
-
 
     @NonNull
     @Override
     public CustomAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.folding_cell,parent,false);
-        ViewHolder viewHolder=new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
-
+    //@NonNull final CustomAdapter.ViewHolder holder, int position
     @Override
-    public void onBindViewHolder(@NonNull final CustomAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull Fixture fixture) {
 
-        holder.team1.setText(fixtures.get(position).getteam1());
-        holder.team2.setText(fixtures.get(position).getteam2());
-        holder.time.setText(fixtures.get(position).getTime());
-        holder.venue.setText(fixtures.get(position).getvenue());
-        holder.team11.setText(fixtures.get(position).getteam1());
-        holder.team21.setText(fixtures.get(position).getteam2());
-        holder.time1.setText(fixtures.get(position).getTime());
-        holder.venue1.setText(fixtures.get(position).getvenue());
-        holder.match_id.setText(fixtures.get(position).getMatchId());
+        holder.team1.setText(fixture.getCollege1());
+        holder.team2.setText(fixture.getCollege2());
+        holder.time.setText(fixture.getTimestamp());
+        holder.team11.setText(fixture.getCollege1());
+        holder.team21.setText(fixture.getCollege2());
+        holder.time1.setText(fixture.getTimestamp());
+        holder.match_id.setText(fixture.getMatchId());
         //teams = new String[]{};
         holder.fc.initialize(30,500, Color.parseColor("#ffffff"),0);
 
@@ -85,12 +88,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     }
 
-    @Override
-    public int getItemCount() {
-        return fixtures.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    {
         TextView team1,team2,team11,team21;
         TextView time,venue,time1,venue1;
         final FoldingCell fc;
@@ -100,6 +99,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         TextView bet;
         SharedPreferences sharedPreferences = context.getSharedPreferences("WalletAmount",Context.MODE_PRIVATE);;
         TextView match_id;
+        ArrayList<PlaceBetModel> bets = new ArrayList<>();
+
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -121,7 +122,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             match_id = itemView.findViewById(R.id.match_id);
             simple.setOnClickListener(this);
             power.setOnClickListener(this);
-
             amount.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -139,8 +139,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
                 }
             });
-
-
         }
 
         @Override
@@ -161,6 +159,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                                 @Override
                                 public void onClick(DialogInterface dialog, int i) {
 
+
+
                                 }
                             }).setPositiveButton("Yay", new DialogInterface.OnClickListener() {
                 @Override
@@ -174,9 +174,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
                     SharedPreferences sp = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
                     String userId = sp.getString("username","");
+
+
                     Map<String,Object> bet = new HashMap<>();
                     PlaceBetModel ob = new PlaceBetModel(betAmount,userId,"BITS");
-                    bet.put("0",ob);
+                    bets.add(ob);
+                    bet.put("roulette",bets);
 
                     db.collection("matches").document(match_id.getText().toString()).set(bet, SetOptions.merge()).
                             addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -191,6 +194,27 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                         }
                     });
 
+                    Map<String,Object> userBet = new HashMap<>();
+                   // UserBetModel userOb = new UserBetModel(match_id.getText().toString(),betAmount,"BITS","");
+                  //  userBet.put("bets",userBetsList);
+                    userBet.put("betAmount",betAmount);
+                    userBet.put("match_id",match_id.getText().toString());
+                    userBet.put("result",0);
+                    userBet.put("team","BITS");
+
+                    db.collection("users").document(userId).collection("bets").add(userBet)
+                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("test2", "DocumentSnapshot written with ID: " + documentReference.getId());
+                        }
+                    })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("test2", "Error adding document", e);
+                                }
+                            });
                 }
             });
             builder.show();

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,16 +34,19 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.model.Document;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -58,6 +62,10 @@ public class Home extends Fragment{
     private String TAG = "test1";
     SharedPreferences sharedPreferences;
     private CustomAdapter adapter;
+    private String userId;
+    private ArrayList<String> matchesBetId ;
+    private  ArrayList<String> matchesId = new ArrayList<>();
+
 
     public Home() {
         // Required empty public constructor
@@ -84,38 +92,81 @@ public class Home extends Fragment{
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_home, container, false);
 
-        recyclerView=view.findViewById(R.id.recycler_view);
-        setUpRecyclerView();
-        return view;
-    }
+        sharedPreferences = getContext().getSharedPreferences("userInfo",Context.MODE_PRIVATE);
+        userId = sharedPreferences.getString("username","");
+        matchesBetId = new ArrayList<>();
+        ArrayList<Fixture> fixtures=new ArrayList<>();
 
-    private void setUpRecyclerView() {
-        Query query = matchRef;
-        FirestoreRecyclerOptions<Fixture> options = new FirestoreRecyclerOptions.Builder<Fixture>()
-                .setQuery(query,Fixture.class)
-                .build();
-        adapter = new CustomAdapter(options,getContext());
-        recyclerView.setHasFixedSize(false);
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        db.collection("matches").get().addOnCompleteListener(
+                new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document: task.getResult()){
+                                matchesId.add(document.getId());
+                            }
+
+                        }
+                    }
+                }
+        );
+
+        db.collection("users").document(userId).collection("bets").get().addOnCompleteListener(
+                new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for(QueryDocumentSnapshot document: task.getResult()){
+                                matchesBetId.add(document.getId());
+                                // Toast.makeText(getContext(),document.getId(),Toast.LENGTH_SHORT).show();
+                            }
+                            db.collection("matches").get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                                    Fixture ob = new Fixture(document.getData().get("college1").toString(),
+                                                            document.getData().get("college2").toString(),
+                                                            document.getData().get("timestamp").toString(),
+                                                            document.getData().get("matchId").toString());
+
+                                                    if(!(matchesBetId.contains(document.getData().get("matchId").toString())))
+                                                        fixtures.add(ob);
+                                                }
+
+                                                recyclerView=view.findViewById(R.id.recycler_view);
+                                                recyclerView.setHasFixedSize(false);
+
+                                                // use a linear layout manager
+                                                layoutManager = new LinearLayoutManager(getContext());
+                                                recyclerView.setLayoutManager(layoutManager);
+
+                                                // specify an adapter (see also next example)
+                                                adapter = new CustomAdapter(fixtures,getActivity());
+                                                recyclerView.setAdapter(adapter);
+
+                                            } else {
+                                                Log.d(TAG, "Error getting documents: ", task.getException());
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                }
+        );
+        return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-//        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Fixture>()
-//                .setQuery(matchRef,Fixture.class).build();
-//
-
-
-        adapter.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        adapter.stopListening();
     }
 
     public void onButtonPressed(Uri uri) {

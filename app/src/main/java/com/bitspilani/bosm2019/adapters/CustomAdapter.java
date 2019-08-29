@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.ramotion.foldingcell.FoldingCell;
@@ -51,10 +53,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     private int walletamount;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String matchId;
+    SharedPreferences sp;
+    String userId;
+
 
     public CustomAdapter(ArrayList<Fixture> fixtures, Context context) {
         this.fixtures=fixtures;
         this.context=context;
+        sp = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        userId = sp.getString("username","");
     }
 
 
@@ -109,7 +116,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         Button simple,power;
         SeekBar amount;
         TextView bet;
-        SharedPreferences sharedPreferences = context.getSharedPreferences("WalletAmount",Context.MODE_PRIVATE);;
         TextView match_id;
         String teamSelected;
 
@@ -134,6 +140,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             simple.setOnClickListener(this);
             power.setOnClickListener(this);
 
+
             amount.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -152,15 +159,34 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                 }
             });
 
+            if(betAmount == 0)
+                betAmount = 100;
 
         }
 
         @Override
         public void onClick(View v) {
-            if(v.getId()==simple.getId())
-                buildDialog(new String[]{team1.getText().toString(),team2.getText().toString()});
-            else
-                buildDialog(new String[]{team1.getText().toString(),team2.getText().toString()});
+
+            db.collection("users").document(userId).get().addOnSuccessListener(
+                    new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            double wallet = Double.parseDouble(documentSnapshot.get("wallet").toString());
+                             if(wallet - betAmount >=0)
+                                 {
+                                     if(v.getId()==simple.getId())
+                                         buildDialog(new String[]{team1.getText().toString(),team2.getText().toString()});
+                                     else
+                                         buildDialog(new String[]{team1.getText().toString(),team2.getText().toString()});
+                              }
+                             else
+                                 Toast.makeText(context, "Not enough balance!!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+            );
+
+
+
         }
 
         void buildDialog(String[] teams){
@@ -177,38 +203,21 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                             }).setPositiveButton("Yay", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    SharedPreferences sharedPreferences=context.getSharedPreferences("WalletAmount",Context.MODE_PRIVATE);
-                    int walletbalance=sharedPreferences.getInt("total",1000);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    if(betAmount==0)betAmount=100;
-                    editor.putInt("total",walletbalance-betAmount);
-                    editor.apply();
 
-                    SharedPreferences sp = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-                    String userId = sp.getString("username","");
                     Map<String,Object> bet = new HashMap<>();
                     PlaceBetModel ob = new PlaceBetModel(betAmount,userId,"BITS");
-                    bet.put("0",ob);
 
-                    db.collection("matches").document(match_id.getText().toString()).set(bet, SetOptions.merge()).
-                            addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(context,"Bet Placed",Toast.LENGTH_SHORT).show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(context,e.toString(),Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    db.collection("matches").document(match_id.getText().toString()).update(
+                      "roulette" , FieldValue.arrayUnion(ob)
+                    );
+                    Toast.makeText(context,"Bet Placed",Toast.LENGTH_SHORT).show();
 
-                    Map<String,Object> userBet = new HashMap<>();
+                    Map<String, Object> userBet = new HashMap<>();
 
-                    userBet.put("betAmount",betAmount);
-                    userBet.put("match_id",match_id.getText().toString());
-                    userBet.put("result",0);
-                    userBet.put("team",teamSelected);
+                    userBet.put("betAmount", betAmount);
+                    userBet.put("match_id", match_id.getText().toString());
+                    userBet.put("result", 0);
+                    userBet.put("team", teamSelected);
 
                     db.collection("users").document(userId).collection("bets").document(match_id.getText().toString()).set(userBet);
 
@@ -218,14 +227,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                     double wallet = Double.parseDouble(documentSnapshot.get("wallet").toString());
                                     wallet = wallet - betAmount;
-                                    Map<String,String> walletMap = new HashMap<>();
-                                    walletMap.put("wallet",String.valueOf(wallet));
+                                    Map<String, String> walletMap = new HashMap<>();
+                                    walletMap.put("wallet", String.valueOf(wallet));
+
 
                                     db.collection("users").document(userId)
-                                            .set(walletMap,SetOptions.merge());
+                                            .set(walletMap, SetOptions.merge());
                                 }
                             }
                     );
+
+
                 }
             });
             builder.show();

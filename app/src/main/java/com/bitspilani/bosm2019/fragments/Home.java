@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,7 +36,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -43,8 +46,11 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.model.Document;
 import com.ramotion.foldingcell.FoldingCell;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,67 +103,52 @@ public class Home extends Fragment{
         matchesBetId = new ArrayList<>();
         ArrayList<Fixture> fixtures=new ArrayList<>();
 
-        db.collection("matches").get().addOnCompleteListener(
-                new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for(QueryDocumentSnapshot document: task.getResult()){
-                                matchesId.add(document.getId());
-                            }
 
+
+        db.collection("users").document(userId).collection("bets")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        matchesBetId.clear();
+                        for(QueryDocumentSnapshot doc : queryDocumentSnapshots){
+                                matchesBetId.add(doc.getId());
                         }
-                    }
-                }
-        );
+                        db.collection("matches")
+                                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                                        fixtures.clear();
+                                        for(QueryDocumentSnapshot doc: queryDocumentSnapshots){
+                                            Fixture ob = new Fixture(doc.getData().get("college1").toString(),
+                                                    doc.getData().get("college2").toString(),
+                                                    doc.getData().get("timestamp").toString(),
+                                                    doc.getData().get("matchId").toString());
 
-        db.collection("users").document(userId).collection("bets").get().addOnCompleteListener(
-                new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for(QueryDocumentSnapshot document: task.getResult()){
-                                matchesBetId.add(document.getId());
-                                // Toast.makeText(getContext(),document.getId(),Toast.LENGTH_SHORT).show();
-                            }
-                            db.collection("matches").get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful()) {
-                                                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                                                    Log.d(TAG, document.getId() + " => " + document.getData());
-                                                    Fixture ob = new Fixture(document.getData().get("college1").toString(),
-                                                            document.getData().get("college2").toString(),
-                                                            document.getData().get("timestamp").toString(),
-                                                            document.getData().get("matchId").toString());
-
-                                                    if(!(matchesBetId.contains(document.getData().get("matchId").toString())))
-                                                        fixtures.add(ob);
-                                                }
-
-                                                recyclerView=view.findViewById(R.id.recycler_view);
-                                                recyclerView.setHasFixedSize(false);
-
-                                                // use a linear layout manager
-                                                layoutManager = new LinearLayoutManager(getContext());
-                                                recyclerView.setLayoutManager(layoutManager);
-
-                                                // specify an adapter (see also next example)
-                                                adapter = new CustomAdapter(fixtures,getActivity());
-                                                recyclerView.setAdapter(adapter);
-
-                                            } else {
-                                                Log.d(TAG, "Error getting documents: ", task.getException());
-                                            }
+                                            if(!(matchesBetId.contains(Objects.requireNonNull(doc.getData().get("matchId")).toString())))
+                                                //if(matchTime.after(finalCurrentTime))
+                                                fixtures.add(ob);
                                         }
-                                    });
-                        }
+                                        recyclerView=view.findViewById(R.id.recycler_view);
+                                        recyclerView.setHasFixedSize(false);
+
+                                        // use a linear layout manager
+                                        layoutManager = new LinearLayoutManager(getContext());
+                                        recyclerView.setLayoutManager(layoutManager);
+
+                                        // specify an adapter (see also next example)
+                                        adapter = new CustomAdapter(fixtures,getActivity());
+                                        recyclerView.setAdapter(adapter);
+                                    }
+                                });
                     }
-                }
-        );
+                });
+
         return view;
     }
+
+    /*
+                           */
 
     @Override
     public void onStart() {
@@ -182,6 +173,3 @@ public class Home extends Fragment{
         super.onDetach();
     }
 }
-
-
-

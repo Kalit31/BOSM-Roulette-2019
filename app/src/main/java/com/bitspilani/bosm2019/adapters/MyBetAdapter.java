@@ -20,32 +20,38 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class MyBetAdapter extends FirestoreRecyclerAdapter<UserBetModel,MyBetAdapter.ViewHolder>
+public class MyBetAdapter extends RecyclerView.Adapter<MyBetAdapter.ViewHolder>
 {
-
+    private ArrayList<UserBetModel> items = new ArrayList<>();
     private Context context;
 
-    public MyBetAdapter(@NonNull FirestoreRecyclerOptions<UserBetModel> options, Context context) {
-        super(options);
+
+    public MyBetAdapter(ArrayList<UserBetModel> items, Context context) {
+        this.items = items;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public MyBetAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View view = inflater.inflate(R.layout.mybet_item_layout,viewGroup,false);
-        return new ViewHolder(view);
+        ViewHolder vh = new ViewHolder(view);
+        return vh;
+    }
+
+
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.event.setText(items.get(position).getTeam());
+        holder.betAmount.setText(String.valueOf(items.get(position).getBetAmount()));
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull UserBetModel model) {
-      holder.event.setText(model.getTeam());
-        Toast.makeText(context,model.getTeam(),Toast.LENGTH_LONG).show();
-      holder.betAmount.setText(String.valueOf(model.getBetAmount()));
+    public int getItemCount() {
+        return items.size();
     }
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView event,betAmount,betType;

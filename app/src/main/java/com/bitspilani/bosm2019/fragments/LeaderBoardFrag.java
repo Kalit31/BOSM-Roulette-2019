@@ -1,5 +1,7 @@
 package com.bitspilani.bosm2019.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +16,10 @@ import android.widget.TextView;
 import com.bitspilani.bosm2019.adapters.LeaderBoardAdapter;
 import com.bitspilani.bosm2019.models.LeaderBoardModel;
 import com.bitspilani.bosm2019.R;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 
@@ -23,7 +29,9 @@ public class LeaderBoardFrag extends Fragment {
     private LeaderBoardAdapter adapter;
     private ArrayList<LeaderBoardModel> items = new ArrayList<>();
     private TextView yourRank,yourScore;
-
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference leaderRef;
+    private SharedPreferences sharedPreferences;
 
     public LeaderBoardFrag() {
         // Required empty public constructor
@@ -40,21 +48,36 @@ public class LeaderBoardFrag extends Fragment {
          yourScore = v.findViewById(R.id.your_score);
          yourScore.setText("70pts");
          yourRank.setText("3rd");
-         if(items.isEmpty()) {
-             items.add(new LeaderBoardModel("1", "Player 1", "100"));
-             items.add(new LeaderBoardModel("2", "Player 2", "80"));
-             items.add(new LeaderBoardModel("3", "Player 3", "70"));
-             items.add(new LeaderBoardModel("4", "Player 4", "60"));
-             items.add(new LeaderBoardModel("5", "Player 5", "50"));
-             items.add(new LeaderBoardModel("6", "Player 6", "45"));
-             items.add(new LeaderBoardModel("7", "Player 7", "40"));
-             items.add(new LeaderBoardModel("8", "Player 8", "30"));
-         }
-        adapter = new LeaderBoardAdapter(items,getContext());
+        sharedPreferences = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("username","");
+        if (userId != null) {
+            leaderRef = db.collection("users");
+            setUpRecyclerView();
+        }
+
+
+         return v;
+    }
+    private void setUpRecyclerView() {
+        Query query = leaderRef.orderBy("wallet", Query.Direction.DESCENDING).limit(10);
+        FirestoreRecyclerOptions<LeaderBoardModel> options = new FirestoreRecyclerOptions.Builder<LeaderBoardModel>()
+                .setQuery(query,LeaderBoardModel.class)
+                .build();
+        adapter = new LeaderBoardAdapter(options,getContext());
         leaderlist.setLayoutManager(new LinearLayoutManager(getContext()));
         leaderlist.setHasFixedSize(true);
         leaderlist.setAdapter(adapter);
-         return v;
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 
 }

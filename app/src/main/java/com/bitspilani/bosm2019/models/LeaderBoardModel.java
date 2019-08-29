@@ -2,12 +2,13 @@ package com.bitspilani.bosm2019.models;
 
 public class LeaderBoardModel
 {
-    String rank,name,score;
+    String rank,name;
+    double wallet;
 
-    public LeaderBoardModel(String rank, String name, String score) {
+    public LeaderBoardModel(String rank, String name, double wallet) {
         this.rank = rank;
         this.name = name;
-        this.score = score;
+        this.wallet = wallet;
     }
 
     public LeaderBoardModel() {
@@ -29,12 +30,11 @@ public class LeaderBoardModel
         this.name = name;
     }
 
-    public String getScore() {
-        return score;
+    public double getWallet() {
+        return wallet;
     }
 
-    public void setScore(String score) {
-        this.score = score;
+    public void setWallet(double wallet) {
+        this.wallet = wallet;
     }
-
 }

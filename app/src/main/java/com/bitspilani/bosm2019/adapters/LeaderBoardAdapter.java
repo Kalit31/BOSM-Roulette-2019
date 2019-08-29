@@ -11,17 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bitspilani.bosm2019.R;
 import com.bitspilani.bosm2019.models.LeaderBoardModel;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import java.util.ArrayList;
 
-public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.ViewHolder>
+public class LeaderBoardAdapter extends FirestoreRecyclerAdapter<LeaderBoardModel,LeaderBoardAdapter.ViewHolder>
+        // RecyclerView.Adapter<LeaderBoardAdapter.ViewHolder>
 {
 
-    private ArrayList<LeaderBoardModel> items = new ArrayList<>();
     private Context context;
 
-    public LeaderBoardAdapter(ArrayList<LeaderBoardModel> items, Context context) {
-        this.items = items;
+    public LeaderBoardAdapter(@NonNull FirestoreRecyclerOptions<LeaderBoardModel> options, Context context) {
+        super(options);
         this.context = context;
     }
 
@@ -32,18 +34,14 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
         return vh;
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(items.get(position).getName());
-        holder.rank.setText(items.get(position).getRank());
-        holder.score.setText(items.get(position).getScore());
-
-    }
 
     @Override
-    public int getItemCount() {
-        return items.size();
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int i, @NonNull LeaderBoardModel leaderBoardModel) {
+        holder.name.setText(leaderBoardModel.getName());
+        holder.rank.setText("1");
+        holder.score.setText(String.valueOf(leaderBoardModel.getWallet()));
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView rank,name,score;

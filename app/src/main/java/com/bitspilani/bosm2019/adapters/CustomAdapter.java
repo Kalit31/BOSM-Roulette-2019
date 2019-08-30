@@ -227,9 +227,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                     double wallet = Double.parseDouble(documentSnapshot.get("wallet").toString());
                                     wallet = wallet - betAmount;
-                                    Map<String, String> walletMap = new HashMap<>();
-                                    walletMap.put("wallet", String.valueOf(wallet));
-
+                                    Map<String, Double> walletMap = new HashMap<>();
+                                    walletMap.put("wallet", wallet);
 
                                     db.collection("users").document(userId)
                                             .set(walletMap, SetOptions.merge());

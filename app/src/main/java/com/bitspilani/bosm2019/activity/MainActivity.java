@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.bitspilani.bosm2019.fragments.Home;
 import com.bitspilani.bosm2019.fragments.LeaderBoardFrag;
 import com.bitspilani.bosm2019.fragments.MyBetsFrag;
 import com.bitspilani.bosm2019.fragments.RouletteFrag;
+import com.bitspilani.bosm2019.services.WinningService;
 import com.gauravk.bubblenavigation.BubbleNavigationConstraintView;
 import com.gauravk.bubblenavigation.listener.BubbleNavigationChangeListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -45,6 +47,9 @@ GoogleSignInClient googleSignInClient;
         fragments.add(new Home());
         fragment = fragments.get(0);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
+
+//        startService(new Intent(this,WinningService.class));
+
         buubleNavigation.setNavigationChangeListener(new BubbleNavigationChangeListener() {
             @Override
             public void onNavigationChanged(View view, int position) {

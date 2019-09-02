@@ -1,6 +1,7 @@
 package com.bitspilani.bosm2019.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -28,9 +29,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
@@ -67,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
+
+
 
         if(user != null)
         {
@@ -147,46 +153,65 @@ public class LoginActivity extends AppCompatActivity {
                     .build();
             db.setFirestoreSettings(settings);
 
-            db.collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        if (task.getResult().getData() == null) {
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString("username",user.getUid());
-                            editor.apply();
-                            Map<String, Object> data = new HashMap<>();
-                            data.put("email", user.getEmail());
-                            data.put("name", user.getDisplayName());
-                            data.put("username", user.getUid());
-                            data.put("wallet", 1000.0);
-                            data.put("score", 0.0);
-                            data.put("slot_time", FieldValue.serverTimestamp());
-                            StringTokenizer stringTokenizer = new StringTokenizer(user.getEmail(), "@");
-                            String qrcode = stringTokenizer.nextToken();
-                            data.put("qr_code", qrcode);
 
-                            db.collection("users").document(user.getUid()).set(data, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                        finish();
-                                    } else {
+            db.collection("users").whereEqualTo("email",user.getEmail())
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                            if (queryDocumentSnapshots.getDocuments()==null)
+                            {
+                                SharedPreferences.Editor editor = sharedPref.edit();
+                                editor.putString("username",user.getUid());
+                                editor.apply();
+                                Map<String, Object> data = new HashMap<>();
+                                data.put("email", user.getEmail());
+                                data.put("name", user.getDisplayName());
+                                data.put("username", user.getUid());
+                                data.put("wallet", 1000.0);
+                                data.put("score", 0.0);
+                                data.put("slot_time", FieldValue.serverTimestamp());
+                                StringTokenizer stringTokenizer = new StringTokenizer(user.getEmail(), "@");
+                                String qrcode = stringTokenizer.nextToken();
+                                data.put("qr_code", qrcode);
 
-                                        Toast.makeText(LoginActivity.this, "Connection error!", Toast.LENGTH_SHORT).show();
+                                Log.d("test2",user.getUid().toString());
 
+
+
+                                db.collection("users").document(user.getUid()).set(data, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                            finish();
+                                        } else {
+
+                                            Toast.makeText(LoginActivity.this, "Connection error!", Toast.LENGTH_SHORT).show();
+
+                                        }
                                     }
-                                }
-                            });
-
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
-
+                                });
+//                                db.collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                        if (task.isSuccessful()) {
+//                                            if (task.getResult().getData() == null) {
+//
+//
+//                                            } else {
+//                                                Toast.makeText(LoginActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
+//
+//                                            }
+//                                        }
+//                                    }
+//                                });
+                            }
+                            else{
+                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            }
                         }
-                    }
-                }
-            });
+                    });
+
         }
 
     }

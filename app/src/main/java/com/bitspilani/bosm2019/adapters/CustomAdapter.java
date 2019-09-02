@@ -27,17 +27,23 @@ import com.bitspilani.bosm2019.models.PlaceBetModel;
 import com.bitspilani.bosm2019.models.UserBetModel;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import com.bitspilani.bosm2019.activity.LoginActivity;
@@ -52,16 +58,31 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     private int betAmount;
     private int walletamount;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
     private String matchId;
-    SharedPreferences sp;
+//    SharedPreferences sp;
     String userId;
 
 
     public CustomAdapter(ArrayList<Fixture> fixtures, Context context) {
         this.fixtures=fixtures;
         this.context=context;
-        sp = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        userId = sp.getString("username","");
+        mAuth = FirebaseAuth.getInstance();
+        db.collection("users").whereEqualTo("email",mAuth.getCurrentUser().getEmail()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful())
+                        {
+                            List<DocumentSnapshot> documents = task.getResult().getDocuments();
+                            for(DocumentSnapshot document: documents){
+                                userId = document.get("username").toString();
+                            }
+                        }
+                    }
+                });
+//        sp = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+//        userId = sp.getString("username","");
     }
 
 
@@ -118,6 +139,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         TextView bet;
         TextView match_id;
         String teamSelected;
+        int teamSelect;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -199,6 +221,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                                 @Override
                                 public void onClick(DialogInterface dialog, int i) {
                                     teamSelected = teams[i];
+                                    teamSelect = i;
                                 }
                             }).setPositiveButton("Yay", new DialogInterface.OnClickListener() {
                 @Override
@@ -216,8 +239,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
                     userBet.put("betAmount", betAmount);
                     userBet.put("match_id", match_id.getText().toString());
-                    userBet.put("result", 0);
+                    userBet.put("result", teamSelect);
                     userBet.put("team", teamSelected);
+                    userBet.put("update",false);
 
                     db.collection("users").document(userId).collection("bets").document(match_id.getText().toString()).set(userBet);
 

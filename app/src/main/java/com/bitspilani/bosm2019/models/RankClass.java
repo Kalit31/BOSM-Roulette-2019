@@ -2,19 +2,19 @@ package com.bitspilani.bosm2019.models;
 
 public class RankClass {
     private String username;
-    private int wallet;
+    private double wallet;
     private int rank;
 
     public RankClass() {
     }
 
-    public RankClass(int wallet, String username,int rank) {
+    public RankClass(double wallet, String username,int rank) {
         this.wallet = wallet;
         this.username = username;
         this.rank = rank;
     }
 
-    public int getWallet() {
+    public double getWallet() {
         return wallet;
     }
 
@@ -26,7 +26,7 @@ public class RankClass {
         this.rank = rank;
     }
 
-    public void setWallet(int wallet) {
+    public void setWallet(double wallet) {
         this.wallet = wallet;
     }
 

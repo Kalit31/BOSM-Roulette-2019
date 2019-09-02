@@ -6,15 +6,25 @@ public class UserBetModel
     private double betAmount;
     private String team;
     private int result;
+    private boolean update;
 
     public UserBetModel() {
     }
 
-    public UserBetModel(String match_id, double betAmount, String team, int result) {
+    public UserBetModel(String match_id, double betAmount, String team, int result,boolean update) {
         this.match_id = match_id;
         this.betAmount = betAmount;
         this.team = team;
         this.result = result;
+        this.update = update;
+    }
+
+    public boolean isUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
     }
 
     public String getMatch_id() {

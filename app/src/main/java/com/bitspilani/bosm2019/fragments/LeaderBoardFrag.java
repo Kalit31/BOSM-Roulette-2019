@@ -66,7 +66,7 @@ public class LeaderBoardFrag extends Fragment {
                                 mArrayListTemp.clear();
                             for(QueryDocumentSnapshot documentSnapshot:queryDocumentSnapshots)
                             {
-                                RankClass ob = new RankClass(Integer.parseInt(String.valueOf(documentSnapshot.get("wallet"))),
+                                RankClass ob = new RankClass(Double.parseDouble(String.valueOf(documentSnapshot.get("wallet"))),
                                         documentSnapshot.get("name").toString(),i+1);
                                 mArrayList.add(ob);
                                 Log.d("mytest",ob.toString());
@@ -89,8 +89,6 @@ public class LeaderBoardFrag extends Fragment {
                                     yourScore.setText(String.valueOf(rc.getWallet()));
                                 }
                             }
-
-
 
                             adapter = new LeaderBoardAdapter(mArrayListTemp,getContext());
                             leaderlist.setLayoutManager(new LinearLayoutManager(getContext()));

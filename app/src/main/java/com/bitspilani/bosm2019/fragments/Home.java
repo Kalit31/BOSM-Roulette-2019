@@ -137,7 +137,7 @@ public class Home extends Fragment{
                                         recyclerView.setLayoutManager(layoutManager);
 
                                         // specify an adapter (see also next example)
-                                        adapter = new CustomAdapter(fixtures,getActivity());
+                                        adapter = new CustomAdapter(fixtures, getContext());
                                         recyclerView.setAdapter(adapter);
                                     }
                                 });
@@ -146,9 +146,6 @@ public class Home extends Fragment{
 
         return view;
     }
-
-    /*
-                           */
 
     @Override
     public void onStart() {

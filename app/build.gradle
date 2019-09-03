@@ -44,8 +44,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0-beta03'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    implementation "re.robz.android:bottom-navigation-circular-color-reveal:1.0.0"
-
+    implementation 'com.mikhaellopez:circularimageview:4.0.2'
     testImplementation 'junit:junit:4.12'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.google.firebase:firebase-core:17.1.0'

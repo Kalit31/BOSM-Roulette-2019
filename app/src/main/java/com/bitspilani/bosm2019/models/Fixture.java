@@ -3,17 +3,27 @@ package com.bitspilani.bosm2019.models;
 public class Fixture {
     private String college1,college2;
     private String timestamp;
+    private String game;
     private String matchId;
 
 
     public Fixture() {
     }
 
-    public Fixture(String college1, String college2, String timestamp, String matchId) {
+    public Fixture(String college1, String college2, String timestamp, String matchId,String game) {
         this.college1 = college1;
         this.college2 = college2;
         this.timestamp = timestamp;
         this.matchId = matchId;
+        this.game = game;
+    }
+
+    public String getGame() {
+        return game;
+    }
+
+    public void setGame(String game) {
+        this.game = game;
     }
 
     public String getCollege1() {

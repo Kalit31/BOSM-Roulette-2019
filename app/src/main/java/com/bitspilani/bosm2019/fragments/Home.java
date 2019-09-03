@@ -123,7 +123,8 @@ public class Home extends Fragment{
                                             Fixture ob = new Fixture(doc.getData().get("college1").toString(),
                                                     doc.getData().get("college2").toString(),
                                                     doc.getData().get("timestamp").toString(),
-                                                    doc.getData().get("matchId").toString());
+                                                    doc.getData().get("matchId").toString(),
+                                                    doc.getData().get("sports_name").toString());
 
                                             if(!(matchesBetId.contains(Objects.requireNonNull(doc.getData().get("matchId")).toString())))
                                                 //if(matchTime.after(finalCurrentTime))

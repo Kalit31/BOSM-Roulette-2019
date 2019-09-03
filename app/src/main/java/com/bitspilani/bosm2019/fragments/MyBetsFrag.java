@@ -85,10 +85,16 @@ public class MyBetsFrag extends Fragment {
                                 UserBetModel ob = new UserBetModel(
                                         doc.getData().get("match_id").toString(),
                                         Double.parseDouble(doc.getData().get("betAmount").toString()),
-                                        doc.getData().get("team").toString(),
-                                            Integer.parseInt(doc.getData().get("result").toString()),
-                                        Boolean.parseBoolean(doc.get("update").toString())
-                                );
+                                        doc.getData().get("team1").toString(),
+                                        doc.getData().get("team2").toString(),
+                                        Integer.parseInt(doc.getData().get("bettedOn").toString()),
+                                        doc.getData().get("game").toString(),
+                                        Boolean.parseBoolean(doc.get("update").toString()),
+                                        Integer.parseInt( doc.getData().get("score1").toString()),
+                                        Integer.parseInt( doc.getData().get("score2").toString()),
+                                        Integer.parseInt(doc.getData().get("result").toString())
+
+                               );
                                    items.add(ob);
                             }
                             adapter = new MyBetAdapter(items,getContext());
@@ -107,11 +113,16 @@ public class MyBetsFrag extends Fragment {
                             {
                                 if(!(Boolean.parseBoolean(doc.get("update").toString()))){
                                     UserBetModel ob = new UserBetModel(
-                                            doc.get("match_id").toString(),
-                                            Double.parseDouble(doc.get("betAmount").toString()),
-                                            doc.get("team").toString(),
-                                            Integer.parseInt(doc.get("result").toString()),
-                                            Boolean.parseBoolean(doc.get("update").toString())
+                                            doc.getData().get("match_id").toString(),
+                                            Double.parseDouble(doc.getData().get("betAmount").toString()),
+                                            doc.getData().get("team1").toString(),
+                                            doc.getData().get("team2").toString(),
+                                            Integer.parseInt(doc.getData().get("bettedOn").toString()),
+                                            doc.getData().get("game").toString(),
+                                            Boolean.parseBoolean(doc.get("update").toString()),
+                                            Integer.parseInt( doc.getData().get("score1").toString()),
+                                            Integer.parseInt( doc.getData().get("score2").toString()),
+                                            Integer.parseInt(doc.getData().get("result").toString())
                                     );
                                     it.add(ob);
                                 }
@@ -132,7 +143,7 @@ public class MyBetsFrag extends Fragment {
 
                                             boolean is_result = Boolean.parseBoolean(document.get("is_result").toString());
                                             if(is_result){
-                                                if (item.getResult() == Integer.parseInt(document.getData().get("winner").toString())){
+                                                if (item.getBettedOn() == Integer.parseInt(document.getData().get("winner").toString())){
                                                     betAmount = item.getBetAmount();
                                                     db.collection("users").document(userId)
                                                             .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

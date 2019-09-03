@@ -75,13 +75,43 @@ public class MyBetsFrag extends Fragment {
         sharedPreferences = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("username","");
         if (userId != null) {
+//            db.collection("users").document(userId).collection("bets")
+//                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+//
+//                        @Override
+//                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                        items.clear();
+//                            for(QueryDocumentSnapshot doc:queryDocumentSnapshots){
+//                                UserBetModel ob = new UserBetModel(
+//                                        doc.getData().get("match_id").toString(),
+//                                        Double.parseDouble(doc.getData().get("betAmount").toString()),
+//                                        doc.getData().get("team1").toString(),
+//                                        doc.getData().get("team2").toString(),
+//                                        Integer.parseInt(doc.getData().get("bettedOn").toString()),
+//                                        doc.getData().get("game").toString(),
+//                                        Boolean.parseBoolean(doc.get("update").toString()),
+//                                        Integer.parseInt( doc.getData().get("score1").toString()),
+//                                        Integer.parseInt( doc.getData().get("score2").toString()),
+//                                        Integer.parseInt(doc.getData().get("result").toString())
+//
+//                               );
+//                                   items.add(ob);
+//                            }
+//                            adapter = new MyBetAdapter(items,getContext());
+//                            betlist.setLayoutManager(new LinearLayoutManager(getContext()));
+//                            betlist.setHasFixedSize(true);
+//                            betlist.setAdapter(adapter);
+//                        }
+//                    });
+
             db.collection("users").document(userId).collection("bets")
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
-
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        items.clear();
-                            for(QueryDocumentSnapshot doc:queryDocumentSnapshots){
+                            it.clear();
+                            items.clear();
+                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots)
+                            {
                                 UserBetModel ob = new UserBetModel(
                                         doc.getData().get("match_id").toString(),
                                         Double.parseDouble(doc.getData().get("betAmount").toString()),
@@ -93,40 +123,17 @@ public class MyBetsFrag extends Fragment {
                                         Integer.parseInt( doc.getData().get("score1").toString()),
                                         Integer.parseInt( doc.getData().get("score2").toString()),
                                         Integer.parseInt(doc.getData().get("result").toString())
+                                );
+                                if(!(Boolean.parseBoolean(doc.get("update").toString()))){
 
-                               );
-                                   items.add(ob);
+                                    it.add(ob);
+                                }
+                                items.add(ob);
                             }
                             adapter = new MyBetAdapter(items,getContext());
                             betlist.setLayoutManager(new LinearLayoutManager(getContext()));
                             betlist.setHasFixedSize(true);
                             betlist.setAdapter(adapter);
-                        }
-                    });
-
-            db.collection("users").document(userId).collection("bets")
-                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                            it.clear();
-                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots)
-                            {
-                                if(!(Boolean.parseBoolean(doc.get("update").toString()))){
-                                    UserBetModel ob = new UserBetModel(
-                                            doc.getData().get("match_id").toString(),
-                                            Double.parseDouble(doc.getData().get("betAmount").toString()),
-                                            doc.getData().get("team1").toString(),
-                                            doc.getData().get("team2").toString(),
-                                            Integer.parseInt(doc.getData().get("bettedOn").toString()),
-                                            doc.getData().get("game").toString(),
-                                            Boolean.parseBoolean(doc.get("update").toString()),
-                                            Integer.parseInt( doc.getData().get("score1").toString()),
-                                            Integer.parseInt( doc.getData().get("score2").toString()),
-                                            Integer.parseInt(doc.getData().get("result").toString())
-                                    );
-                                    it.add(ob);
-                                }
-                            }
                             for(UserBetModel item:it){
                                 Log.d("itemid",item.getMatch_id());
                                 db.collection("matches").document(item.getMatch_id())
@@ -158,15 +165,32 @@ public class MyBetsFrag extends Fragment {
                                                                 newWallet.put("wallet",wallet);
                                                                 Log.d("myPrint","printing here");
                                                                 db.collection("users").document(userId).set(newWallet, SetOptions.merge());
-                                                                Map<String,Boolean> map = new HashMap<>();
+                                                                Map<String,Object> map = new HashMap<>();
                                                                 map.put("update",true);
+                                                                map.put("result",item.getBettedOn());
 
                                                                 db.collection("users").document(userId).collection("bets")
                                                                         .document(item.getMatch_id()).set(map,SetOptions.merge());
                                                             }
                                                         }
                                                     });
+                                                }else{
+                                                    db.collection("users").document(userId)
+                                                            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                            if(task.isSuccessful()){
+                                                                DocumentSnapshot doc = task.getResult();
 
+                                                                Map<String,Object> map = new HashMap<>();
+                                                                map.put("update",true);
+                                                                map.put("result",Integer.parseInt(document.getData().get("winner").toString()));
+
+                                                                db.collection("users").document(userId).collection("bets")
+                                                                        .document(item.getMatch_id()).set(map,SetOptions.merge());
+                                                            }
+                                                        }
+                                                    });
                                                 }
                                             }
 

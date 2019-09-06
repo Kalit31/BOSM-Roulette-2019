@@ -12,26 +12,50 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/cerapro_bold"
-            android:text="Ayush Singh"
-            android:textColor="#304FFE"
-            android:textSize="24sp"
-            android:textStyle="bold" />
 
-        <ImageView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="99dp"
+            android:background="@drawable/upper_bar">
+
+            <Button
+                android:id="@+id/signOut"
+                android:layout_width="47dp"
+                android:layout_height="29dp"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="40dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_power_settings_new_black_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="My Wallet"
+                android:textColor="#ffffff"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/signOut"
+                app:layout_constraintHorizontal_bias="0.64"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:src="@drawable/wallet"
-            tools:layout_editor_absoluteX="159dp"
-            tools:layout_editor_absoluteY="73dp" />
+            android:fontFamily="@font/cerapro_bold"
+            android:text="Ayush Singh"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
 
         <TextView
             android:id="@+id/textView3"
@@ -39,9 +63,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
-            android:text="Wallet Balance"
-            android:textColor="#000000"
-            android:textSize="18sp"
+            android:text="Current Balance"
+            android:textColor="#ffffff"
+            android:textSize="21sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="30dp"
             tools:layout_editor_absoluteY="176dp" />
@@ -75,7 +99,84 @@
 
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="190dp"
+            android:layout_height="107dp"
+            android:layout_gravity="center"
+            android:background="@drawable/name_plate">
+
+            <LinearLayout
+
+                android:id="@+id/linearLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.347"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.107">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cagliostro"
+
+                    android:text="Total Bets Placed:"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@bauer"
+                    android:id="@+id/bet_placed"
+                    android:layout_marginLeft="4dp"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.228"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+                app:layout_constraintVertical_bias="0.0">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cagliostro"
+                    android:text="Total Bets Won:"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@bauer"
+                    android:layout_marginLeft="4dp"
+                    android:id="@+id/betwon"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--<androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -153,14 +254,9 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>-->
 
-        <Button
-            android:id="@+id/signOut"
-            android:layout_width="100dp"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:text="Sign Out" />
+
     </LinearLayout>
 
 

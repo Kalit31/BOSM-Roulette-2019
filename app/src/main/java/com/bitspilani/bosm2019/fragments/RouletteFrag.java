@@ -3,6 +3,7 @@ package com.bitspilani.bosm2019.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bitspilani.bosm2019.R;
+import com.bitspilani.bosm2019.activity.ScoreActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,18 +48,18 @@ import butterknife.ButterKnife;
 import static android.content.Context.MODE_PRIVATE;
 
 public class RouletteFrag extends Fragment {
-    private static final String[] sectors = { "32 red", "15 black",
-            "19 red", "4 black", "21 red", "2 black", "25 red", "17 black", "34 red",
-            "6 black", "27 red","13 black", "36 red", "11 black", "30 red", "8 black",
-            "23 red", "10 black", "5 red", "24 black", "16 red", "33 black",
-            "1 red", "20 black", "14 red", "31 black", "9 red", "22 black",
-            "18 red", "29 black", "7 red", "28 black", "12 red", "35 black",
-            "3 red", "26 black", "zero"
+    private static final String[] sectors = { "100", "50",
+            "100", "200", "50", "150|", "75", "125", "250",
+            "100", "200","50", "150", "500", "125", "250",
+            "100", "200", "50", "150", "1000", "125",
+            "100", "200", "50", "150", "75", "125",
+            "100", "200", "50", "150", "75", "125",
+            "100", "200", "zero"
     };
     int total=0;
     int count=0;
     private ImageView wheel;
-    private TextView YT;
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private  String t1="0";
 
@@ -91,14 +93,14 @@ public class RouletteFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_roulette, container, false);
-        YT = view.findViewById(R.id.score_val);
+
         mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
         wheel = view.findViewById(R.id.wheel);
         ButterKnife.bind((Activity) getContext());
         gestureListener = new SwipeGestureListener(getActivity());
         wheel.setOnTouchListener(gestureListener);
         mAuth= FirebaseAuth.getInstance();
-        YT.setText(t1);
+
         return view;
     }
 
@@ -176,7 +178,7 @@ public class RouletteFrag extends Fragment {
         // rotation effect on the center of the wheel
         if(count>=4){
             RotateAnimation rotateAnim = new RotateAnimation(degreeOld, 720,
-                    RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+            RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
             rotateAnim.setDuration(3600);
             rotateAnim.setFillAfter(true);
             rotateAnim.setInterpolator(new DecelerateInterpolator());
@@ -191,9 +193,6 @@ public class RouletteFrag extends Fragment {
                     // we display the correct sector pointed by the triangle at the end of the rotate animation
                     total=total+100;
                     count=0;
-                    t1=Integer.toString(total);
-
-                    YT.setText(t1);
                 }
 
                 @Override
@@ -222,35 +221,20 @@ public class RouletteFrag extends Fragment {
                 public void onAnimationEnd(Animation animation) {
                     // we display the correct sector pointed by the triangle at the end of the rotate animation
                     if(getSector(360 - (degree % 360)).charAt(2)==' ') {
-                        if(getSector(360 - (degree % 360)).charAt(3)=='b')
-                        {
-                            total = total + Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 2));
+                          total = total + Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 2));
                             count=0;
-                        }
-                        else
-                        {
-                            total = total - Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 2));
-                            count++;
-                        }
+
                     }
                     else if(getSector(360 - (degree % 360)).charAt(1)==' ') {
-                        if(getSector(360 - (degree % 360)).charAt(2)=='b')
-                        {
-                            total=total+Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 1));
+                           total=total+Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 1));
                             count=0;
-                        }
-                        else
-                        {
-                            total = total - Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 1));
-                            count++;
-                        }
+
                     }
                     else
                     {
-                        total=total+100;
+                        total=total+2000;
                         count=0;
                     }
-                    t1=Integer.toString(total);
                     db.collection("users").whereEqualTo("email",mAuth.getCurrentUser().getEmail()).get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -270,8 +254,10 @@ public class RouletteFrag extends Fragment {
                                     }
                                 }
                             });
-                    YT.setText(t1);
-                }
+                    Intent scoreIntent = new Intent(getContext(), ScoreActivity.class);
+                    scoreIntent.putExtra("score",total);
+                    startActivity(scoreIntent);
+              }
 
                 @Override
                 public void onAnimationRepeat(Animation animation) {

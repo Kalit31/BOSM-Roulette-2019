@@ -132,6 +132,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         String teamSelected;
         int teamSelect;
         String game;
+        int count;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -225,6 +226,33 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                     db.collection("matches").document(match_id.getText().toString()).update(
                       "roulette" , FieldValue.arrayUnion(ob)
                     );
+
+
+                    db.collection("matches").document(match_id.getText().toString()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful())
+                            {
+                               DocumentSnapshot doc = task.getResult();
+                               if(teamSelect == 0) {
+                                   count = Integer.parseInt(doc.get("team1").toString());
+                                   db.collection("matches").document(match_id.getText().toString()).update(
+                                           "team1",count+1
+                                           );
+                               }
+                               else {
+                                   count = Integer.parseInt(doc.get("team2").toString());
+                                   db.collection("matches").document(match_id.getText().toString()).update(
+                                           "team2",count+1
+                                   );
+                               }
+
+
+                            }
+                        }
+                    });
+
+
                     Toast.makeText(context,"Bet Placed",Toast.LENGTH_SHORT).show();
 
                     Map<String, Object> userBet = new HashMap<>();

@@ -46,6 +46,8 @@ class HomeActivity : AppCompatActivity() {
         fragment = fragments[0]
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment!!).commit()
 
+        bottomNavigation.setCount(HOME,"3")
+
         bottomNavigation.setOnShowListener {
             selectedFrag = when (it.id){
                 ID_WALLET -> 0

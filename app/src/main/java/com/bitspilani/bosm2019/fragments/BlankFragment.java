@@ -36,13 +36,13 @@ public class BlankFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     SharedPreferences sharedPreferences;
+    private FirebaseAuth mAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String mParam1;
     private String mParam2;
     private Button signOut;
     private GoogleSignInClient mGoogleSignInClient;
         TextView balance,name,betplaced,betwon;
-        private FirebaseAuth mAuth;
         int walletbalance;
         int betAmount;
     public BlankFragment() {
@@ -75,27 +75,25 @@ public class BlankFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         signOut = v.findViewById(R.id.signOut);
         balance=v.findViewById(R.id.balance);
+
         name=v.findViewById(R.id.name);
         betplaced=v.findViewById(R.id.bet_placed);
         betwon=v.findViewById(R.id.betwon);
-//        sharedPreferences=getContext().getSharedPreferences("WalletAmount", Context.MODE_PRIVATE);
-//
-//        walletbalance= sharedPreferences.getInt("total",1000);
-//
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
-        sharedPreferences = getContext().getSharedPreferences("userInfo",Context.MODE_PRIVATE);
-        String userId = sharedPreferences.getString("username","");
+        name.setText(mAuth.getCurrentUser().getDisplayName());
+        String userId = mAuth.getCurrentUser().getUid();
         db.collection("users").document(userId).addSnapshotListener(
                 new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                        double wallet = Double.parseDouble(documentSnapshot.get("wallet").toString());
+                          double wallet = Double.parseDouble(documentSnapshot.get("wallet").toString());
                         balance.setText(String.valueOf(wallet));
-                        name.setText(documentSnapshot.get("name").toString());
+
                     }
                 }
         );

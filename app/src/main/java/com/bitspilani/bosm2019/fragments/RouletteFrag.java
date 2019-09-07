@@ -2,6 +2,7 @@ package com.bitspilani.bosm2019.fragments;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,9 +22,9 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bitspilani.bosm2019.R;
-import com.bitspilani.bosm2019.RotationGestureDetector;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,13 +33,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -76,6 +75,7 @@ public class RouletteFrag extends Fragment {
     private static final Random RANDOM = new Random();
     private int degree = 0, degreeOld = 0;
     private static final float HALF_SECTOR = 360f / 37f / 2f;
+    SwipeGestureListener gestureListener;
 
 
     public RouletteFrag() {
@@ -90,13 +90,14 @@ public class RouletteFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_roulette, container, false);
         YT = view.findViewById(R.id.score_val);
         mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
         wheel = view.findViewById(R.id.wheel);
         ButterKnife.bind((Activity) getContext());
         spinbtn = view.findViewById(R.id.spinBtn);
+        gestureListener = new SwipeGestureListener(getActivity());
+        wheel.setOnTouchListener(gestureListener);
         mAuth= FirebaseAuth.getInstance();
         YT.setText(t1);
         spinbtn.setOnClickListener(new View.OnClickListener() {
@@ -354,4 +355,89 @@ public class RouletteFrag extends Fragment {
 
         return text;
     }
+
+    class SwipeGestureListener extends GestureDetector.SimpleOnGestureListener implements
+            View.OnTouchListener {
+        Context context;
+        GestureDetector gDetector;
+        static final int SWIPE_MIN_DISTANCE = 120;
+        static final int SWIPE_MAX_OFF_PATH = 250;
+        static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+        public SwipeGestureListener() {
+            super();
+        }
+
+        public SwipeGestureListener(Context context) {
+            this(context, null);
+        }
+
+        public SwipeGestureListener(Context context, GestureDetector gDetector) {
+
+            if (gDetector == null)
+                gDetector = new GestureDetector(context, this);
+
+            this.context = context;
+            this.gDetector = gDetector;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+                               float velocityY) {
+
+            Toast.makeText(getContext(),"Hello",Toast.LENGTH_SHORT).show();
+            spin(getView());
+
+//            final int position = lvCountry.pointToPosition(
+//                    Math.round(e1.getX()), Math.round(e1.getY()));
+//
+//            String countryName = (String) lvCountry.getItemAtPosition(position);
+//
+//            if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) {
+//                if (Math.abs(e1.getX() - e2.getX()) > SWIPE_MAX_OFF_PATH
+//                        || Math.abs(velocityY) < SWIPE_THRESHOLD_VELOCITY) {
+//                    return false;
+//                }
+//                if (e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE) {
+//                    Toast.makeText(DemoSwipe.this, "bottomToTop" + countryName,
+//                            Toast.LENGTH_SHORT).show();
+//                } else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE) {
+//                    Toast.makeText(DemoSwipe.this,
+//                            "topToBottom  " + countryName, Toast.LENGTH_SHORT)
+//                            .show();
+//                }
+//            } else {
+//                if (Math.abs(velocityX) < SWIPE_THRESHOLD_VELOCITY) {
+//                    return false;
+//                }
+//                if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE) {
+//                    Toast.makeText(DemoSwipe.this,
+//                            "swipe RightToLeft " + countryName, 5000).show();
+//                } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE) {
+//                    Toast.makeText(DemoSwipe.this,
+//                            "swipe LeftToright  " + countryName, 5000).show();
+//                }
+//            }
+
+
+            return super.onFling(e1, e2, velocityX, velocityY);
+
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+           // spin(getView());
+           // Toast.makeText(getContext(),"Hello",Toast.LENGTH_SHORT).show();
+            return gDetector.onTouchEvent(event);
+        }
+
+        public GestureDetector getDetector() {
+            return gDetector;
+        }
+
+    }
+
+
 }
+
+

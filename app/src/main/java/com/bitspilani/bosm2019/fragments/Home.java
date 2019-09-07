@@ -34,6 +34,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -56,7 +57,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.bitspilani.bosm2019.activity.LoginActivity.userBetsList;
 
 
 public class Home extends Fragment{
@@ -69,6 +69,7 @@ public class Home extends Fragment{
     SharedPreferences sharedPreferences;
     private CustomAdapter adapter;
     private String userId;
+    private FirebaseAuth mAuth;
     private ArrayList<String> matchesBetId ;
     private  ArrayList<String> matchesId = new ArrayList<>();
 
@@ -98,8 +99,8 @@ public class Home extends Fragment{
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_home, container, false);
 
-        sharedPreferences = getContext().getSharedPreferences("userInfo",Context.MODE_PRIVATE);
-        userId = sharedPreferences.getString("username","");
+        mAuth = FirebaseAuth.getInstance();
+        String userId = mAuth.getCurrentUser().getUid();
         matchesBetId = new ArrayList<>();
         ArrayList<Fixture> fixtures=new ArrayList<>();
 

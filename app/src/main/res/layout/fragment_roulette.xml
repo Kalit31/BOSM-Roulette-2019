@@ -10,17 +10,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/roulette_bg" >
 
-    <Button
-        android:id="@+id/spinBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="SPIN"
-        android:background = "@drawable/rounded_button"
-        android:layout_marginBottom="15dp" />
-
-    <ImageView
+        <ImageView
         android:id="@+id/wheel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

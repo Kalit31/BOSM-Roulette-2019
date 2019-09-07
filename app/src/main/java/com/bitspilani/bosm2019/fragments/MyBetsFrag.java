@@ -27,6 +27,7 @@ import com.bitspilani.bosm2019.models.UserBetModel;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -59,6 +60,7 @@ public class MyBetsFrag extends Fragment {
     private SharedPreferences sharedPreferences;
     private ArrayList<UserBetModel> it = new ArrayList<>();
     private double wallet;
+    private FirebaseAuth mAuth;
     private double betAmount;
 
     public MyBetsFrag() {
@@ -72,11 +74,9 @@ public class MyBetsFrag extends Fragment {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_my_bets, container, false);
         betlist = v.findViewById(R.id.myBets_rv);
-        sharedPreferences = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        String userId = sharedPreferences.getString("username","");
+        mAuth = FirebaseAuth.getInstance();
+        String userId = mAuth.getCurrentUser().getUid();
         if (userId != null) {
-
-
             db.collection("users").document(userId).collection("bets")
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override

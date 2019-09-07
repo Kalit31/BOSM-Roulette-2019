@@ -45,10 +45,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import com.bitspilani.bosm2019.activity.LoginActivity;
-
-import static com.bitspilani.bosm2019.activity.LoginActivity.userBetsList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 

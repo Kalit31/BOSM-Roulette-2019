@@ -60,7 +60,7 @@ public class RouletteFrag extends Fragment {
     private TextView YT;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private  String t1="0";
-    private Button spinbtn;
+
     private static final long START_TIME_IN_MILLIS = 20000;
     private FirebaseAuth mAuth;
     private String userId;
@@ -95,17 +95,10 @@ public class RouletteFrag extends Fragment {
         mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
         wheel = view.findViewById(R.id.wheel);
         ButterKnife.bind((Activity) getContext());
-        spinbtn = view.findViewById(R.id.spinBtn);
         gestureListener = new SwipeGestureListener(getActivity());
         wheel.setOnTouchListener(gestureListener);
         mAuth= FirebaseAuth.getInstance();
         YT.setText(t1);
-        spinbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                spin(v);
-            }
-        });
         return view;
     }
 
@@ -120,10 +113,10 @@ public class RouletteFrag extends Fragment {
 
     private void updateButtons() {
         if (mTimerRunning) {
-            spinbtn.setClickable(false);
+            wheel.setClickable(false);
         } else {
             mTimeLeftInMillis = START_TIME_IN_MILLIS;
-            spinbtn.setClickable(true);
+            wheel.setClickable(true);
         }
     }
 
@@ -150,11 +143,11 @@ public class RouletteFrag extends Fragment {
 
 
     public void spin(View v) {
-        spinbtn.setEnabled(false);
+        wheel.setEnabled(false);
         if(mTimerRunning){
-            spinbtn.setClickable(false);
+            wheel.setClickable(false);
         }else{
-            spinbtn.setClickable(true);
+            wheel.setClickable(true);
             startTimer();
         }
 
@@ -170,7 +163,7 @@ public class RouletteFrag extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        spinbtn.setEnabled(true);
+                        wheel.setEnabled(true);
                     }
                 });
             }
@@ -387,46 +380,13 @@ public class RouletteFrag extends Fragment {
 
             Toast.makeText(getContext(),"Hello",Toast.LENGTH_SHORT).show();
             spin(getView());
-
-//            final int position = lvCountry.pointToPosition(
-//                    Math.round(e1.getX()), Math.round(e1.getY()));
-//
-//            String countryName = (String) lvCountry.getItemAtPosition(position);
-//
-//            if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) {
-//                if (Math.abs(e1.getX() - e2.getX()) > SWIPE_MAX_OFF_PATH
-//                        || Math.abs(velocityY) < SWIPE_THRESHOLD_VELOCITY) {
-//                    return false;
-//                }
-//                if (e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE) {
-//                    Toast.makeText(DemoSwipe.this, "bottomToTop" + countryName,
-//                            Toast.LENGTH_SHORT).show();
-//                } else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE) {
-//                    Toast.makeText(DemoSwipe.this,
-//                            "topToBottom  " + countryName, Toast.LENGTH_SHORT)
-//                            .show();
-//                }
-//            } else {
-//                if (Math.abs(velocityX) < SWIPE_THRESHOLD_VELOCITY) {
-//                    return false;
-//                }
-//                if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE) {
-//                    Toast.makeText(DemoSwipe.this,
-//                            "swipe RightToLeft " + countryName, 5000).show();
-//                } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE) {
-//                    Toast.makeText(DemoSwipe.this,
-//                            "swipe LeftToright  " + countryName, 5000).show();
-//                }
-//            }
-
-
             return super.onFling(e1, e2, velocityX, velocityY);
 
         }
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-           // spin(getView());
+           spin(getView());
            // Toast.makeText(getContext(),"Hello",Toast.LENGTH_SHORT).show();
             return gDetector.onTouchEvent(event);
         }

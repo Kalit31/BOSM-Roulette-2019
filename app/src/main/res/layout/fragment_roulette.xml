@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg" >
+        android:background="@drawable/roulette_bg" >
 
     <Button
         android:id="@+id/spinBtn"
@@ -19,7 +19,6 @@
         android:text="SPIN"
         android:background = "@drawable/rounded_button"
         android:layout_marginBottom="15dp" />
-
 
     <ImageView
         android:id="@+id/wheel"
@@ -62,29 +61,11 @@
         android:ems="10"
         android:inputType="number"
         android:text="0"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="#000000"
-        android:text="Unlucky twice? Bonus 100!"
-        android:layout_marginBottom="95dp"
-        />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="31dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="2dp"
-        app:srcCompat="@drawable/coins"
-        android:layout_toRightOf="@id/score_val"/>
-
-    <TextView
+        <TextView
         android:id="@+id/text_view_countdown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,6 +73,16 @@
         android:layout_marginBottom="145dp"
         android:layout_alignParentBottom="true"
         android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="103dp"
+            android:layout_marginTop="13dp"
+            android:src="@drawable/final_baxter" />
 
     </RelativeLayout>
 </FrameLayout>

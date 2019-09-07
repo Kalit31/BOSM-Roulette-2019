@@ -102,8 +102,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="190dp"
             android:layout_height="107dp"
-            android:layout_gravity="center"
-            android:background="@drawable/name_plate">
+            android:layout_gravity="center">
+            <!--android:background="@drawable/name_plate"-->
+            
 
             <LinearLayout
 

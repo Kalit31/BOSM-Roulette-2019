@@ -5,10 +5,13 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -19,10 +22,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bitspilani.bosm2019.R;
+import com.bitspilani.bosm2019.RotationGestureDetector;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import org.w3c.dom.Text;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Timer;
@@ -45,12 +59,14 @@ public class RouletteFrag extends Fragment {
     int count=0;
     private ImageView wheel;
     private TextView YT;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private  String t1="0";
     private Button spinbtn;
     private static final long START_TIME_IN_MILLIS = 20000;
-
+    private FirebaseAuth mAuth;
+    private String userId;
     private TextView mTextViewCountDown;
-
+    private double wallet;
     private CountDownTimer mCountDownTimer;
 
     private boolean mTimerRunning;
@@ -59,8 +75,6 @@ public class RouletteFrag extends Fragment {
     private long mEndTime;
     private static final Random RANDOM = new Random();
     private int degree = 0, degreeOld = 0;
-    // We have 37 sectors on the wheel, we divide 360 by this value to have angle for each sector
-    // we divide by 2 to have a half sector
     private static final float HALF_SECTOR = 360f / 37f / 2f;
 
 
@@ -83,6 +97,7 @@ public class RouletteFrag extends Fragment {
         wheel = view.findViewById(R.id.wheel);
         ButterKnife.bind((Activity) getContext());
         spinbtn = view.findViewById(R.id.spinBtn);
+        mAuth= FirebaseAuth.getInstance();
         YT.setText(t1);
         spinbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,6 +198,7 @@ public class RouletteFrag extends Fragment {
                     total=total+100;
                     count=0;
                     t1=Integer.toString(total);
+
                     YT.setText(t1);
                 }
 
@@ -196,9 +212,9 @@ public class RouletteFrag extends Fragment {
             wheel.startAnimation(rotateAnim);
         }
         else
-            {
+        {
             RotateAnimation rotateAnim = new RotateAnimation(degreeOld, degree,
-                    RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+            RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
             rotateAnim.setDuration(3600);
             rotateAnim.setFillAfter(true);
             rotateAnim.setInterpolator(new DecelerateInterpolator());
@@ -241,6 +257,25 @@ public class RouletteFrag extends Fragment {
                         count=0;
                     }
                     t1=Integer.toString(total);
+                    db.collection("users").whereEqualTo("email",mAuth.getCurrentUser().getEmail()).get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if(task.isSuccessful())
+                                    {
+                                        List<DocumentSnapshot> documents = task.getResult().getDocuments();
+                                        for(DocumentSnapshot document: documents){
+                                            userId = document.get("username").toString();
+                                            Log.d("user",userId.toString());
+                                            wallet = Double.parseDouble(document.get("wallet").toString());
+                                        }
+                                        wallet= wallet + total;
+                                        Map<String,Object> myWallet = new HashMap<>();
+                                        myWallet.put("wallet",wallet);
+                                        db.collection("users").document(userId).set(myWallet, SetOptions.merge());
+                                    }
+                                }
+                            });
                     YT.setText(t1);
                 }
 

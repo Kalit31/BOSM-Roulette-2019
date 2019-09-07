@@ -75,34 +75,7 @@ public class MyBetsFrag extends Fragment {
         sharedPreferences = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("username","");
         if (userId != null) {
-//            db.collection("users").document(userId).collection("bets")
-//                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-//
-//                        @Override
-//                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-//                        items.clear();
-//                            for(QueryDocumentSnapshot doc:queryDocumentSnapshots){
-//                                UserBetModel ob = new UserBetModel(
-//                                        doc.getData().get("match_id").toString(),
-//                                        Double.parseDouble(doc.getData().get("betAmount").toString()),
-//                                        doc.getData().get("team1").toString(),
-//                                        doc.getData().get("team2").toString(),
-//                                        Integer.parseInt(doc.getData().get("bettedOn").toString()),
-//                                        doc.getData().get("game").toString(),
-//                                        Boolean.parseBoolean(doc.get("update").toString()),
-//                                        Integer.parseInt( doc.getData().get("score1").toString()),
-//                                        Integer.parseInt( doc.getData().get("score2").toString()),
-//                                        Integer.parseInt(doc.getData().get("result").toString())
-//
-//                               );
-//                                   items.add(ob);
-//                            }
-//                            adapter = new MyBetAdapter(items,getContext());
-//                            betlist.setLayoutManager(new LinearLayoutManager(getContext()));
-//                            betlist.setHasFixedSize(true);
-//                            betlist.setAdapter(adapter);
-//                        }
-//                    });
+
 
             db.collection("users").document(userId).collection("bets")
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {

@@ -118,10 +118,9 @@
             app:bt_colorInactive="@color/colorPrimaryDark"
             app:bt_title="More"
             app:bt_icon="@drawable/ic_more"/>
-
-
-
     </com.gauravk.bubblenavigation.BubbleNavigationConstraintView>
+
+
 </RelativeLayout>
 
 

@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/roulette_bg" >
+        android:background="@android:color/transparent" >
 
         <ImageView
         android:id="@+id/wheel"

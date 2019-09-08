@@ -31,6 +31,7 @@
         app:mbn_defaultIconColor="#90a4ae"
         app:mbn_rippleColor="#2f424242"
         app:mbn_selectedIconColor="#3c415e"
+        android:background="@android:color/transparent"
         app:mbn_shadowColor="#1f212121"
         app:mbn_countTextColor="#ffffff"
         android:layout_alignParentBottom="true"

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@drawable/leaderboard_border"
+    android:layout_height="200dp">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3644068" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/guideline20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/team11"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_weight="2"
+            android:background="@drawable/leaderboard_border"
+            android:gravity="center"
+            android:text="Team1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="vs"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/team22"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_weight="2"
+            android:background="@drawable/leaderboard_border"
+            android:gravity="center"
+            android:text="Team2" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="1.0" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:background="@drawable/leaderboard_border"
+        android:thumbTint="#026606"
+        android:progressTint="#026606"
+        android:min="100"
+        android:max="500"
+        android:scaleX="1.4"
+        android:scaleY="1.4"
+        android:progressBackgroundTint="#026606"
+        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:background="@drawable/leaderboard_border"
+        android:text="100"
+        android:textColor="#026606"
+        android:textSize="20sp"
+        android:id="@+id/textamt"
+        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+        app:layout_constraintEnd_toEndOf="@+id/place_bet"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
+
+    <Button
+        android:id="@+id/place_bet"
+        android:layout_width="72dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/leaderboard_border"
+        android:text="place bet"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.927" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

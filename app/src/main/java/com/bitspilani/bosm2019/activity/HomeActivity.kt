@@ -2,6 +2,7 @@ package com.bitspilani.bosm2019.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import com.bitspilani.bosm2019.R
 import com.bitspilani.bosm2019.fragments.*
@@ -25,6 +26,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val main :RelativeLayout?=findViewById(R.id.Home);
 
         val bottomNavigation:MeowBottomNavigation = findViewById(R.id.bottom_nav)
         bottomNavigation.add(MeowBottomNavigation.Model(1,R.drawable.ic_home))
@@ -57,7 +60,13 @@ class HomeActivity : AppCompatActivity() {
             }
             fragment = fragments[selectedFrag]
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment!!).commit()
+            if(selectedFrag==3)
+                main!!.setBackgroundResource(R.drawable.roulette_bg);
+            else
+                main!!.setBackgroundResource(R.drawable.bg);
         }
+        if(selectedFrag==1)
+            main!!.setBackgroundResource(R.drawable.roulette_bg);
 
         bottomNavigation.setOnClickMenuListener {        }
 

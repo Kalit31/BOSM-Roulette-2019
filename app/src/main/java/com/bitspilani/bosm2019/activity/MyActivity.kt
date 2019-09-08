@@ -57,7 +57,9 @@ class MyActivity : AppCompatActivity() {
 //            editor.putString("username", user.uid)
 //            editor.putString("name", user.displayName)
 //            editor.apply()
-            startActivity(Intent(this, HomeActivity::class.java))
+            val intent=Intent(this, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
             finish()
         }
 
@@ -145,7 +147,9 @@ class MyActivity : AppCompatActivity() {
 
                             db.collection("users").document(user.uid).set(data, SetOptions.merge()).addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    startActivity(Intent(this, HomeActivity::class.java))
+                                    val intent=Intent(this, HomeActivity::class.java)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                    startActivity(intent)
                                     finish()
                                 } else {
 
@@ -154,7 +158,10 @@ class MyActivity : AppCompatActivity() {
                                 }
                             }
                         } else {
-                            startActivity(Intent(applicationContext, HomeActivity::class.java))
+                            val intent=Intent(applicationContext, HomeActivity::class.java)
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            startActivity(intent)
+                            finish()
                         }
                     }
 

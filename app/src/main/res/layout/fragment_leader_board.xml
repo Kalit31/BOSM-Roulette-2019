@@ -18,6 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/my_bets_upper"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,29 +99,33 @@
 
         <TextView
             android:id="@+id/your_rank"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="85dp"
+            android:layout_height="38dp"
             android:gravity="center"
             android:text="Rank"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintHorizontal_bias="0.615"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline4" />
+            app:layout_constraintTop_toTopOf="@+id/guideline4"
+            app:layout_constraintVertical_bias="0.314" />
 
         <TextView
             android:id="@+id/your_score"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="74dp"
+            android:layout_height="36dp"
             android:gravity="center"
             android:text="Score"
-            android:textSize="20sp"
             android:textColor="#FFFFFF"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.324"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
-            app:layout_constraintTop_toTopOf="@+id/guideline4" />
+            app:layout_constraintTop_toTopOf="@+id/guideline4"
+            app:layout_constraintVertical_bias="0.297" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

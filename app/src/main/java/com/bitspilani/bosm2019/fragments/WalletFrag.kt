@@ -85,7 +85,10 @@ class WalletFrag : Fragment() {
         signOut!!.setOnClickListener {
             mGoogleSignInClient!!.signOut()
             mAuth!!.signOut()
-            startActivity(Intent(activity, MyActivity::class.java))
+            val intent=Intent(activity, MyActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+            activity!!.finish()
         }
 
         return v

@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
@@ -21,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bitspilani.bosm2019.BetDialog;
 import com.bitspilani.bosm2019.models.Fixture;
 import com.bitspilani.bosm2019.R;
 import com.bitspilani.bosm2019.models.PlaceBetModel;
@@ -189,10 +192,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                             double wallet = Double.parseDouble(documentSnapshot.get("wallet").toString());
                              if(wallet - betAmount >=0)
                                  {
-                                     if(v.getId()==simple.getId())
-                                         buildDialog(new String[]{team1.getText().toString(),team2.getText().toString()});
-                                     else
-                                         buildDialog(new String[]{team1.getText().toString(),team2.getText().toString()});
+                                    // if(v.getId()==simple.getId())
+                                      //   buildDialog(new String[]{team1.getText().toString(),team2.getText().toString()});
+                                     //else
+                                       //  buildDialog(new String[]{team1.getText().toString(),team2.getText().toString()});
+                                     if(v.getId()==simple.getId()){
+                                         BetDialog betDialog=new BetDialog(context,fixtures.get(0));
+                                         betDialog.show();
+                                         Window window=betDialog.getWindow();
+                                         window.setLayout(1000,600);
+                                         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                     }
                               }
                              else
                                  Toast.makeText(context, "Not enough balance!!", Toast.LENGTH_SHORT).show();

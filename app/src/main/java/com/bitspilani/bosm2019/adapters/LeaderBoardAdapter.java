@@ -46,7 +46,7 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
         if(position == 2){
             holder.layout.setBackgroundColor(Color.argb(100,119,216,181));
         }
-        holder.name.setText(items.get(position).getUsername());
+        holder.name.setText(items.get(position).getUsername().toUpperCase());
         holder.rank.setText(String.valueOf(items.get(position).getRank()));
         holder.score.setText(String.valueOf(items.get(position).getWallet()));
 

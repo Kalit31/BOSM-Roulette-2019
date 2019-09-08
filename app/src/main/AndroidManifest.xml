@@ -18,6 +18,8 @@
         </activity>
         <activity android:name=".activity.HomeActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MyActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>

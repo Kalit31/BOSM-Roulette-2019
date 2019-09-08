@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:tag="home_frag"
-    android:background="@drawable/bg"
     tools:context=".fragments.Home">
 
     <androidx.recyclerview.widget.RecyclerView

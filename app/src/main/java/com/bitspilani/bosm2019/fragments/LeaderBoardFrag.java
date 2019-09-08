@@ -18,6 +18,8 @@ import com.bitspilani.bosm2019.adapters.LeaderBoardAdapter;
 import com.bitspilani.bosm2019.R;
 import com.bitspilani.bosm2019.models.RankClass;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -34,14 +36,14 @@ public class LeaderBoardFrag extends Fragment {
     private TextView yourRank,yourScore;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference leaderRef;
-    private SharedPreferences sharedPreferences;
+    private FirebaseAuth mAuth;
+    FirebaseUser user;
     private static ArrayList<RankClass> mArrayList = new ArrayList<>();
     private static ArrayList<RankClass> mArrayListTemp = new ArrayList<>();
 
     public LeaderBoardFrag() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,10 +53,12 @@ public class LeaderBoardFrag extends Fragment {
          leaderlist = v.findViewById(R.id.leader_rv);
          yourRank = v.findViewById(R.id.your_rank);
          yourScore = v.findViewById(R.id.your_score);
+        mAuth=FirebaseAuth.getInstance();
+        user=mAuth.getCurrentUser();
+        String name=user.getDisplayName();
+        String userId=user.getUid();
 
-         sharedPreferences = getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        String userId = sharedPreferences.getString("username","");
-        String name = sharedPreferences.getString("name","");
+        Log.d("name",name);
         if (userId != null) {
 
             db.collection("users").get().addOnSuccessListener(
@@ -82,13 +86,14 @@ public class LeaderBoardFrag extends Fragment {
                                 j++;
                             }
 
+
                             for(RankClass rc:mArrayListTemp){
                                 if(rc.getUsername().equals(name))
                                 {
                                     yourRank.setText(String.valueOf(rc.getRank()));
                                     yourScore.setText(String.valueOf(rc.getWallet()));
                                 }
-                            }
+                           }
 
                             adapter = new LeaderBoardAdapter(mArrayListTemp,getContext());
                             leaderlist.setLayoutManager(new LinearLayoutManager(getContext()));

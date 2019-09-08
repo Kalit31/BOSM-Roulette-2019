@@ -11,6 +11,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,18 +26,41 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="0dp"
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView3"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_marginTop="-20dp"-->
+        <!--android:src="@drawable/upper_bar"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/guideline21"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintVertical_bias="1.0" />-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="-20dp"
-        android:src="@drawable/upper_bar"
-        app:layout_constraintBottom_toTopOf="@+id/guideline21"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toTopOf="@id/guideline21"
+        >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="-20dp"
+                android:layout_marginTop="-20dp"
+                android:background="@drawable/upper_bar"
+                android:textSize="25sp"
+                android:layout_marginEnd="-20dp"
+                android:layout_marginBottom="-20dp"
+                android:text="Upcoming Matches"
+                android:textColor="@color/white"
+                android:gravity="center"
+                />
 
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,7 +38,7 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigation.add(MeowBottomNavigation.Model(6, R.drawable.ic_more))
 
         fragments.add(Home())
-        fragments.add(WalletFrag())
+        fragments.add(BlankFragment())
         fragments.add(MyBetsFrag())
         fragments.add(RouletteFrag())
         fragments.add(LeaderBoardFrag())
@@ -46,7 +46,6 @@ class HomeActivity : AppCompatActivity() {
         fragment = fragments[0]
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment!!).commit()
 
-        bottomNavigation.setCount(HOME,"3")
 
         bottomNavigation.setOnShowListener {
             selectedFrag = when (it.id){

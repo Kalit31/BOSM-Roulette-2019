@@ -54,6 +54,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -103,7 +104,15 @@ public class Home extends Fragment{
         String userId = mAuth.getCurrentUser().getUid();
         matchesBetId = new ArrayList<>();
         ArrayList<Fixture> fixtures=new ArrayList<>();
-
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String currentTime = sdf.format(new Date());
+        Date dt = Calendar.getInstance().getTime();
+        Log.d("mytime",currentTime.toString());
+        try {
+            Date d1 = sdf.parse(currentTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 
         db.collection("users").document(userId).collection("bets")
@@ -128,8 +137,11 @@ public class Home extends Fragment{
                                                     doc.getData().get("sports_name").toString());
 
                                             if(!(matchesBetId.contains(Objects.requireNonNull(doc.getData().get("matchId")).toString())))
-                                                //if(matchTime.after(finalCurrentTime))
+                                            {
+
                                                 fixtures.add(ob);
+                                            }
+
                                         }
                                         recyclerView=view.findViewById(R.id.recycler_view);
                                         recyclerView.setHasFixedSize(false);

@@ -1,16 +1,13 @@
 package com.bitspilani.bosm2019.activity
 
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.bitspilani.bosm2019.R
 import com.bitspilani.bosm2019.fragments.*
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
-import com.gauravk.bubblenavigation.BubbleNavigationConstraintView
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
 
 class HomeActivity : AppCompatActivity() {
@@ -38,7 +35,7 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigation.add(MeowBottomNavigation.Model(6, R.drawable.ic_more))
 
         fragments.add(Home())
-        fragments.add(BlankFragment())
+        fragments.add(WalletFrag())
         fragments.add(MyBetsFrag())
         fragments.add(RouletteFrag())
         fragments.add(LeaderBoardFrag())

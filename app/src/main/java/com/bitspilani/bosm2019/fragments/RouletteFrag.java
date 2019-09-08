@@ -48,20 +48,20 @@ import butterknife.ButterKnife;
 import static android.content.Context.MODE_PRIVATE;
 
 public class RouletteFrag extends Fragment {
-    private static final String[] sectors = { "100", "50",
-            "100", "200", "50", "150|", "75", "125", "250",
-            "100", "200","50", "150", "500", "125", "250",
-            "100", "200", "50", "150", "1000", "125",
-            "100", "200", "50", "150", "75", "125",
-            "100", "200", "50", "150", "75", "125",
-            "100", "200", "zero"
+    private static final String[] sectors = {"100", "550",
+            "100", "200", "500", "150", "450", "125", "250",
+            "100", "200", "200", "150", "500", "125", "250",
+            "100", "200", "300", "150", "100", "125",
+            "100", "200", "100", "150", "450", "125",
+            "100", "200", "350", "150", "750", "125",
+            "100", "200", "150"
     };
-    int total=0;
-    int count=0;
+    int total = 0;
+    int count = 0;
     private ImageView wheel;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private  String t1="0";
+    private String t1 = "0";
 
     private static final long START_TIME_IN_MILLIS = 20000;
     private FirebaseAuth mAuth;
@@ -99,7 +99,7 @@ public class RouletteFrag extends Fragment {
         ButterKnife.bind((Activity) getContext());
         gestureListener = new SwipeGestureListener(getActivity());
         wheel.setOnTouchListener(gestureListener);
-        mAuth= FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         return view;
     }
@@ -146,10 +146,12 @@ public class RouletteFrag extends Fragment {
 
     public void spin(View v) {
         wheel.setEnabled(false);
-        if(mTimerRunning){
+        if (mTimerRunning) {
+            gestureListener.gDetector=null;
             wheel.setClickable(false);
-        }else{
+        } else {
             wheel.setClickable(true);
+            gestureListener.gDetector =new GestureDetector(getContext(),gestureListener);
             startTimer();
         }
 
@@ -159,7 +161,7 @@ public class RouletteFrag extends Fragment {
             @Override
             public void run() {
 
-                if(getActivity()==null)
+                if (getActivity() == null)
                     return;
 
                 getActivity().runOnUiThread(new Runnable() {
@@ -176,38 +178,37 @@ public class RouletteFrag extends Fragment {
         // we calculate random angle for rotation of our wheel
         degree = RANDOM.nextInt(360) + 720;
         // rotation effect on the center of the wheel
-        if(count>=4){
-            RotateAnimation rotateAnim = new RotateAnimation(degreeOld, 720,
-            RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-            rotateAnim.setDuration(3600);
-            rotateAnim.setFillAfter(true);
-            rotateAnim.setInterpolator(new DecelerateInterpolator());
-            rotateAnim.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                    // we empty the result text view when the animation start
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    // we display the correct sector pointed by the triangle at the end of the rotate animation
-                    total=total+100;
-                    count=0;
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
-
-            // we start the animation
-            wheel.startAnimation(rotateAnim);
-        }
-        else
-        {
+//        if(count>=4){
+//            RotateAnimation rotateAnim = new RotateAnimation(degreeOld, 720,
+//            RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+//            rotateAnim.setDuration(3600);
+//            rotateAnim.setFillAfter(true);
+//            rotateAnim.setInterpolator(new DecelerateInterpolator());
+//            rotateAnim.setAnimationListener(new Animation.AnimationListener() {
+//                @Override
+//                public void onAnimationStart(Animation animation) {
+//                    // we empty the result text view when the animation start
+//                }
+//
+//                @Override
+//                public void onAnimationEnd(Animation animation) {
+//                    // we display the correct sector pointed by the triangle at the end of the rotate animation
+//                    total=total+100;
+//                    count=0;
+//                }
+//
+//                @Override
+//                public void onAnimationRepeat(Animation animation) {
+//
+//                }
+//            });
+//
+//            // we start the animation
+//            wheel.startAnimation(rotateAnim);
+//        }
+        if (1 == 1) {
             RotateAnimation rotateAnim = new RotateAnimation(degreeOld, degree,
-            RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
             rotateAnim.setDuration(3600);
             rotateAnim.setFillAfter(true);
             rotateAnim.setInterpolator(new DecelerateInterpolator());
@@ -219,45 +220,48 @@ public class RouletteFrag extends Fragment {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
+
                     // we display the correct sector pointed by the triangle at the end of the rotate animation
-                    if(getSector(360 - (degree % 360)).charAt(2)==' ') {
-                          total = total + Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 2));
-                            count=0;
+//                    if(getSector(360 - (degree % 360)).charAt(2)==' ') {
+//                          total = total + Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 2));
+//                            count=0;
+//
+//                    }
+//                    else if(getSector(360 - (degree % 360)).charAt(1)==' ') {
+//                           total=total+Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 1));
+//                            count=0;
+//
+//                    }
+////                    else
+//                    {
+//                        total=total+2000;
+//                        count=0;
+//                    }
 
-                    }
-                    else if(getSector(360 - (degree % 360)).charAt(1)==' ') {
-                           total=total+Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 1));
-                            count=0;
+                        total = total + Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 3));
 
-                    }
-                    else
-                    {
-                        total=total+2000;
-                        count=0;
-                    }
-                    db.collection("users").whereEqualTo("email",mAuth.getCurrentUser().getEmail()).get()
+                    db.collection("users").whereEqualTo("email", mAuth.getCurrentUser().getEmail()).get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if(task.isSuccessful())
-                                    {
+                                    if (task.isSuccessful()) {
                                         List<DocumentSnapshot> documents = task.getResult().getDocuments();
-                                        for(DocumentSnapshot document: documents){
+                                        for (DocumentSnapshot document : documents) {
                                             userId = document.get("username").toString();
-                                            Log.d("user",userId.toString());
+                                            Log.d("user", userId.toString());
                                             wallet = Double.parseDouble(document.get("wallet").toString());
                                         }
-                                        wallet= wallet + total;
-                                        Map<String,Object> myWallet = new HashMap<>();
-                                        myWallet.put("wallet",wallet);
+                                        wallet = wallet + total;
+                                        Map<String, Object> myWallet = new HashMap<>();
+                                        myWallet.put("wallet", wallet);
                                         db.collection("users").document(userId).set(myWallet, SetOptions.merge());
                                     }
                                 }
                             });
                     Intent scoreIntent = new Intent(getContext(), ScoreActivity.class);
-                    scoreIntent.putExtra("score",total);
+                    scoreIntent.putExtra("score", total);
                     startActivity(scoreIntent);
-              }
+                }
 
                 @Override
                 public void onAnimationRepeat(Animation animation) {
@@ -330,7 +334,7 @@ public class RouletteFrag extends Fragment {
                 text = sectors[i];
             }
             i++;
-        } while (text == null  &&  i < sectors.length);
+        } while (text == null && i < sectors.length);
 
         return text;
     }
@@ -364,7 +368,7 @@ public class RouletteFrag extends Fragment {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                float velocityY) {
 
-            Toast.makeText(getContext(),"Hello",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
             spin(getView());
             return super.onFling(e1, e2, velocityX, velocityY);
 
@@ -372,8 +376,8 @@ public class RouletteFrag extends Fragment {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-           spin(getView());
-           // Toast.makeText(getContext(),"Hello",Toast.LENGTH_SHORT).show();
+            spin(getView());
+            // Toast.makeText(getContext(),"Hello",Toast.LENGTH_SHORT).show();
             return gDetector.onTouchEvent(event);
         }
 

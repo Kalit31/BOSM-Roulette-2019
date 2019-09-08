@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.HomeActivity"
-    android:background="@color/blue_active"
+    android:background="@drawable/bg"
     >
 
 
@@ -26,7 +26,7 @@
     <com.etebarian.meowbottomnavigation.MeowBottomNavigation
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mbn_backgroundBottomColor="#ffffff"
+        app:mbn_backgroundBottomColor="#80000000"
         app:mbn_countBackgroundColor="#ff6f00"
         app:mbn_defaultIconColor="#90a4ae"
         app:mbn_rippleColor="#2f424242"

@@ -20,7 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class BlankFragment : Fragment() {
+class WalletFrag : Fragment() {
     internal var sharedPreferences: SharedPreferences? = null
     private var mAuth: FirebaseAuth? = null
     private val db = FirebaseFirestore.getInstance()
@@ -95,8 +95,8 @@ class BlankFragment : Fragment() {
         private val ARG_PARAM1 = "param1"
         private val ARG_PARAM2 = "param2"
 
-        fun newInstance(param1: String, param2: String): BlankFragment {
-            val fragment = BlankFragment()
+        fun newInstance(param1: String, param2: String): WalletFrag {
+            val fragment = WalletFrag()
             val args = Bundle()
             args.putString(ARG_PARAM1, param1)
             args.putString(ARG_PARAM2, param2)

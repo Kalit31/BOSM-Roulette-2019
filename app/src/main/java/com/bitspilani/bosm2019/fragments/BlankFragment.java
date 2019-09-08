@@ -77,9 +77,9 @@ public class BlankFragment extends Fragment {
 
         signOut = v.findViewById(R.id.signOut);
         balance = v.findViewById(R.id.balance);
-        name=v.findViewById(R.id.name);
-        betplaced=v.findViewById(R.id.bet_placed);
-        betwon=v.findViewById(R.id.betwon);
+        name = v.findViewById(R.id.username);
+        betplaced = v.findViewById(R.id.bet_placed);
+        betwon = v.findViewById(R.id.betwon);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

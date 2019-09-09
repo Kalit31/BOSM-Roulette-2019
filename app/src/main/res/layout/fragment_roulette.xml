@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.RouletteFrag">
 
     <RelativeLayout
@@ -17,7 +17,7 @@
             android:layout_height="200dp"
             android:layout_alignStart="@+id/wheel"
             android:layout_alignEnd="@+id/wheel"
-            android:layout_alignParentTop="true"
+
             android:layout_marginStart="86dp"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="85dp"
@@ -35,24 +35,42 @@
             app:srcCompat="@drawable/wheel" />
 
 
+        <ImageView
+            android:id="@+id/flash"
+            android:visibility="invisible"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/flash" />
+
+        <ImageView
+            android:visibility="invisible"
+            android:id="@+id/heart"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/heart" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/tV_feature"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            android:layout_marginTop="25dp"-->
+        <!--            android:layout_below="@id/text_view_countdown"-->
+        <!--            android:text="TextView" />-->
         <TextView
             android:id="@+id/text_view_countdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/wheel"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/tV_feature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:layout_below="@id/text_view_countdown"
-            android:text="TextView" />
-
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
     </RelativeLayout>
 </FrameLayout>

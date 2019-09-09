@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
@@ -33,10 +34,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -62,9 +66,12 @@ public class RouletteFrag extends Fragment {
             "100", "200", "150"
     };
     int total = 0;
+    private Date d1;
+    private Date d2;
+    private Date d3;
     int count = 0;
     private ImageView wheel;
-
+    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String t1 = "0";
 
@@ -82,6 +89,8 @@ public class RouletteFrag extends Fragment {
     private static final float HALF_SECTOR = 360f / 37f / 2f;
     private TextView featureInfo;
 
+    private ImageView bonus;
+    private ImageView loss;
 
     public RouletteFrag() {
 
@@ -99,10 +108,17 @@ public class RouletteFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_roulette, container, false);
 
         mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
+        bonus = view.findViewById(R.id.flash);
+        loss = view.findViewById(R.id.heart);
         wheel = view.findViewById(R.id.wheel);
         ButterKnife.bind((Activity) getContext());
-        featureInfo = view.findViewById(R.id.tV_feature);
-
+        //     featureInfo = view.findViewById(R.id.tV_feature);
+        String currentTime = sdf.format(new Date());
+        try {
+            d1 = sdf.parse(currentTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         wheel.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -115,11 +131,28 @@ public class RouletteFrag extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
-        db.collection("users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("users").document(userId).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                Log.d("name", documentSnapshot.get("email").toString());
+                try {
+                    d2 = sdf.parse(documentSnapshot.get("bonusTime").toString());
 
+                } catch (ParseException ex) {
+                    ex.printStackTrace();
+                }
+                try {
+                    d3 = sdf.parse(documentSnapshot.get("lossTime").toString());
+                } catch (ParseException ex) {
+
+                }
+                if (d2.getTime() >= d1.getTime()) {
+                    bonus.setVisibility(View.INVISIBLE);
+                } else if (d3.getTime() >= d1.getTime()) {
+                    bonus.setVisibility(View.INVISIBLE);
+                }
             }
+
         });
 
         return view;
@@ -222,24 +255,24 @@ public class RouletteFrag extends Fragment {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
                 String currentTime = sdf.format(calendar.getTime());
-                Log.d("mytime",currentTime);
+                Log.d("mytime", currentTime);
 
 
                 if (getSector(360 - (degree % 360)).charAt(0) == 'e') {
-                    Map<String,Object> bonusMap = new HashMap<>();
-                    bonusMap.put("bonus",true);
-                    bonusMap.put("bonusTime",currentTime);
-                    db.collection("users").document(userId).set(bonusMap,SetOptions.merge());
-                    featureInfo.setText("Bonus Activated for 3 hours!!");
-                }
-                else if(getSector(360 - (degree % 360)).charAt(0) == 'l'){
-                    Map<String,Object> lossMap = new HashMap<>();
-                    lossMap.put("loss",true);
-                    lossMap.put("lossTime",currentTime);
-                    db.collection("users").document(userId).set(lossMap,SetOptions.merge());
-                    featureInfo.setText("Loss Forgiveness activated for 3 hours !!");
-                }
-                else {
+                    Map<String, Object> bonusMap = new HashMap<>();
+                    bonusMap.put("bonus", true);
+                    bonusMap.put("bonusTime", currentTime);
+                    bonus.setVisibility(View.VISIBLE);
+                    db.collection("users").document(userId).set(bonusMap, SetOptions.merge());
+                    //         featureInfo.setText("Bonus Activated for 3 hours!!");
+                } else if (getSector(360 - (degree % 360)).charAt(0) == 'l') {
+                    Map<String, Object> lossMap = new HashMap<>();
+                    lossMap.put("loss", true);
+                    loss.setVisibility(View.VISIBLE);
+                    lossMap.put("lossTime", currentTime);
+                    db.collection("users").document(userId).set(lossMap, SetOptions.merge());
+                    //       featureInfo.setText("Loss Forgiveness activated for 3 hours !!");
+                } else {
                     total = Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 3));
                     db.collection("users").whereEqualTo("email", mAuth.getCurrentUser().getEmail()).get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

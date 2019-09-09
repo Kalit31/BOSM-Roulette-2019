@@ -112,8 +112,10 @@ public class RouletteFrag extends Fragment {
         loss = view.findViewById(R.id.heart);
         wheel = view.findViewById(R.id.wheel);
         ButterKnife.bind((Activity) getContext());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
         //     featureInfo = view.findViewById(R.id.tV_feature);
-        String currentTime = sdf.format(new Date());
+        String currentTime = sdf.format(calendar.getTime());
         try {
             d1 = sdf.parse(currentTime);
         } catch (ParseException e) {
@@ -135,22 +137,38 @@ public class RouletteFrag extends Fragment {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 Log.d("name", documentSnapshot.get("email").toString());
-                try {
-                    d2 = sdf.parse(documentSnapshot.get("bonusTime").toString());
 
-                } catch (ParseException ex) {
-                    ex.printStackTrace();
-                }
-                try {
-                    d3 = sdf.parse(documentSnapshot.get("lossTime").toString());
-                } catch (ParseException ex) {
+                if (documentSnapshot.get("bonusTime").toString().length() != 0) {
+                    try {
+                        d2 = sdf.parse(documentSnapshot.get("bonusTime").toString());
 
+                    } catch (ParseException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    if (d2.getTime() >= d1.getTime()) {
+                        bonus.setVisibility(View.INVISIBLE);
+                        HashMap<String, Object> disablebonus = new HashMap<>();
+                        disablebonus.put("bonus", false);
+                        db.collection("users").document(userId).set(disablebonus, SetOptions.merge());
+                    }
                 }
-                if (d2.getTime() >= d1.getTime()) {
-                    bonus.setVisibility(View.INVISIBLE);
-                } else if (d3.getTime() >= d1.getTime()) {
-                    bonus.setVisibility(View.INVISIBLE);
+                if (documentSnapshot.get("lossTime").toString().length() != 0) {
+                    try {
+                        d3 = sdf.parse(documentSnapshot.get("lossTime").toString());
+                    } catch (ParseException ex) {
+
+                    }
+                    Log.d("current", d1.toString());
+                    Log.d("loss", d3.toString());
+                    if (d1.getTime() >= d3.getTime()) {
+                        loss.setVisibility(View.INVISIBLE);
+                        HashMap<String, Object> disableloss = new HashMap<>();
+                        disableloss.put("loss", false);
+                        db.collection("users").document(userId).set(disableloss, SetOptions.merge());
+                    }
                 }
+
             }
 
         });

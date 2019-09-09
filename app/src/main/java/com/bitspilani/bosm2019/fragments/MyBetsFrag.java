@@ -125,6 +125,7 @@ public class MyBetsFrag extends Fragment {
                                             if(is_result){
                                                 if (item.getBettedOn() == Integer.parseInt(document.getData().get("winner").toString())){
                                                     betAmount = item.getBetAmount();
+
                                                     db.collection("users").document(userId)
                                                             .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                         @Override
@@ -132,7 +133,7 @@ public class MyBetsFrag extends Fragment {
                                                             if(task.isSuccessful()){
                                                                 DocumentSnapshot doc = task.getResult();
                                                                 wallet = Double.parseDouble(doc.get("wallet").toString());
-                                                                wallet = wallet + betAmount*1.5;
+                                                                wallet = wallet + betAmount*1.25;
 
                                                                 Map<String,Double> newWallet =new HashMap<>();
                                                                 newWallet.put("wallet",wallet);

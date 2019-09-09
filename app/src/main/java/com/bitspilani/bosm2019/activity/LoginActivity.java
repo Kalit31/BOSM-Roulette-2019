@@ -166,6 +166,10 @@ public class LoginActivity extends AppCompatActivity {
                         data.put("username", user.getUid());
                         data.put("wallet", 1000.0);
                         data.put("score", 0.0);
+                        data.put("bonusTime", "");
+                        data.put("lossTime", "");
+                        data.put("bonus", false);
+                        data.put("loss", false);
                         data.put("slot_time", FieldValue.serverTimestamp());
                         StringTokenizer stringTokenizer = new StringTokenizer(user.getEmail(), "@");
                         String qrcode = stringTokenizer.nextToken();

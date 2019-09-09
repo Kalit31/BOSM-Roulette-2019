@@ -6,8 +6,10 @@
         android:radius="10dp"/>
 
     <solid
-        android:color="@color/red_active"
+        android:color="#eea228"
         />
 
 
 </shape>
+
+    <!--Color.argb(100,238,162,40)-->

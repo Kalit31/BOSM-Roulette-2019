@@ -6,7 +6,7 @@
         android:radius="10dp"/>
 
     <solid
-        android:color="@color/blue_active"
+        android:color="#629ffc"
         />
 
 

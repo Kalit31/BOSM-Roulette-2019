@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -18,12 +20,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bitspilani.bosm2019.BetDialog;
 import com.bitspilani.bosm2019.R;
 import com.bitspilani.bosm2019.adapters.CustomAdapter;
 import com.bitspilani.bosm2019.models.Fixture;
@@ -158,6 +162,27 @@ public class Home extends Fragment{
                                         // specify an adapter (see also next example)
                                         adapter = new CustomAdapter(fixtures, getContext());
                                         recyclerView.setAdapter(adapter);
+
+                                        adapter.setOnItemClickListener(new CustomAdapter.ClickListener() {
+                                            @Override
+                                            public void onItemClicked(int position, View v) {
+                                                Log.d(TAG, "onItemClick position: " + position);
+                                                db.collection("users").document(userId).get().addOnSuccessListener(
+                                                        new OnSuccessListener<DocumentSnapshot>() {
+                                                            @Override
+                                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                double wallet = Double.parseDouble(documentSnapshot.get("wallet").toString());
+                                                                        BetDialog betDialog=new BetDialog(getContext(),fixtures.get(position),wallet);
+                                                                        betDialog.show();
+                                                                        Window window=betDialog.getWindow();
+                                                                        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,600);
+                                                                        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                                                            }
+                                                        }
+                                                );
+                                            }
+                                        });
                                     }
                                 });
                     }

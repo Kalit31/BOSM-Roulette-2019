@@ -70,5 +70,23 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigation.setOnClickMenuListener {        }
 
 
+
+     //   val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+       //         .requestEmail()
+         //       .requestIdToken(getString(R.string.default_web_client_id))
+           //     .build()
+        //  googleSignInClient = GoogleSignIn.getClient(this, gso)
+      //  val mAuth = FirebaseAuth.getInstance()
+        //  Button button=findViewById(R.id.button);
+        //   TextView textView=findViewById(R.id.textView4);
+        //  textView.setText(mAuth.getCurrentUser().getEmail());
+        /*        button.setOnClickListener(new  View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            }
+        });*/
     }
 }

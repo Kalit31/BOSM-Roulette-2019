@@ -37,16 +37,17 @@ public class BetDialog extends Dialog implements View.OnClickListener {
     String userId;
     Fixture fixture;
     Context context;
-    TextView team1,team2,amt;
-    SeekBar amountplaced;
+    TextView team1,team2,amt50,amt100,amt150,amt200;
     Button placebet;
-    int betAmount=100,flag=-1;
+    int betAmount=0,flag=-1,amtflag;
+      double  walletamount;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
-    public BetDialog(@NonNull Context context, Fixture fixture) {
+    public BetDialog(@NonNull Context context, Fixture fixture,double walletamount) {
         super(context);
         this.context=context;
         this.fixture=fixture;
+        this.walletamount=walletamount;
         mAuth = FirebaseAuth.getInstance();
         db.collection("users").whereEqualTo("email",mAuth.getCurrentUser().getEmail()).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -70,32 +71,21 @@ public class BetDialog extends Dialog implements View.OnClickListener {
         setContentView(R.layout.bet_dialog);
         team1=findViewById(R.id.team11);
         team2=findViewById(R.id.team22);
-        amountplaced=findViewById(R.id.seekBar);
         placebet=findViewById(R.id.place_bet);
-        amt=findViewById(R.id.textamt);
+        amt50=findViewById(R.id.amt50);
+        amt100=findViewById(R.id.amt100);
+        amt150=findViewById(R.id.amt150);
+        amt200=findViewById(R.id.amt200);
         team1.setText(fixture.getCollege1());
         team2.setText(fixture.getCollege2());
         team1.setOnClickListener(this);
         team2.setOnClickListener(this);
         placebet.setOnClickListener(this);
+        amt50.setOnClickListener(this);
+        amt100.setOnClickListener(this);
+        amt150.setOnClickListener(this);
+        amt200.setOnClickListener(this);
 
-        amountplaced.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                amt.setText(String.valueOf(progress));
-                betAmount=progress;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
     }
 
     @Override
@@ -103,22 +93,77 @@ public class BetDialog extends Dialog implements View.OnClickListener {
         switch (v.getId()){
             case R.id.team11:
                 flag=0;
-                team1.setBackgroundResource(R.drawable.yellow_bordered);
-                team2.setBackgroundResource(R.drawable.leaderboard_border);
+                team1.setBackgroundResource(R.drawable.amtselectedborder);
+                team2.setBackgroundResource(R.drawable.amtborder);
                 break;
             case R.id.team22:
                 flag=1;
-                team2.setBackgroundResource(R.drawable.yellow_bordered);
-                team1.setBackgroundResource(R.drawable.leaderboard_border);
+                team2.setBackgroundResource(R.drawable.amtselectedborder);
+                team1.setBackgroundResource(R.drawable.amtborder);
                 break;
 
             case R.id.place_bet:
-                if(flag==0 || flag==1) {
+                if((flag==0 || flag==1) && betAmount>0) {
                     placebet();
                     dismiss();
                 }
+                else if(walletamount-betAmount<=0)
+                    Toast.makeText(context, "Not enough balance!!", Toast.LENGTH_SHORT).show();
+                else if(betAmount==0)
+                    Toast.makeText(context, "Select amount", Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(context,"Select a team",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.amt50:
+                amt50.setBackgroundResource(R.drawable.amtselectedborder);
+                amt50.setTextColor(Color.parseColor("#ffffff"));
+                amt100.setBackgroundResource(R.drawable.amtborder);
+                amt100.setTextColor(Color.parseColor("#000000"));
+                amt150.setBackgroundResource(R.drawable.amtborder);
+                amt150.setTextColor(Color.parseColor("#000000"));
+                amt200.setBackgroundResource(R.drawable.amtborder);
+                amt200.setTextColor(Color.parseColor("#000000"));
+                amtflag=1;
+                betAmount=50;
+                break;
+
+            case R.id.amt100:
+                betAmount=100;
+                amt100.setBackgroundResource(R.drawable.amtselectedborder);
+                amt100.setTextColor(Color.parseColor("#ffffff"));
+                amt50.setBackgroundResource(R.drawable.amtborder);
+                amt50.setTextColor(Color.parseColor("#000000"));
+                amt150.setBackgroundResource(R.drawable.amtborder);
+                amt150.setTextColor(Color.parseColor("#000000"));
+                amt200.setBackgroundResource(R.drawable.amtborder);
+                amt200.setTextColor(Color.parseColor("#000000"));
+                amtflag=1;
+                break;
+
+            case R.id.amt150:
+                betAmount=150;
+                amt150.setBackgroundResource(R.drawable.amtselectedborder);
+                amt150.setTextColor(Color.parseColor("#ffffff"));
+                amt50.setBackgroundResource(R.drawable.amtborder);
+                amt50.setTextColor(Color.parseColor("#000000"));
+                amt100.setBackgroundResource(R.drawable.amtborder);
+                amt100.setTextColor(Color.parseColor("#000000"));
+                amt200.setBackgroundResource(R.drawable.amtborder);
+                amt200.setTextColor(Color.parseColor("#000000"));
+                amtflag=1;
+                break;
+
+            case R.id.amt200:
+                betAmount=200;
+                amt200.setTextColor(Color.parseColor("#ffffff"));
+                amt200.setBackgroundResource(R.drawable.amtselectedborder);
+                amt50.setBackgroundResource(R.drawable.amtborder);
+                amt50.setTextColor(Color.parseColor("#000000"));
+                amt150.setBackgroundResource(R.drawable.amtborder);
+                amt150.setTextColor(Color.parseColor("#000000"));
+                amt100.setBackgroundResource(R.drawable.amtborder);
+                amt100.setTextColor(Color.parseColor("#000000"));
+                amtflag=1;
                 break;
 
             default:break;

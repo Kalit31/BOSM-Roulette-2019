@@ -102,8 +102,8 @@ class MyActivity : AppCompatActivity() {
                         Log.d(TAG, "signInWithCredential:success")
                         val user = mAuth!!.currentUser
                         updateUI(user)
-                        startActivity(Intent(this, HomeActivity::class.java))
-                        finish()
+                        //startActivity(Intent(this, HomeActivity::class.java))
+                        //finish()
 
                     } else {
 

@@ -49,13 +49,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     private ArrayList<Fixture> fixtures;
     private Context context;
-    private String[] teams;
-    private int betAmount;
-    private int walletamount;
+    private static ClickListener clickListener;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
-    private String matchId;
     String userId;
+
+
 
 
     public CustomAdapter(ArrayList<Fixture> fixtures, Context context) {
@@ -69,7 +68,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     @NonNull
     @Override
     public CustomAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.folding_cell,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.home_item,parent,false);
         ViewHolder viewHolder=new ViewHolder(view);
         return viewHolder;
     }
@@ -80,24 +79,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         holder.team1.setText(fixtures.get(position).getCollege1());
         holder.team2.setText(fixtures.get(position).getCollege2());
         holder.time.setText(fixtures.get(position).getTimestamp());
-        holder.team11.setText(fixtures.get(position).getCollege1());
-        holder.team21.setText(fixtures.get(position).getCollege2());
-        holder.time1.setText(fixtures.get(position).getTimestamp());
-        holder.match_id.setText(fixtures.get(position).getMatchId());
         holder.game = fixtures.get(position).getGame();
         //teams = new String[]{};
-        holder.fc.initialize(30,500, Color.parseColor("#ffffff"),0);
 
-        holder.fc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.fc.toggle(false);
-                if(holder.fc.isUnfolded())
-                    holder.content.setVisibility(View.GONE);
-                else
-                    holder.title.setVisibility(View.GONE);
-            }
-        });
 
 
     }
@@ -108,65 +92,27 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView team1,team2,team11,team21;
-        TextView time,venue,time1,venue1;
-        final FoldingCell fc;
-        FrameLayout content,title;
-        Button simple,power;
-        SeekBar amount;
-        TextView bet;
-        TextView match_id;
-        String teamSelected;
-        int teamSelect;
+        TextView team1,team2;
+        TextView time;
         String game;
         int count,total;
+
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
             team1=itemView.findViewById(R.id.team1);
             team2=itemView.findViewById(R.id.team2);
-            team11=itemView.findViewById(R.id.team11);
-            team21=itemView.findViewById(R.id.team21);
+
             time=itemView.findViewById(R.id.time);
-            venue=itemView.findViewById(R.id.venue);
-            time1=itemView.findViewById(R.id.time1);
-            venue1=itemView.findViewById(R.id.venue1);
-            fc=itemView.findViewById(R.id.folding_cell);
-            content=itemView.findViewById(R.id.cell_content_view);
-            title=itemView.findViewById(R.id.cell_title_view);
-            simple=itemView.findViewById(R.id.simple);
-            power=itemView.findViewById(R.id.power);
-            amount=itemView.findViewById(R.id.amount);
-            bet=itemView.findViewById(R.id.bet);
-            match_id = itemView.findViewById(R.id.match_id);
-            simple.setOnClickListener(this);
-            power.setOnClickListener(this);
-
-
-            amount.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    bet.setText(""+progress);
-                    betAmount=progress;
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) {
-
-                }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-
-                }
-            });
-
-            if(betAmount == 0)
-                betAmount = 100;
+            itemView.setOnClickListener(this);
 
         }
-
         @Override
+        public void onClick(View v) {
+            clickListener.onItemClicked(getAdapterPosition(), v);
+        }
+
+        /*@Override
         public void onClick(View v) {
 
             db.collection("users").document(userId).get().addOnSuccessListener(
@@ -184,7 +130,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                                          BetDialog betDialog=new BetDialog(context,fixtures.get(0));
                                          betDialog.show();
                                          Window window=betDialog.getWindow();
+<<<<<<< Updated upstream
                                          window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,400);
+=======
+                                         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,600);
+>>>>>>> Stashed changes
                                          window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                                      }
                               }
@@ -196,9 +146,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
 
 
-        }
+        }*/
 
-        void buildDialog(String[] teams){
+        /*void buildDialog(String[] teams){
 
             AlertDialog.Builder builder=new AlertDialog.Builder(context);
             builder.setTitle("I will place my bet on")
@@ -287,6 +237,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             });
             builder.show();
 
-        }
+        }*/
+    }
+    public interface ClickListener{
+        void onItemClicked(int position,View v);
+    }
+
+
+    public void setOnItemClickListener(ClickListener clickListener) {
+        CustomAdapter.clickListener = clickListener;
     }
 }

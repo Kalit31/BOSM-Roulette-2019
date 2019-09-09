@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.125" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,24 +38,12 @@
             android:layout_marginEnd="-20dp"
             android:layout_marginBottom="-20dp"
             android:gravity="center"
-            android:text="MY BETS"
+            android:text="My Bets"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
     </RelativeLayout>
 
-    <!--<TextView-->
-        <!--android:id="@+id/textView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:background="@drawable/upper_bar"-->
-        <!--android:gravity="center"-->
-        <!--android:text="MY BETS"-->
-        <!--android:textColor="#FFFFFF"-->
-        <!--android:textSize="20sp"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/guideline11"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--tools:layout_editor_absoluteX="107dp" />-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline12"

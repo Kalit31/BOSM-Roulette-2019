@@ -20,6 +20,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class MyBetAdapter extends RecyclerView.Adapter<MyBetAdapter.ViewHolder>
 {
@@ -41,26 +42,26 @@ public class MyBetAdapter extends RecyclerView.Adapter<MyBetAdapter.ViewHolder>
         return vh;
     }
 
-
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.team1.setText(items.get(position).getTeam1());
         holder.team2.setText(String.valueOf(items.get(position).getTeam2()));
 
         if(items.get(position).getBettedOn()==0) {
-            holder.team1.setBackground(context.getDrawable(R.drawable.borders_team_selected));
             holder.team1.setTextColor(context.getResources().getColor(R.color.white));
+            holder.team1.setBackground(context.getDrawable(R.drawable.borders_team_selected));
+            holder.team2.setTextColor(context.getResources().getColor(R.color.black));
             holder.team2.setBackground(context.getDrawable(R.drawable.borders_team_notselected));
-            holder.team1.setTextColor(context.getResources().getColor(R.color.black));
         }
         else {
-            holder.team2.setBackground(context.getDrawable(R.drawable.borders_team_selected));
-            holder.team1.setTextColor(context.getResources().getColor(R.color.white));
+            holder.team1.setTextColor(context.getResources().getColor(R.color.black));
             holder.team1.setBackground(context.getDrawable(R.drawable.borders_team_notselected));
-            holder.team2.setTextColor(context.getResources().getColor(R.color.black));
-        }
-        holder.betAmount.setText(String.valueOf(items.get(position).getBetAmount()));
+            holder.team2.setTextColor(context.getResources().getColor(R.color.white));
+            holder.team2.setBackground(context.getDrawable(R.drawable.borders_team_selected));
+       }
+
+        StringTokenizer strk = new StringTokenizer(String.valueOf(items.get(position).getBetAmount()),".");
+        holder.betAmount.setText(strk.nextToken());
         holder.game.setText(items.get(position).getGame());
         if(!((items.get(position).getScore1() == -1) && (items.get(position).getScore2()==-1))) {
             holder.score1.setText(String.valueOf(items.get(position).getScore1()));
@@ -72,12 +73,12 @@ public class MyBetAdapter extends RecyclerView.Adapter<MyBetAdapter.ViewHolder>
         }
         if(items.get(position).isUpdate()){
             if(items.get(position).getBettedOn() == items.get(position).getResult()){
-                holder.betAmount.setBackground(context.getDrawable(R.drawable.brown_block));
+                holder.betAmount.setBackground(context.getDrawable(R.drawable.green_block));
             }else{
-                holder.betAmount.setBackground(context.getDrawable(R.drawable.ic_my_bets_block_red));
+                holder.betAmount.setBackground(context.getDrawable(R.drawable.brown_block));
             }
         }else{
-            holder.betAmount.setBackground(context.getDrawable(R.drawable.ic_my_bets_block_yellow));
+            holder.betAmount.setBackground(context.getDrawable(R.drawable.yellow_block));
         }
     }
 

@@ -33,7 +33,7 @@ public class LeaderBoardFrag extends Fragment {
 
     private RecyclerView leaderlist;
     private LeaderBoardAdapter adapter;
-    private TextView yourRank,yourScore;
+    private TextView yourRank,yourScore,yourName;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference leaderRef;
     private FirebaseAuth mAuth;
@@ -53,10 +53,13 @@ public class LeaderBoardFrag extends Fragment {
          leaderlist = v.findViewById(R.id.leader_rv);
          yourRank = v.findViewById(R.id.your_rank);
          yourScore = v.findViewById(R.id.your_score);
+         yourName = v.findViewById(R.id.your_name);
         mAuth=FirebaseAuth.getInstance();
         user=mAuth.getCurrentUser();
         String name=user.getDisplayName();
         String userId=user.getUid();
+
+        yourName.setText(name);
 
         Log.d("name",name);
         if (userId != null) {

@@ -1,4 +1,3 @@
-
 package com.bitspilani.bosm2019.adapters;
 
 import android.app.AlertDialog;
@@ -18,11 +17,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bitspilani.bosm2019.BetDialog;
 import com.bitspilani.bosm2019.models.Fixture;
 import com.bitspilani.bosm2019.R;
@@ -43,7 +40,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.ramotion.foldingcell.FoldingCell;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,19 +62,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         this.fixtures=fixtures;
         this.context=context;
         mAuth = FirebaseAuth.getInstance();
-        db.collection("users").whereEqualTo("email",mAuth.getCurrentUser().getEmail()).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful())
-                        {
-                            List<DocumentSnapshot> documents = task.getResult().getDocuments();
-                            for(DocumentSnapshot document: documents){
-                                userId = document.get("username").toString();
-                            }
-                        }
-                    }
-                });
+        userId = mAuth.getCurrentUser().getUid();
     }
 
 
@@ -135,7 +119,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         String teamSelected;
         int teamSelect;
         String game;
-        int count;
+        int count,total;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -200,7 +184,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                                          BetDialog betDialog=new BetDialog(context,fixtures.get(0));
                                          betDialog.show();
                                          Window window=betDialog.getWindow();
-                                         window.setLayout(1000,600);
+                                         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,400);
                                          window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                                      }
                               }
@@ -256,7 +240,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                                            "team2",count+1
                                    );
                                }
-
+                               total= Integer.parseInt(doc.get("total").toString());
+                                db.collection("matches").document(match_id.getText().toString()).update(
+                                        "total",total+1
+                                );
 
                             }
                         }

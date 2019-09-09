@@ -37,15 +37,15 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        if(position == 0){
-            holder.layout.setBackgroundColor(Color.argb(100,238,162,40));
-        }
-        if(position == 1){
-            holder.layout.setBackgroundColor(Color.argb(100,98,159,252));
-        }
-        if(position == 2){
-            holder.layout.setBackgroundColor(Color.argb(100,119,216,181));
-        }
+//        if(position == 0){
+//            holder.layout.setBackgroundResource(R.drawable.rank_one);
+//        }
+//        if(position == 1){
+//            holder.layout.setBackgroundResource(R.drawable.rank_two);
+//        }
+//        if(position == 2){
+//            holder.layout.setBackgroundResource(R.drawable.rank_three);
+//        }
         holder.name.setText(items.get(position).getUsername().toUpperCase());
         holder.rank.setText(String.valueOf(items.get(position).getRank()));
         holder.score.setText(String.valueOf(items.get(position).getWallet()));

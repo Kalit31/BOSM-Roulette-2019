@@ -68,6 +68,7 @@ public class Home extends Fragment{
     private CollectionReference matchRef = db.collection("matches");
     private String TAG = "test1";
     SharedPreferences sharedPreferences;
+    private Date d1,d2;
     private CustomAdapter adapter;
     private String userId;
     private FirebaseAuth mAuth;
@@ -109,7 +110,7 @@ public class Home extends Fragment{
         Date dt = Calendar.getInstance().getTime();
         Log.d("mytime",currentTime.toString());
         try {
-            Date d1 = sdf.parse(currentTime);
+            d1 = sdf.parse(currentTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -138,8 +139,13 @@ public class Home extends Fragment{
 
                                             if(!(matchesBetId.contains(Objects.requireNonNull(doc.getData().get("matchId")).toString())))
                                             {
-
-                                                fixtures.add(ob);
+                                                try {
+                                                     d2 = sdf.parse(ob.getTimestamp());
+                                                } catch (ParseException e1) {
+                                                    e1.printStackTrace();
+                                                }
+                                                if( d2.getTime() >= d1.getTime())
+                                                    fixtures.add(ob);
                                             }
 
                                         }

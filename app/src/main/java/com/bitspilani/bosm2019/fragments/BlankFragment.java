@@ -8,43 +8,47 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bitspilani.bosm2019.R;
 import com.bitspilani.bosm2019.activity.LoginActivity;
+import com.bitspilani.bosm2019.adapters.TrendingAdapter;
+import com.bitspilani.bosm2019.models.Fixture;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 
 public class BlankFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    SharedPreferences sharedPreferences;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String mParam1;
     private String mParam2;
     private Button signOut;
     private GoogleSignInClient mGoogleSignInClient;
-    TextView balance, name, betplaced, betwon;
+    TextView balance, name;
     private FirebaseAuth mAuth;
-    int walletbalance;
-    int betAmount;
+    private RecyclerView rv;
+    private TrendingAdapter adapter;
 
     public BlankFragment() {
         // Required empty public constructor
@@ -72,14 +76,12 @@ public class BlankFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_blank, container, false);
 
+        View v = inflater.inflate(R.layout.fragment_blank, container, false);
+        rv = v.findViewById(R.id.trending_rv);
         signOut = v.findViewById(R.id.signOut);
         balance = v.findViewById(R.id.balance);
         name = v.findViewById(R.id.username);
-        betplaced = v.findViewById(R.id.bet_placed);
-        betwon = v.findViewById(R.id.betwon);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -105,23 +107,8 @@ public class BlankFragment extends Fragment {
                 balance.setText(documentSnapshot.get("wallet").toString());
             }
         });
-        db.collection("users").document(mAuth.getCurrentUser().getUid()).collection("bets").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    int count = 0, count1 = 0;
-                    for (DocumentSnapshot document : task.getResult()) {
-                        count++;
-                        if (Integer.parseInt(document.get("result").toString()) == 1) {
-                            count1++;
-                        }
-                    }
-                    //   betplaced.setText(String.valueOf(count));
-                    // betwon.setText(String.valueOf(count1));
 
-                }
-            }
-        });
+        setUpRecyclerView();
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +119,32 @@ public class BlankFragment extends Fragment {
                 getActivity().finish();
             }
         });
-
         return v;
+
     }
+
+
+    private void setUpRecyclerView() {
+        Query query = db.collection("matches").orderBy("total", Query.Direction.DESCENDING).limit(5);
+        FirestoreRecyclerOptions<Fixture> options = new FirestoreRecyclerOptions.Builder<Fixture>()
+                .setQuery(query,Fixture.class)
+                .build();
+        adapter = new TrendingAdapter(options,getContext());
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv.setHasFixedSize(true);
+        rv.setAdapter(adapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
 }

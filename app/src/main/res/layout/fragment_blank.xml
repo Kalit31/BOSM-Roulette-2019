@@ -1,366 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.WalletFrag">
 
-    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.225" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline27"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="150dp"-->
-        <!--            android:background="@drawable/home_upper">-->
-
-        <Button
-            android:id="@+id/signOut"
-            android:layout_width="47dp"
-            android:layout_height="29dp"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="40dp"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/ic_power_settings_new_black_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="273dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="-40dp"
-            android:src="@drawable/homeupper" />
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignTop="@+id/rl"
-            android:layout_marginTop="-84dp"
-            android:src="@drawable/final_baxter" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
-            android:id="@+id/rl"
-            android:background="@drawable/name_plate">
-
-            <TextView
-                android:id="@+id/username"
-                android:textColor="#ffffff"
-                android:textSize="26sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
-                android:text="Name" />
-
-            <LinearLayout
-                android:id="@+id/balancelayout"
-                android:layout_below="@+id/username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"
-
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
-                    android:text="Wallet Balance:" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/balance" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/betsplacedlayout"
-                android:layout_below="@+id/balancelayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"
-
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
-                    android:text="Total Bets Placed:" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/bet_placed" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/betwonlayout"
-                android:layout_below="@+id/betsplacedlayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="30dp"
-
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#ffffff"
-                    android:text="Total Bets Placed:" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/betwon" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <!--            <TextView-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:gravity="center"-->
-        <!--                android:text="My Wallet"-->
-        <!--                android:textColor="#ffffff"-->
-        <!--                android:textSize="30sp"-->
-        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                app:layout_constraintEnd_toStartOf="@+id/signOut"-->
-        <!--                app:layout_constraintHorizontal_bias="0.64"-->
-        <!--                app:layout_constraintStart_toStartOf="parent"-->
-        <!--                app:layout_constraintTop_toTopOf="parent" />-->
-        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/name"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_gravity="center_horizontal"-->
-        <!--            android:layout_marginTop="10dp"-->
-        <!--            android:fontFamily="@font/cerapro_bold"-->
-        <!--            android:text="Ayush Singh"-->
-        <!--            android:textColor="#ffffff"-->
-        <!--            android:textSize="24sp"-->
-        <!--            android:textStyle="bold" />-->
-
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView3"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginLeft="15dp"-->
-        <!--            android:layout_marginTop="20dp"-->
-        <!--            android:text="Current Balance"-->
-        <!--            android:textColor="#ffffff"-->
-        <!--            android:textSize="21sp"-->
-        <!--            android:textStyle="bold"-->
-        <!--            tools:layout_editor_absoluteX="30dp"-->
-        <!--            tools:layout_editor_absoluteY="176dp" />-->
-
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginLeft="15dp"-->
-        <!--            android:layout_marginTop="5dp"-->
-        <!--            android:orientation="horizontal">-->
-
-        <!--            <TextView-->
-        <!--                android:id="@+id/balance"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:fontFamily="@font/cerapro_bold"-->
-        <!--                android:textColor="#FFFFFF"-->
-        <!--                android:textSize="30sp"-->
-        <!--                android:textStyle="bold"-->
-        <!--                tools:layout_editor_absoluteX="33dp"-->
-        <!--                tools:layout_editor_absoluteY="195dp" />-->
-
-        <!--            <ImageView-->
-        <!--                android:id="@+id/imageView"-->
-        <!--                android:layout_width="27dp"-->
-        <!--                android:layout_height="match_parent"-->
-        <!--                android:layout_marginLeft="10dp"-->
-        <!--                app:srcCompat="@drawable/coins"-->
-        <!--                tools:layout_editor_absoluteX="75dp"-->
-        <!--                tools:layout_editor_absoluteY="203dp" />-->
-
-        <!--        </LinearLayout>-->
-
-        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-        <!--            android:layout_width="190dp"-->
-        <!--            android:layout_height="107dp"-->
-        <!--            android:layout_gravity="center">-->
-        <!--            &lt;!&ndash;android:background="@drawable/name_plate"&ndash;&gt;-->
-        <!--            -->
-
-        <!--            <LinearLayout-->
-
-        <!--                android:id="@+id/linearLayout3"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_gravity="center_horizontal"-->
-        <!--                android:orientation="horizontal"-->
-        <!--                android:padding="10dp"-->
-        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                app:layout_constraintEnd_toEndOf="parent"-->
-        <!--                app:layout_constraintHorizontal_bias="0.347"-->
-        <!--                app:layout_constraintStart_toStartOf="parent"-->
-        <!--                app:layout_constraintTop_toTopOf="parent"-->
-        <!--                app:layout_constraintVertical_bias="0.107">-->
-
-        <!--                <TextView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:fontFamily="@font/cagliostro"-->
-
-        <!--                    android:text="Total Bets Placed:"-->
-        <!--                    android:textColor="#ffffff"-->
-        <!--                    android:textStyle="bold" />-->
-
-        <!--                <TextView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:fontFamily="@bauer"-->
-        <!--                    android:id="@+id/bet_placed"-->
-        <!--                    android:layout_marginLeft="4dp"-->
-        <!--                    android:textColor="#ffffff"-->
-        <!--                    android:textStyle="bold" />-->
-
-        <!--            </LinearLayout>-->
-
-        <!--            <LinearLayout-->
-
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_gravity="center_horizontal"-->
-        <!--                android:orientation="horizontal"-->
-        <!--                android:padding="10dp"-->
-        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                app:layout_constraintEnd_toEndOf="parent"-->
-        <!--                app:layout_constraintHorizontal_bias="0.228"-->
-        <!--                app:layout_constraintStart_toStartOf="parent"-->
-        <!--                app:layout_constraintTop_toBottomOf="@+id/linearLayout3"-->
-        <!--                app:layout_constraintVertical_bias="0.0">-->
-
-        <!--                <TextView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:fontFamily="@font/cagliostro"-->
-        <!--                    android:text="Total Bets Won:"-->
-        <!--                    android:textColor="#ffffff"-->
-        <!--                    android:textStyle="bold" />-->
-
-        <!--                <TextView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:fontFamily="@bauer"-->
-        <!--                    android:layout_marginLeft="4dp"-->
-        <!--                    android:id="@+id/betwon"-->
-        <!--                    android:textColor="#ffffff"-->
-        <!--                    android:textStyle="bold" />-->
-
-        <!--            </LinearLayout>-->
-
-
-        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-        <!--        &lt;!&ndash;<androidx.cardview.widget.CardView-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_gravity="center_horizontal"-->
-        <!--            android:layout_marginBottom="10dp"-->
-        <!--            android:background="@color/colorAccent"-->
-        <!--            android:elevation="5dp"-->
-        <!--            android:layout_marginTop="20dp"-->
-        <!--            android:padding="20dp"-->
-        <!--            app:cardBackgroundColor="#E1F5FE"-->
-        <!--            app:cardCornerRadius="10dp">-->
-
-        <!--            <LinearLayout-->
-
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_gravity="center_horizontal"-->
-        <!--                android:layout_marginTop="20dp"-->
-        <!--                android:orientation="horizontal"-->
-        <!--                android:padding="10dp">-->
-
-        <!--                <TextView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:fontFamily="@font/cagliostro"-->
-
-        <!--                    android:text="Total Bets Placed:"-->
-        <!--                    android:textColor="#2962FF"-->
-        <!--                    android:textStyle="bold" />-->
-
-        <!--                <TextView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:fontFamily="@bauer"-->
-        <!--                    android:text=" 500"-->
-        <!--                    android:textColor="#D50000"-->
-        <!--                    android:textStyle="bold" />-->
-
-        <!--            </LinearLayout>-->
-        <!--        </androidx.cardview.widget.CardView>-->
-
-        <!--        <androidx.cardview.widget.CardView-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_gravity="center_horizontal"-->
-
-
-        <!--            android:elevation="20dp"-->
-        <!--            app:cardBackgroundColor="#E1F5FE"-->
-        <!--            app:cardCornerRadius="10dp">-->
-
-        <!--            <LinearLayout-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-
-        <!--                android:layout_gravity="center_horizontal"-->
-        <!--                android:layout_marginTop="20dp"-->
-        <!--                android:orientation="horizontal"-->
-        <!--                android:padding="10dp">-->
-
-        <!--                <TextView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:fontFamily="@font/cagliostro"-->
-
-        <!--                    android:text="Total Bets Won:"-->
-        <!--                    android:textColor="#2962FF"-->
-        <!--                    android:textStyle="bold" />-->
-
-        <!--                <TextView-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:fontFamily="@bauer"-->
-        <!--                    android:text=" 500"-->
-        <!--                    android:textColor="#004D40"-->
-        <!--                    android:textStyle="bold" />-->
-
-        <!--            </LinearLayout>-->
-        <!--        </androidx.cardview.widget.CardView>&ndash;&gt;-->
-
-
+            android:layout_height="match_parent"
+            android:background="@drawable/home_upper" />
     </RelativeLayout>
 
 
-</FrameLayout>
+    <Button
+        android:id="@+id/signOut"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_power_settings_new_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="-10dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/final_baxter"
+        app:layout_constraintBottom_toTopOf="@+id/guideline29"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline28" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rl"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="-10dp"
+        android:layout_marginTop="-10dp"
+        android:layout_marginRight="-10dp"
+        android:layout_marginBottom="-10dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline30"
+        app:layout_constraintEnd_toEndOf="@id/guideline32"
+        app:layout_constraintStart_toStartOf="@id/guideline31"
+        app:layout_constraintTop_toTopOf="@+id/guideline29">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/name_plate" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Name"
+            android:textColor="#ffffff"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline33"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline38" />
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="Wallet Balance:"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toTopOf="@+id/guideline35"
+            app:layout_constraintEnd_toStartOf="@+id/guideline37"
+            app:layout_constraintHorizontal_bias="0.208"
+            app:layout_constraintStart_toStartOf="@+id/guideline36"
+            app:layout_constraintTop_toTopOf="@+id/guideline34" />
+
+        <TextView
+            android:id="@+id/balance"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/guideline35"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="@+id/guideline37"
+            app:layout_constraintTop_toTopOf="@+id/guideline34" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.35" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.40" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.60" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/trending_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline30" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.125" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

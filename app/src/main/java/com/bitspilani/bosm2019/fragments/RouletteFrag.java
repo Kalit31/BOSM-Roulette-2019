@@ -1,6 +1,7 @@
 package com.bitspilani.bosm2019.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -77,7 +78,7 @@ public class RouletteFrag extends Fragment {
     private static final Random RANDOM = new Random();
     private int degree = 0, degreeOld = 0;
     private static final float HALF_SECTOR = 360f / 37f / 2f;
-    SwipeGestureListener gestureListener;
+ //   SwipeGestureListener gestureListener;
 
 
     public RouletteFrag() {
@@ -89,6 +90,7 @@ public class RouletteFrag extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -97,8 +99,19 @@ public class RouletteFrag extends Fragment {
         mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
         wheel = view.findViewById(R.id.wheel);
         ButterKnife.bind((Activity) getContext());
-        gestureListener = new SwipeGestureListener(getActivity());
-        wheel.setOnTouchListener(gestureListener);
+     //   gestureListener = new SwipeGestureListener(getActivity());
+
+
+
+        wheel.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    spin(view);
+                    wheel.setEnabled(false);
+                    return true;
+                }
+            });
+
         mAuth = FirebaseAuth.getInstance();
 
         return view;
@@ -116,9 +129,11 @@ public class RouletteFrag extends Fragment {
     private void updateButtons() {
         if (mTimerRunning) {
             wheel.setClickable(false);
+            wheel.setEnabled(false);
         } else {
             mTimeLeftInMillis = START_TIME_IN_MILLIS;
             wheel.setClickable(true);
+            wheel.setEnabled(true);
         }
     }
 
@@ -147,11 +162,13 @@ public class RouletteFrag extends Fragment {
     public void spin(View v) {
         wheel.setEnabled(false);
         if (mTimerRunning) {
-            gestureListener.gDetector=null;
+           // gestureListener.gDetector=null;
             wheel.setClickable(false);
+            wheel.setEnabled(false);
         } else {
             wheel.setClickable(true);
-            gestureListener.gDetector =new GestureDetector(getContext(),gestureListener);
+            wheel.setEnabled(true);
+           // gestureListener.gDetector =new GestureDetector(getContext(),gestureListener);
             startTimer();
         }
 
@@ -177,37 +194,8 @@ public class RouletteFrag extends Fragment {
         degreeOld = degree % 360;
         // we calculate random angle for rotation of our wheel
         degree = RANDOM.nextInt(360) + 720;
-        // rotation effect on the center of the wheel
-//        if(count>=4){
-//            RotateAnimation rotateAnim = new RotateAnimation(degreeOld, 720,
-//            RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-//            rotateAnim.setDuration(3600);
-//            rotateAnim.setFillAfter(true);
-//            rotateAnim.setInterpolator(new DecelerateInterpolator());
-//            rotateAnim.setAnimationListener(new Animation.AnimationListener() {
-//                @Override
-//                public void onAnimationStart(Animation animation) {
-//                    // we empty the result text view when the animation start
-//                }
-//
-//                @Override
-//                public void onAnimationEnd(Animation animation) {
-//                    // we display the correct sector pointed by the triangle at the end of the rotate animation
-//                    total=total+100;
-//                    count=0;
-//                }
-//
-//                @Override
-//                public void onAnimationRepeat(Animation animation) {
-//
-//                }
-//            });
-//
-//            // we start the animation
-//            wheel.startAnimation(rotateAnim);
-//        }
-        if (1 == 1) {
-            RotateAnimation rotateAnim = new RotateAnimation(degreeOld, degree,
+
+        RotateAnimation rotateAnim = new RotateAnimation(degreeOld, degree,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
             rotateAnim.setDuration(3600);
             rotateAnim.setFillAfter(true);
@@ -215,30 +203,13 @@ public class RouletteFrag extends Fragment {
             rotateAnim.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
-                    // we empty the result text view when the animation start
+
                 }
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
 
-                    // we display the correct sector pointed by the triangle at the end of the rotate animation
-//                    if(getSector(360 - (degree % 360)).charAt(2)==' ') {
-//                          total = total + Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 2));
-//                            count=0;
-//
-//                    }
-//                    else if(getSector(360 - (degree % 360)).charAt(1)==' ') {
-//                           total=total+Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 1));
-//                            count=0;
-//
-//                    }
-////                    else
-//                    {
-//                        total=total+2000;
-//                        count=0;
-//                    }
-
-                        total = total + Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 3));
+                    total = total + Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 3));
 
                     db.collection("users").whereEqualTo("email", mAuth.getCurrentUser().getEmail()).get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -269,9 +240,8 @@ public class RouletteFrag extends Fragment {
                 }
             });
 
-            // we start the animation
             wheel.startAnimation(rotateAnim);
-        }
+
     }
 
 
@@ -324,70 +294,17 @@ public class RouletteFrag extends Fragment {
         String text = null;
 
         do {
-            // start and end of each sector on the wheel
             float start = HALF_SECTOR * (i * 2 + 1);
             float end = HALF_SECTOR * (i * 2 + 3);
 
             if (degrees >= start && degrees < end) {
-                // degrees is in [start;end[
-                // so text is equals to sectors[i];
-                text = sectors[i];
+               text = sectors[i];
             }
             i++;
         } while (text == null && i < sectors.length);
 
         return text;
     }
-
-    class SwipeGestureListener extends GestureDetector.SimpleOnGestureListener implements
-            View.OnTouchListener {
-        Context context;
-        GestureDetector gDetector;
-        static final int SWIPE_MIN_DISTANCE = 120;
-        static final int SWIPE_MAX_OFF_PATH = 250;
-        static final int SWIPE_THRESHOLD_VELOCITY = 200;
-
-        public SwipeGestureListener() {
-            super();
-        }
-
-        public SwipeGestureListener(Context context) {
-            this(context, null);
-        }
-
-        public SwipeGestureListener(Context context, GestureDetector gDetector) {
-
-            if (gDetector == null)
-                gDetector = new GestureDetector(context, this);
-
-            this.context = context;
-            this.gDetector = gDetector;
-        }
-
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-                               float velocityY) {
-
-            Toast.makeText(getContext(), "Hello", Toast.LENGTH_SHORT).show();
-            spin(getView());
-            return super.onFling(e1, e2, velocityX, velocityY);
-
-        }
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            spin(getView());
-            // Toast.makeText(getContext(),"Hello",Toast.LENGTH_SHORT).show();
-            return gDetector.onTouchEvent(event);
-        }
-
-        public GestureDetector getDetector() {
-            return gDetector;
-        }
-
-    }
-
-
 }
 
 

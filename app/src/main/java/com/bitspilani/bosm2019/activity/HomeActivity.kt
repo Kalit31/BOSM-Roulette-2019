@@ -32,7 +32,7 @@ class HomeActivity : AppCompatActivity() {
         val bottomNavigation:MeowBottomNavigation = findViewById(R.id.bottom_nav)
         bottomNavigation.add(MeowBottomNavigation.Model(1,R.drawable.ic_home))
         bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.ic_account_balance_wallet_black_24dp))
-        bottomNavigation.add(MeowBottomNavigation.Model(3, R.drawable.ic_coins))
+        bottomNavigation.add(MeowBottomNavigation.Model(3, R.drawable.ic_my_bets_1_svg))
         bottomNavigation.add(MeowBottomNavigation.Model(4, R.drawable.ic_roulette))
         bottomNavigation.add(MeowBottomNavigation.Model(5, R.drawable.ic_leaderboard))
         bottomNavigation.add(MeowBottomNavigation.Model(6, R.drawable.ic_more))
@@ -70,22 +70,5 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigation.setOnClickMenuListener {        }
 
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .build()
-        //  googleSignInClient = GoogleSignIn.getClient(this, gso)
-        val mAuth = FirebaseAuth.getInstance()
-        //  Button button=findViewById(R.id.button);
-        //   TextView textView=findViewById(R.id.textView4);
-        //  textView.setText(mAuth.getCurrentUser().getEmail());
-        /*        button.setOnClickListener(new  View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
-            }
-        });*/
     }
 }

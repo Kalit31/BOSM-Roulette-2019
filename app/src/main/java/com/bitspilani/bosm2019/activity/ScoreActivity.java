@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,6 +26,13 @@ public class ScoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_score);
         tV_score = findViewById(R.id.score);
         close = findViewById(R.id.close_button);
+        try{
+            Typeface font = Typeface.createFromAsset(getAssets(),"fonts/helvetica.ttf");
+            tV_score.setTypeface(font);
+        }catch (Exception e)
+        {
+            Log.d("test",e.toString());
+        }
 
 
             DisplayMetrics dm = new DisplayMetrics();

@@ -107,8 +107,7 @@ public class Home extends Fragment{
         ArrayList<Fixture> fixtures=new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
         String currentTime = sdf.format(new Date());
-        Date dt = Calendar.getInstance().getTime();
-        Log.d("mytime",currentTime.toString());
+         Log.d("mytime",currentTime.toString());
         try {
             d1 = sdf.parse(currentTime);
         } catch (ParseException e) {

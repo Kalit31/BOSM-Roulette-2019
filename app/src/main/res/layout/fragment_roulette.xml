@@ -12,6 +12,18 @@
         android:background="@android:color/transparent">
 
         <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignStart="@+id/wheel"
+            android:layout_alignEnd="@+id/wheel"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="86dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="85dp"
+            android:src="@drawable/final_baxter" />
+
+        <ImageView
             android:id="@+id/wheel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,22 +39,20 @@
             android:id="@+id/text_view_countdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/wheel"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:text="TextView" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="103dp"
-            android:layout_marginTop="13dp"
-            android:src="@drawable/final_baxter" />
+        <TextView
+            android:id="@+id/tV_feature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:layout_below="@id/text_view_countdown"
+            android:text="TextView" />
 
     </RelativeLayout>
 </FrameLayout>

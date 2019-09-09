@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -36,6 +37,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -50,11 +54,11 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class RouletteFrag extends Fragment {
     private static final String[] sectors = {"100", "550",
-            "100", "200", "500", "150", "450", "125", "250",
-            "100", "200", "200", "150", "500", "125", "250",
-            "100", "200", "300", "150", "100", "125",
-            "100", "200", "100", "150", "450", "125",
-            "100", "200", "350", "150", "750", "125",
+            "extra", "200", "500", "150", "450", "loss", "250",
+            "100", "extra", "200", "150", "500", "125", "250",
+            "100", "200", "300", "150", "extra", "125",
+            "100", "200", "100", "150", "450", "loss",
+            "loss", "200", "350", "400", "750", "125",
             "100", "200", "150"
     };
     int total = 0;
@@ -70,15 +74,13 @@ public class RouletteFrag extends Fragment {
     private TextView mTextViewCountDown;
     private double wallet;
     private CountDownTimer mCountDownTimer;
-
     private boolean mTimerRunning;
-
     private long mTimeLeftInMillis;
     private long mEndTime;
     private static final Random RANDOM = new Random();
     private int degree = 0, degreeOld = 0;
     private static final float HALF_SECTOR = 360f / 37f / 2f;
- //   SwipeGestureListener gestureListener;
+    private TextView featureInfo;
 
 
     public RouletteFrag() {
@@ -99,20 +101,26 @@ public class RouletteFrag extends Fragment {
         mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
         wheel = view.findViewById(R.id.wheel);
         ButterKnife.bind((Activity) getContext());
-     //   gestureListener = new SwipeGestureListener(getActivity());
-
-
+        featureInfo = view.findViewById(R.id.tV_feature);
 
         wheel.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    spin(view);
-                    wheel.setEnabled(false);
-                    return true;
-                }
-            });
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                spin(view);
+                wheel.setEnabled(false);
+                return true;
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getCurrentUser().getUid();
+
+        db.collection("users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+            }
+        });
 
         return view;
     }
@@ -162,13 +170,12 @@ public class RouletteFrag extends Fragment {
     public void spin(View v) {
         wheel.setEnabled(false);
         if (mTimerRunning) {
-           // gestureListener.gDetector=null;
+            // gestureListener.gDetector=null;
             wheel.setClickable(false);
             wheel.setEnabled(false);
         } else {
             wheel.setClickable(true);
             wheel.setEnabled(true);
-           // gestureListener.gDetector =new GestureDetector(getContext(),gestureListener);
             startTimer();
         }
 
@@ -196,21 +203,44 @@ public class RouletteFrag extends Fragment {
         degree = RANDOM.nextInt(360) + 720;
 
         RotateAnimation rotateAnim = new RotateAnimation(degreeOld, degree,
-                    RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
-            rotateAnim.setDuration(3600);
-            rotateAnim.setFillAfter(true);
-            rotateAnim.setInterpolator(new DecelerateInterpolator());
-            rotateAnim.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnim.setDuration(3600);
+        rotateAnim.setFillAfter(true);
+        rotateAnim.setInterpolator(new DecelerateInterpolator());
+        rotateAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
 
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(new Date());
+                calendar.add(Calendar.HOUR_OF_DAY, 3);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                String currentTime = sdf.format(calendar.getTime());
+                Log.d("mytime",currentTime);
+
+
+                if (getSector(360 - (degree % 360)).charAt(0) == 'e') {
+                    Map<String,Object> bonusMap = new HashMap<>();
+                    bonusMap.put("bonus",true);
+                    bonusMap.put("bonusTime",currentTime);
+                    db.collection("users").document(userId).set(bonusMap,SetOptions.merge());
+                    featureInfo.setText("Bonus Activated for 3 hours!!");
                 }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-
-                    total = total + Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 3));
-
+                else if(getSector(360 - (degree % 360)).charAt(0) == 'l'){
+                    Map<String,Object> lossMap = new HashMap<>();
+                    lossMap.put("loss",true);
+                    lossMap.put("lossTime",currentTime);
+                    db.collection("users").document(userId).set(lossMap,SetOptions.merge());
+                    featureInfo.setText("Loss Forgiveness activated for 3 hours !!");
+                }
+                else {
+                    total = Integer.parseInt(getSector(360 - (degree % 360)).substring(0, 3));
                     db.collection("users").whereEqualTo("email", mAuth.getCurrentUser().getEmail()).get()
                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
@@ -234,13 +264,15 @@ public class RouletteFrag extends Fragment {
                     startActivity(scoreIntent);
                 }
 
-                @Override
-                public void onAnimationRepeat(Animation animation) {
+            }
 
-                }
-            });
+            @Override
+            public void onAnimationRepeat(Animation animation) {
 
-            wheel.startAnimation(rotateAnim);
+            }
+        });
+
+        wheel.startAnimation(rotateAnim);
 
     }
 
@@ -298,7 +330,7 @@ public class RouletteFrag extends Fragment {
             float end = HALF_SECTOR * (i * 2 + 3);
 
             if (degrees >= start && degrees < end) {
-               text = sectors[i];
+                text = sectors[i];
             }
             i++;
         } while (text == null && i < sectors.length);

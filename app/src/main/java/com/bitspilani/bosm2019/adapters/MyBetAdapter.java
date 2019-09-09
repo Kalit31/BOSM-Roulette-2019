@@ -72,7 +72,7 @@ public class MyBetAdapter extends RecyclerView.Adapter<MyBetAdapter.ViewHolder>
         }
         if(items.get(position).isUpdate()){
             if(items.get(position).getBettedOn() == items.get(position).getResult()){
-                holder.betAmount.setBackground(context.getDrawable(R.drawable.ic_my_bets_block_green));
+                holder.betAmount.setBackground(context.getDrawable(R.drawable.brown_block));
             }else{
                 holder.betAmount.setBackground(context.getDrawable(R.drawable.ic_my_bets_block_red));
             }

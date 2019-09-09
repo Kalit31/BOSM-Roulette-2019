@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.WalletFrag">
+    tools:context=".fragments.BlankFragment">
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -71,19 +71,24 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/name_plate" />
+            android:background="@drawable/name_plate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/username"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:padding="8dp"
             android:text="Name"
             android:textColor="#ffffff"
-            android:textSize="26sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline33"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline39"
+            app:layout_constraintStart_toStartOf="@+id/guideline36"
             app:layout_constraintTop_toTopOf="@+id/guideline38" />
 
 
@@ -91,12 +96,13 @@
             android:id="@+id/textView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:gravity="center"
             android:text="Wallet Balance:"
             android:textColor="#ffffff"
             app:layout_constraintBottom_toTopOf="@+id/guideline35"
-            app:layout_constraintEnd_toStartOf="@+id/guideline37"
-            app:layout_constraintHorizontal_bias="0.208"
+            app:layout_constraintEnd_toStartOf="@+id/guideline39"
             app:layout_constraintStart_toStartOf="@+id/guideline36"
             app:layout_constraintTop_toTopOf="@+id/guideline34" />
 
@@ -104,12 +110,14 @@
             android:id="@+id/balance"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:text=""
             android:gravity="center"
+            android:textSize="20sp"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/guideline35"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
-            app:layout_constraintStart_toStartOf="@+id/guideline37"
-            app:layout_constraintTop_toTopOf="@+id/guideline34" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline40"
+            app:layout_constraintEnd_toStartOf="@+id/guideline39"
+            app:layout_constraintStart_toStartOf="@+id/guideline36"
+            app:layout_constraintTop_toTopOf="@+id/guideline35" />
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -152,7 +160,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1"/>
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline40"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.85" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,9 +1,7 @@
-package com.bitspilani.bosm2019.activity;
+package com.bitspilani.bosmroulette.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -12,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.bitspilani.bosm2019.R;
+import com.bitspilani.bosmroulette.R;
 
 public class ScoreActivity extends AppCompatActivity {
 

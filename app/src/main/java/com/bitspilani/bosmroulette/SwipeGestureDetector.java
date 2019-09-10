@@ -1,4 +1,4 @@
-package com.bitspilani.bosm2019;
+package com.bitspilani.bosmroulette;
 
 import android.content.Context;
 import android.view.GestureDetector;

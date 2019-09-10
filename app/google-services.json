@@ -101,6 +101,66 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601369924262:android:56090086ee5049f69bda67",
+        "android_client_info": {
+          "package_name": "com.bitspilani.bosmroulette"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601369924262-gi8vl837ttaulfjnot2elc2hn6j7rncm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bitspilani.bosmroulette",
+            "certificate_hash": "3ec13ce94dc184815d2d0ae99fb86ce542a52c2e"
+          }
+        },
+        {
+          "client_id": "601369924262-7hltfi514lc077p8ndblmg46ka2crfe3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bitspilani.bosmroulette",
+            "certificate_hash": "1e6a7cb334d12bc77b63a6676d7b74b0a355f120"
+          }
+        },
+        {
+          "client_id": "601369924262-v4l6r3b09k2hrnetv87ea52lnt7402ab.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bitspilani.bosmroulette",
+            "certificate_hash": "8d59ee7781ff7d2e3729a3273054549b5b8d4179"
+          }
+        },
+        {
+          "client_id": "601369924262-kdnt3tfodl37ek6okh0n901sl1vuvbja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuyDTgYQVoLg11-zTnES6wFtU7RaBdUV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "601369924262-kdnt3tfodl37ek6okh0n901sl1vuvbja.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "601369924262-lpefgjn7s20b2dd3al3mh65ef1qbcvhm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "c"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

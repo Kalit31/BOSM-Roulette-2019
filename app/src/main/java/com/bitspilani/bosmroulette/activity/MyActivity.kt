@@ -1,15 +1,14 @@
-package com.bitspilani.bosm2019.activity
+package com.bitspilani.bosmroulette.activity
 
 import android.app.ProgressDialog
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
-import com.bitspilani.bosm2019.R
-import com.bitspilani.bosm2019.models.UserBetModel
+import com.bitspilani.bosmroulette.R
+import com.bitspilani.bosmroulette.models.UserBetModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient

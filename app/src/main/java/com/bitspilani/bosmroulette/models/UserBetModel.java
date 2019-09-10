@@ -1,4 +1,4 @@
-package com.bitspilani.bosm2019.models;
+package com.bitspilani.bosmroulette.models;
 
 public class UserBetModel
 {

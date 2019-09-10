@@ -1,4 +1,4 @@
-package com.bitspilani.bosm2019.fragments
+package com.bitspilani.bosmroulette.fragments
 
 
 import android.content.Intent
@@ -12,8 +12,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 
-import com.bitspilani.bosm2019.R
-import com.bitspilani.bosm2019.activity.MyActivity
+import com.bitspilani.bosmroulette.R
+import com.bitspilani.bosmroulette.activity.MyActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

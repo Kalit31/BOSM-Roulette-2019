@@ -1,23 +1,16 @@
-package com.bitspilani.bosm2019.adapters;
+package com.bitspilani.bosmroulette.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bitspilani.bosm2019.R;
-import com.bitspilani.bosm2019.models.MyBetsModel;
-import com.bitspilani.bosm2019.models.UserBetModel;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.bitspilani.bosmroulette.R;
+import com.bitspilani.bosmroulette.models.UserBetModel;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;

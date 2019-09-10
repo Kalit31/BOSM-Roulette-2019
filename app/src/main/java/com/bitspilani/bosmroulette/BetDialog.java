@@ -1,24 +1,20 @@
-package com.bitspilani.bosm2019;
+package com.bitspilani.bosmroulette;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 
-import com.bitspilani.bosm2019.R;
-import com.bitspilani.bosm2019.models.Fixture;
-import com.bitspilani.bosm2019.models.PlaceBetModel;
+import com.bitspilani.bosmroulette.R;
+import com.bitspilani.bosmroulette.models.Fixture;
+import com.bitspilani.bosmroulette.models.PlaceBetModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;

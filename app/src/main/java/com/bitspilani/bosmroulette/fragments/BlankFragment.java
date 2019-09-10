@@ -1,8 +1,6 @@
-package com.bitspilani.bosm2019.fragments;
+package com.bitspilani.bosmroulette.fragments;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,10 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import com.bitspilani.bosm2019.R;
-import com.bitspilani.bosm2019.activity.LoginActivity;
-import com.bitspilani.bosm2019.adapters.TrendingAdapter;
-import com.bitspilani.bosm2019.models.Fixture;
+import com.bitspilani.bosmroulette.R;
+import com.bitspilani.bosmroulette.activity.LoginActivity;
+import com.bitspilani.bosmroulette.adapters.TrendingAdapter;
+import com.bitspilani.bosmroulette.models.Fixture;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -32,9 +30,6 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
 
 
 public class BlankFragment extends Fragment {

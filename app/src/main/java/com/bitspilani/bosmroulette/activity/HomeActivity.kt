@@ -1,14 +1,12 @@
-package com.bitspilani.bosm2019.activity
+package com.bitspilani.bosmroulette.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
-import com.bitspilani.bosm2019.R
-import com.bitspilani.bosm2019.fragments.*
+import com.bitspilani.bosmroulette.R
+import com.bitspilani.bosmroulette.fragments.*
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
 import java.util.ArrayList
 
 class HomeActivity : AppCompatActivity() {

@@ -1,7 +1,5 @@
-package com.bitspilani.bosm2019.fragments;
+package com.bitspilani.bosmroulette.fragments;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bitspilani.bosm2019.adapters.LeaderBoardAdapter;
-import com.bitspilani.bosm2019.R;
-import com.bitspilani.bosm2019.models.RankClass;
+import com.bitspilani.bosmroulette.adapters.LeaderBoardAdapter;
+import com.bitspilani.bosmroulette.R;
+import com.bitspilani.bosmroulette.models.RankClass;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

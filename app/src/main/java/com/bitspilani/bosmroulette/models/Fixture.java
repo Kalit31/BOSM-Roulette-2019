@@ -1,4 +1,4 @@
-package com.bitspilani.bosm2019.models;
+package com.bitspilani.bosmroulette.models;
 
 public class Fixture {
     private String college1,college2;

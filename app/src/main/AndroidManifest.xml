@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.bitspilani.bosm2019">
+    package="com.bitspilani.bosmroulette">
 
     <application
         android:allowBackup="true"
@@ -11,15 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/BOSMAppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.ScoreActivity"
+        <activity android:name="com.bitspilani.bosmroulette.activity.ScoreActivity"
             android:theme="@style/AppTheme.CustomTheme"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.HomeActivity"
+        <activity android:name="com.bitspilani.bosmroulette.activity.HomeActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.MyActivity"
+        <activity android:name="com.bitspilani.bosmroulette.activity.MyActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.LoginActivity"
+        <activity android:name="com.bitspilani.bosmroulette.activity.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +29,7 @@
         </activity>
 
        <!-- <activity android:name=".activity.MyActivity"/>-->
->>>>>>> Stashed changes
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -1,4 +1,4 @@
-package com.bitspilani.bosm2019.adapters;
+package com.bitspilani.bosmroulette.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bitspilani.bosm2019.R;
-import com.bitspilani.bosm2019.models.Fixture;
+import com.bitspilani.bosmroulette.R;
+import com.bitspilani.bosmroulette.models.Fixture;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 

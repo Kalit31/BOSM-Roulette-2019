@@ -1,4 +1,4 @@
-package com.bitspilani.bosm2019.adapters;
+package com.bitspilani.bosmroulette.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bitspilani.bosm2019.R;
-import com.bitspilani.bosm2019.models.RankClass;
+import com.bitspilani.bosmroulette.R;
+import com.bitspilani.bosmroulette.models.RankClass;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.225" />
+        app:layout_constraintGuide_percent="0.275   " />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,19 +25,21 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="-10dp"
             android:background="@drawable/home_upper" />
     </RelativeLayout>
 
 
     <Button
         android:id="@+id/signOut"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:background="@android:color/transparent"
         android:drawableTop="@drawable/ic_power_settings_new_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline32"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -46,8 +47,8 @@
         android:id="@+id/imageView5"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="-10dp"
         android:layout_centerVertical="true"
+        android:layout_marginBottom="-10dp"
         android:src="@drawable/final_baxter"
         app:layout_constraintBottom_toTopOf="@+id/guideline29"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +100,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
-            android:text="Wallet Balance:"
+            android:textSize="15sp"
+            android:text="Wallet Balance :"
             android:textColor="#ffffff"
             app:layout_constraintBottom_toTopOf="@+id/guideline35"
             app:layout_constraintEnd_toStartOf="@+id/guideline39"
@@ -110,10 +112,10 @@
             android:id="@+id/balance"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text=""
             android:gravity="center"
-            android:textSize="20sp"
+            android:text=""
             android:textColor="@color/white"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline40"
             app:layout_constraintEnd_toStartOf="@+id/guideline39"
             app:layout_constraintStart_toStartOf="@+id/guideline36"
@@ -177,15 +179,19 @@
             app:layout_constraintGuide_percent="0.85" />
 
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trending_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline30" />
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border_bet"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline28"
@@ -213,14 +219,55 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.10" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85"/>
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.40" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.48" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="Trending matches"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:background="@drawable/border_bet"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

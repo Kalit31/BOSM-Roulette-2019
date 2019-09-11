@@ -7,13 +7,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bitspilani.bosmroulette.LinePageIndicatorDecoration;
 import com.bitspilani.bosmroulette.R;
 import com.bitspilani.bosmroulette.activity.LoginActivity;
 import com.bitspilani.bosmroulette.adapters.TrendingAdapter;
@@ -78,11 +83,11 @@ public class BlankFragment extends Fragment {
         balance = v.findViewById(R.id.balance);
         name = v.findViewById(R.id.username);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .requestIdToken(getString(R.string.default_web_client_id))
+//                .build();
+//        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
         String userId = mAuth.getCurrentUser().getUid();
         db.collection("users").document(userId).addSnapshotListener(
@@ -125,7 +130,10 @@ public class BlankFragment extends Fragment {
                 .setQuery(query,Fixture.class)
                 .build();
         adapter = new TrendingAdapter(options,getContext());
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false));
+        SnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(rv);
+        rv.addItemDecoration(new LinePageIndicatorDecoration());
         rv.setHasFixedSize(true);
         rv.setAdapter(adapter);
     }

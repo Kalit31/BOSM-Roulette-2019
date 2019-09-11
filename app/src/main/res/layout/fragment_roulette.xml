@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".fragments.RouletteFrag">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent">
@@ -15,46 +16,53 @@
             android:id="@+id/imageView2"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_alignStart="@+id/wheel"
-            android:layout_alignEnd="@+id/wheel"
 
             android:layout_marginStart="86dp"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="85dp"
-            android:src="@drawable/final_baxter" />
+            android:src="@drawable/final_baxter"
+            app:layout_constraintEnd_toEndOf="@+id/wheel"
+            app:layout_constraintStart_toStartOf="@+id/wheel"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/wheel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/wheel" />
 
 
         <ImageView
             android:id="@+id/flash"
-            android:visibility="invisible"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_alignParentBottom="true"
             android:layout_marginLeft="20dp"
             android:layout_marginBottom="30dp"
-            android:src="@drawable/flash" />
+            android:src="@drawable/flash"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
 
             android:id="@+id/heart"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="30dp"
-            android:src="@drawable/heart" />
+            android:src="@drawable/heart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
         <!--        <TextView-->
         <!--            android:id="@+id/tV_feature"-->
         <!--            android:layout_width="wrap_content"-->
@@ -67,10 +75,18 @@
             android:id="@+id/text_view_countdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/wheel"
-            android:layout_centerHorizontal="true"
             android:text="TextView"
             android:textColor="@color/white"
-            android:textSize="20sp" />
-    </RelativeLayout>
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wheel" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

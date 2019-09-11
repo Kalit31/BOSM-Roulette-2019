@@ -26,6 +26,10 @@ import com.bitspilani.bosmroulette.models.Fixture;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.Wave;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+import com.bitspilani.bosmroulette.R;
+import com.bitspilani.bosmroulette.adapters.CustomAdapter;
+import com.bitspilani.bosmroulette.models.Fixture;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;

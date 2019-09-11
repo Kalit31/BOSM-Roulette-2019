@@ -19,7 +19,6 @@ import android.widget.ProgressBar;
 import com.bitspilani.bosmroulette.R;
 import com.bitspilani.bosmroulette.adapters.MyBetAdapter;
 import com.bitspilani.bosmroulette.models.UserBetModel;
-
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.Wave;
 import com.google.android.gms.tasks.OnCompleteListener;

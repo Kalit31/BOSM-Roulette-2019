@@ -36,9 +36,9 @@
             android:layout_marginBottom="-20dp"
             android:background="@drawable/upper_bar"
             android:gravity="center"
-            android:text="LeaderBoard"
+            android:text="LEADERBOARD"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="25sp" />
 
     </RelativeLayout>
 
@@ -129,8 +129,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
          />
-
-
 
     </RelativeLayout>
 

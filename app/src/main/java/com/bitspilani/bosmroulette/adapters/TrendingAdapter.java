@@ -27,7 +27,7 @@ public class TrendingAdapter extends FirestoreRecyclerAdapter<Fixture,TrendingAd
 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View view = inflater.inflate(R.layout.leaderboard_item_layout,viewGroup,false);
+        View view = inflater.inflate(R.layout.trending_layout,viewGroup,false);
         ViewHolder vh = new ViewHolder(view);
         return vh;
     }

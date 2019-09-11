@@ -57,12 +57,16 @@ public class MyBetAdapter extends RecyclerView.Adapter<MyBetAdapter.ViewHolder>
         holder.betAmount.setText(strk.nextToken());
         holder.game.setText(items.get(position).getGame());
         if(!((items.get(position).getScore1() == -1) && (items.get(position).getScore2()==-1))) {
+            holder.score1.setVisibility(View.VISIBLE);
+            holder.score2.setVisibility(View.VISIBLE);
             holder.score1.setText(String.valueOf(items.get(position).getScore1()));
             holder.score2.setText(String.valueOf(items.get(position).getScore2()));
         }
         else{
-            holder.score1.setText("");
-            holder.score2.setText("");
+            //holder.score1.setText("");
+            //holder.score2.setText("");
+            holder.score1.setVisibility(View.INVISIBLE);
+            holder.score2.setVisibility(View.INVISIBLE);
         }
         if(items.get(position).isUpdate()){
             if(items.get(position).getBettedOn() == items.get(position).getResult()){

@@ -1,4 +1,4 @@
-package com.bitspilani.bosmroulette;
+package com.bitspilani.bosmroulette.services;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +11,9 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
+import com.bitspilani.bosmroulette.R;
 import com.bitspilani.bosmroulette.activity.LoginActivity;
+import com.bitspilani.bosmroulette.activity.WelcomeActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -31,8 +33,8 @@ public class SplashScreen extends AppCompatActivity {
 
         @Override
         public void onAnimationEnd(Animation animation) {
-startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-finish();
+            startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
+            finish();
         }
 
         @Override

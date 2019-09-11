@@ -1,16 +1,14 @@
-package com.bitspilani.bosmroulette.activity
+package com.bitspilani.bosm2019.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.viewpager.widget.ViewPager
-import com.bitspilani.bosmroulette.R
-import com.bitspilani.bosmroulette.fragments.*
-import com.bitspilani.bosmroulette.models.ZoomOutSlideTransformer
+import com.bitspilani.bosm2019.R
+import com.bitspilani.bosm2019.fragments.*
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
 import java.util.ArrayList
 
 class HomeActivity : AppCompatActivity() {
@@ -24,7 +22,6 @@ class HomeActivity : AppCompatActivity() {
     private  val LEADERBOARD = 5
     private  val MORE = 6
     private var selectedFrag = 0
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,15 +60,14 @@ class HomeActivity : AppCompatActivity() {
             fragment = fragments[selectedFrag]
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment!!).commit()
             if(selectedFrag==3)
-                main!!.setBackgroundResource(R.drawable.roulette_bg)
+                main!!.setBackgroundResource(R.drawable.roulette_bg);
             else
-                main!!.setBackgroundResource(R.drawable.bg)
+                main!!.setBackgroundResource(R.drawable.bg);
         }
         if(selectedFrag==1)
-            main!!.setBackgroundResource(R.drawable.roulette_bg)
+            main!!.setBackgroundResource(R.drawable.roulette_bg);
 
         bottomNavigation.setOnClickMenuListener {        }
-
 
 
 

@@ -34,7 +34,7 @@ public class BetDialog extends Dialog implements View.OnClickListener {
     String userId;
     Fixture fixture;
     Context context;
-    TextView team1,team2,amt50,amt100,amt150,amt200;
+    TextView team1,team2,amt50,amt100,amt150,amt200,amt;
     Button placebet;
     int betAmount=0,flag=-1,amtflag;
       double  walletamount;
@@ -73,6 +73,7 @@ public class BetDialog extends Dialog implements View.OnClickListener {
         amt100=findViewById(R.id.amt100);
         amt150=findViewById(R.id.amt150);
         amt200=findViewById(R.id.amt200);
+        amt=findViewById(R.id.amt);
         team1.setText(fixture.getCollege1());
         team2.setText(fixture.getCollege2());
         team1.setOnClickListener(this);
@@ -82,7 +83,7 @@ public class BetDialog extends Dialog implements View.OnClickListener {
         amt100.setOnClickListener(this);
         amt150.setOnClickListener(this);
         amt200.setOnClickListener(this);
-
+        betAmount=0;
     }
 
     @Override
@@ -92,11 +93,15 @@ public class BetDialog extends Dialog implements View.OnClickListener {
                 flag=0;
                 team1.setBackgroundResource(R.drawable.amtselectedborder);
                 team2.setBackgroundResource(R.drawable.amtborder);
+                team1.setTextColor(Color.parseColor("#ffffff"));
+                team2.setTextColor(Color.parseColor("#000000"));
                 break;
             case R.id.team22:
                 flag=1;
                 team2.setBackgroundResource(R.drawable.amtselectedborder);
                 team1.setBackgroundResource(R.drawable.amtborder);
+                team2.setTextColor(Color.parseColor("#ffffff"));
+                team1.setTextColor(Color.parseColor("#000000"));
                 break;
 
             case R.id.place_bet:
@@ -112,54 +117,34 @@ public class BetDialog extends Dialog implements View.OnClickListener {
                     Toast.makeText(context,"Select a team",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.amt50:
-                amt50.setBackgroundResource(R.drawable.amtselectedborder);
-                amt50.setTextColor(Color.parseColor("#ffffff"));
-                amt100.setBackgroundResource(R.drawable.amtborder);
-                amt100.setTextColor(Color.parseColor("#000000"));
-                amt150.setBackgroundResource(R.drawable.amtborder);
-                amt150.setTextColor(Color.parseColor("#000000"));
-                amt200.setBackgroundResource(R.drawable.amtborder);
-                amt200.setTextColor(Color.parseColor("#000000"));
                 amtflag=1;
-                betAmount=50;
+                betAmount+=50;
+                amt.setText(String.valueOf(betAmount));
                 break;
 
             case R.id.amt100:
-                betAmount=100;
-                amt100.setBackgroundResource(R.drawable.amtselectedborder);
+                betAmount+=100;
+                /*amt100.setBackgroundResource(R.drawable.amtselectedborder);
                 amt100.setTextColor(Color.parseColor("#ffffff"));
                 amt50.setBackgroundResource(R.drawable.amtborder);
                 amt50.setTextColor(Color.parseColor("#000000"));
                 amt150.setBackgroundResource(R.drawable.amtborder);
                 amt150.setTextColor(Color.parseColor("#000000"));
                 amt200.setBackgroundResource(R.drawable.amtborder);
-                amt200.setTextColor(Color.parseColor("#000000"));
+                amt200.setTextColor(Color.parseColor("#000000"));*/
+                amt.setText(String.valueOf(betAmount));
                 amtflag=1;
                 break;
 
             case R.id.amt150:
-                betAmount=150;
-                amt150.setBackgroundResource(R.drawable.amtselectedborder);
-                amt150.setTextColor(Color.parseColor("#ffffff"));
-                amt50.setBackgroundResource(R.drawable.amtborder);
-                amt50.setTextColor(Color.parseColor("#000000"));
-                amt100.setBackgroundResource(R.drawable.amtborder);
-                amt100.setTextColor(Color.parseColor("#000000"));
-                amt200.setBackgroundResource(R.drawable.amtborder);
-                amt200.setTextColor(Color.parseColor("#000000"));
+                betAmount+=150;
+                amt.setText(String.valueOf(betAmount));
                 amtflag=1;
                 break;
 
             case R.id.amt200:
-                betAmount=200;
-                amt200.setTextColor(Color.parseColor("#ffffff"));
-                amt200.setBackgroundResource(R.drawable.amtselectedborder);
-                amt50.setBackgroundResource(R.drawable.amtborder);
-                amt50.setTextColor(Color.parseColor("#000000"));
-                amt150.setBackgroundResource(R.drawable.amtborder);
-                amt150.setTextColor(Color.parseColor("#000000"));
-                amt100.setBackgroundResource(R.drawable.amtborder);
-                amt100.setTextColor(Color.parseColor("#000000"));
+                betAmount+=200;
+                amt.setText(String.valueOf(betAmount));
                 amtflag=1;
                 break;
 

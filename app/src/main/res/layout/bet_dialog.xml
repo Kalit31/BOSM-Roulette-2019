@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@drawable/leaderboard_border"
-    android:layout_height="200dp">
+    android:background="@drawable/backgroundblock"
+    android:layout_height="250dp">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline20"
@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginLeft="8dp"
+            android:textColor="#000000"
             android:layout_weight="2"
             android:textSize="20sp"
             android:textStyle="italic"
@@ -46,6 +47,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="vs"
+            android:textSize="20sp"
             android:textColor="#000000"
             android:textStyle="bold" />
 
@@ -57,6 +59,7 @@
             android:layout_weight="2"
             android:textStyle="italic"
             android:textSize="20sp"
+            android:textColor="#000000"
             android:background="@drawable/amtborder"
             android:gravity="center"
             android:text="Team2" />
@@ -90,7 +93,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline20"
-        app:layout_constraintVertical_bias="0.272" />
+        app:layout_constraintVertical_bias="0.203" />
 
     <TextView
         android:id="@+id/amt100"
@@ -111,7 +114,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintStart_toEndOf="@+id/amt50"
         app:layout_constraintTop_toTopOf="@+id/guideline20"
-        app:layout_constraintVertical_bias="0.272" />
+        app:layout_constraintVertical_bias="0.203" />
 
     <TextView
         android:id="@+id/amt150"
@@ -132,7 +135,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintStart_toEndOf="@+id/amt100"
         app:layout_constraintTop_toTopOf="@+id/guideline20"
-        app:layout_constraintVertical_bias="0.272" />
+        app:layout_constraintVertical_bias="0.203" />
 
     <TextView
         android:id="@+id/amt200"
@@ -155,16 +158,34 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/amt150"
         app:layout_constraintTop_toTopOf="@+id/guideline20"
-        app:layout_constraintVertical_bias="0.272" />
+        app:layout_constraintVertical_bias="0.203" />
+
+    <TextView
+        android:id="@+id/amt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="#ffffff"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintVertical_bias="0.566" />
 
     <Button
         android:id="@+id/place_bet"
         android:layout_width="87dp"
         android:layout_height="50dp"
         android:layout_marginEnd="12dp"
-        android:background="@drawable/amtborder"
-        android:text="place bet"
-        android:textSize="14sp"
+        android:background="@drawable/placebet"
+        android:scaleX="1.3"
+        android:scaleY="1.5"
+        android:text="PLACE BET"
+        android:textColor="#ffffff"
+        android:gravity="center"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

@@ -1,4 +1,3 @@
-
 //package com.bitspilani.bosmroulette.activity;
 //
 //import androidx.appcompat.app.AppCompatActivity;
@@ -34,21 +33,3 @@
 //        return true;
 //    }
 //}
-
-package com.bitspilani.bosmroulette.activity;
-
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.bitspilani.bosmroulette.R;
-
-public class HPC extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hpc);
-    }
-}
-

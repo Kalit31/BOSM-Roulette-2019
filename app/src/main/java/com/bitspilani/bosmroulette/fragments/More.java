@@ -64,7 +64,7 @@ public class More extends Fragment {
         c3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //startActivity(new Intent(getActivity(), HPC.class));
             }
         });
 

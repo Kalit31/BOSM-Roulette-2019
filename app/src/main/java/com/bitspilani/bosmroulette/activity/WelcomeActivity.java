@@ -12,16 +12,22 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bitspilani.bosmroulette.R;
+import com.bitspilani.bosmroulette.services.CustomGifView;
 import com.bitspilani.bosmroulette.services.PrefManager;
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -31,7 +37,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private LinearLayout dotsLayout;
     private TextView[] dots;
     private int[] layouts;
-    private Button btnSkip, btnNext;
+    private Button btnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,18 +60,20 @@ public class WelcomeActivity extends AppCompatActivity {
             setContentView(R.layout.activity_welcome);
 
             viewPager = (ViewPager) findViewById(R.id.view_pager);
+
+        DepthTransformation depthTransformation = new DepthTransformation();
+            viewPager.setPageTransformer(true,depthTransformation);
             dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-            btnSkip = (Button) findViewById(R.id.btn_skip);
             btnNext = (Button) findViewById(R.id.btn_next);
 
 
             // layouts of all welcome sliders
             // add few more layouts if you want
             layouts = new int[]{
-                    R.layout.fragment_welcome,
-                    R.layout.fragment_welcome,
-                    R.layout.fragment_welcome,
-                    R.layout.fragment_welcome};
+                    R.layout.fragment_slider1,
+                    R.layout.fragment_slider2,
+                    R.layout.fragment_slider3,
+                    R.layout.fragment_slider4};
 
             // adding bottom dots
             addBottomDots(0);
@@ -77,12 +85,8 @@ public class WelcomeActivity extends AppCompatActivity {
             viewPager.setAdapter(myViewPagerAdapter);
             viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-            btnSkip.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    launchHomeScreen();
-                }
-            });
+
+
 
             btnNext.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -99,6 +103,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
             });
         }
+
 
         private void addBottomDots(int currentPage) {
             dots = new TextView[layouts.length];
@@ -140,11 +145,9 @@ public class WelcomeActivity extends AppCompatActivity {
                 if (position == layouts.length - 1) {
                     // last page. make button text to GOT IT
                     btnNext.setText("GOT IT");
-                    btnSkip.setVisibility(View.GONE);
                 } else {
                     // still pages are left
                     btnNext.setText("NEXT");
-                    btnSkip.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -206,6 +209,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 container.removeView(view);
             }
         }
+
+
     }
 
 

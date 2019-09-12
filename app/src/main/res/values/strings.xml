@@ -3,5 +3,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="Introduction"></string>
+    <string name="Introduction">BOSM Roulette is a virtual money betting app where you bet on teams participating in BOSM\'19 using BitsCoin.</string>
+    <string name="Odds">You can bet any amount your wallet permits.\n If you win, you earn back your BitsCoin with 25% extra plus a bonus. The lesser the relative bets on your team, the higher the bonus.\n If you lose, you only get 25% of your BitsCoin back.</string>
+    <string name="Bets">The My Bets tab displays the matches you\'ve bet on. A green status indicates a successful bet, a red status indicates a failed bet and an orange status indicates that the match is either ongoing or has ended in a draw. \nThe amount indicates the BitCoin received from a bet.</string>
+    <string name="wheel">Spin the Rouleete wheel every hour to win exciting rewards. You can track your standing on the Leaderboard. Exciting Prizes await the top rank holders.\n\nLet the gambling begin!</string>
 </resources>

@@ -286,10 +286,10 @@
     android:fontFamily="@font/oswald"
     android:gravity="center_horizontal"
     android:text="Trending Matches"
-    android:layout_marginLeft="30dp"
+    android:layout_marginLeft="5dp"
     android:layout_marginRight="20dp"
-    
-    android:drawableRight="@drawable/trending"
+
+
     android:textColor="@color/white"
     android:textSize="30sp"/>
 

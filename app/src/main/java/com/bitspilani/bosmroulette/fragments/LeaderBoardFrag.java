@@ -92,7 +92,7 @@ public class LeaderBoardFrag extends Fragment {
                                 if(rc.getId().equals(userId))
                                 {
                                     yourRank.setText(String.valueOf(rc.getRank()));
-                                    yourScore.setText(String.valueOf(rc.getWallet()));
+                                    yourScore.setText(String.valueOf(Math.round(rc.getWallet())));
                                 }
                            }
 

@@ -2,67 +2,134 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_leaderboard_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/constraint_leaderboard_item"
-    android:layout_margin="4dp"
-    android:background="@drawable/leaderboard_border">
-
+    android:layout_margin="20dp"
+    android:background="@drawable/trending_bg">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/guideline41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.17" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.66" />
-
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
 
     <TextView
-        android:id="@+id/player_rank"
-        android:layout_width="0dp"
+        android:id="@+id/sports"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:gravity="center"
-        android:text="Rank"
+        android:text="Cricket"
         android:textColor="#ffffff"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/circle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline41"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-
+        app:layout_constraintVertical_bias="0.13" />
 
     <TextView
-        android:id="@+id/player_name"
-        android:layout_width="0dp"
+        android:id="@+id/team1"
+        android:layout_width="130dp"
         android:layout_height="0dp"
+        android:background="@drawable/amtborder"
+        android:ellipsize="end"
         android:gravity="center"
-        android:text="Name"
-        android:textColor="#026606"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:maxLength="8"
+        android:maxLines="1"
+        android:padding="4dp"
+        android:text="BITS"
+        android:textColor="#3F7017"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline42"
+        app:layout_constraintEnd_toStartOf="@+id/vs"
+        app:layout_constraintTop_toTopOf="@+id/guideline41" />
 
     <TextView
-        android:id="@+id/player_score"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="Score"
-        android:textColor="#026606"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/vs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="VS"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline42"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline41"
+        app:layout_constraintVertical_bias="0.458" />
+
+    <TextView
+        android:id="@+id/team2"
+        android:layout_width="130dp"
+        android:layout_height="0dp"
+        android:background="@drawable/amtborder"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLength="8"
+        android:maxLines="1"
+        android:padding="4dp"
+        android:text="TITS"
+        android:textColor="#3F7017"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline42"
+        app:layout_constraintStart_toEndOf="@+id/vs"
+        app:layout_constraintTop_toTopOf="@+id/guideline41" />
+
+    <TextView
+        android:id="@+id/score1"
+        android:layout_width="130dp"
+        android:layout_height="0dp"
+       android:ellipsize="end"
+        android:gravity="center"
+        android:maxLength="8"
+        android:maxLines="1"
+        android:padding="4dp"
+        android:text="_"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
+        app:layout_constraintEnd_toStartOf="@+id/vs"
+        app:layout_constraintTop_toTopOf="@+id/guideline42" />
+
+    <TextView
+        android:id="@+id/score2"
+        android:layout_width="130dp"
+        android:layout_height="0dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLength="8"
+        android:maxLines="1"
+        android:padding="4dp"
+        android:text="_"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
+        app:layout_constraintStart_toEndOf="@+id/vs"
+        app:layout_constraintTop_toTopOf="@+id/guideline42" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline43"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.90" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

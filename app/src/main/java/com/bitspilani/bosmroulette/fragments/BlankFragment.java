@@ -1,10 +1,13 @@
 package com.bitspilani.bosmroulette.fragments;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -17,12 +20,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bitspilani.bosmroulette.LinePageIndicatorDecoration;
 import com.bitspilani.bosmroulette.R;
 import com.bitspilani.bosmroulette.activity.LoginActivity;
 import com.bitspilani.bosmroulette.adapters.TrendingAdapter;
 import com.bitspilani.bosmroulette.models.Fixture;
+import com.bitspilani.bosmroulette.models.TrendingModel;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -49,6 +54,7 @@ public class BlankFragment extends Fragment {
     private FirebaseAuth mAuth;
     private RecyclerView rv;
     private TrendingAdapter adapter;
+    private AlertDialog.Builder builder;
 
     public BlankFragment() {
         // Required empty public constructor
@@ -82,41 +88,54 @@ public class BlankFragment extends Fragment {
         signOut = v.findViewById(R.id.signOut);
         balance = v.findViewById(R.id.balance);
         name = v.findViewById(R.id.username);
+        builder = new AlertDialog.Builder(getContext());
 
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .requestIdToken(getString(R.string.default_web_client_id))
-//                .build();
-//        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
         String userId = mAuth.getCurrentUser().getUid();
         db.collection("users").document(userId).addSnapshotListener(
                 new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                        double wallet = Double.parseDouble(documentSnapshot.get("wallet").toString());
+                        double wallet = Math.round(Double.parseDouble(documentSnapshot.get("wallet").toString()));
                         balance.setText(String.valueOf(wallet));
                         name.setText(documentSnapshot.get("name").toString());
                     }
                 }
         );
-        db.collection("users").document(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot documentSnapshot = task.getResult();
-                balance.setText(documentSnapshot.get("wallet").toString());
-            }
-        });
-
         setUpRecyclerView();
+
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGoogleSignInClient.signOut();
-                mAuth.signOut();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-                getActivity().finish();
+                builder.setMessage("Do you want to Sign Out?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                mGoogleSignInClient.signOut();
+                                mAuth.signOut();
+                                startActivity(new Intent(getActivity(), LoginActivity.class));
+                                getActivity().finish();
+                                Toast.makeText(getContext(),"Signed Out",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //  Action for 'NO' Button
+                                dialog.cancel();
+                            }
+                        });
+                //Creating dialog box
+                AlertDialog alert = builder.create();
+                //Setting the title manually
+                alert.setTitle("Sign Out");
+                alert.show();
             }
         });
         return v;
@@ -126,8 +145,8 @@ public class BlankFragment extends Fragment {
 
     private void setUpRecyclerView() {
         Query query = db.collection("matches").orderBy("total", Query.Direction.DESCENDING).limit(5);
-        FirestoreRecyclerOptions<Fixture> options = new FirestoreRecyclerOptions.Builder<Fixture>()
-                .setQuery(query,Fixture.class)
+        FirestoreRecyclerOptions<TrendingModel> options = new FirestoreRecyclerOptions.Builder<TrendingModel>()
+                .setQuery(query,TrendingModel.class)
                 .build();
         adapter = new TrendingAdapter(options,getContext());
         rv.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));

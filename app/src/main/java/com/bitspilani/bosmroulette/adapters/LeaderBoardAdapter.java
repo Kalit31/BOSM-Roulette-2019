@@ -46,15 +46,7 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
         if(position == 2){
             holder.layout.setBackgroundResource(R.drawable.rank_three);
         }
-//        if(position == 0){
-//            holder.layout.setBackgroundResource(R.drawable.rank_one);
-//        }
-//        if(position == 1){
-//            holder.layout.setBackgroundResource(R.drawable.rank_two);
-//        }
-//        if(position == 2){
-//            holder.layout.setBackgroundResource(R.drawable.rank_three);
-//        }
+
         if(position == 0){
             holder.layout.setBackgroundColor(Color.argb(220,238,162,40));
         }
@@ -68,7 +60,8 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
             holder.layout.setAlpha((float) (0.85));
         holder.name.setText(items.get(position).getUsername().toUpperCase());
         holder.rank.setText(String.valueOf(items.get(position).getRank()));
-        holder.score.setText(String.valueOf(items.get(position).getWallet()));
+
+        holder.score.setText(String.valueOf(Math.round(items.get(position).getWallet())));
 
     }
 

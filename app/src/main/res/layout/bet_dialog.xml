@@ -178,7 +178,7 @@
     <ImageView
         android:layout_width="33dp"
         android:layout_height="29dp"
-        android:src="@drawable/currency"
+        android:src="@drawable/pokerchip"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintEnd_toStartOf="@+id/amt"
         app:layout_constraintHorizontal_bias="1.0"

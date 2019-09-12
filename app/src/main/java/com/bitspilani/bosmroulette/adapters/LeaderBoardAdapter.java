@@ -59,6 +59,7 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
 //        }
 //        else
             holder.layout.setAlpha((float) (0.85));
+
         holder.name.setText(items.get(position).getUsername().toUpperCase());
         holder.rank.setText(String.valueOf(items.get(position).getRank()));
 

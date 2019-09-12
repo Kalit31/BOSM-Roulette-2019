@@ -35,21 +35,21 @@ class HomeActivity : AppCompatActivity() {
         val main :RelativeLayout?=findViewById(R.id.Home);
 
         val bottomNavigation:MeowBottomNavigation = findViewById(R.id.bottom_nav)
-        bottomNavigation.add(MeowBottomNavigation.Model(1,R.drawable.ic_home))
-        bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.ic_account_balance_wallet_black_24dp))
-        bottomNavigation.add(MeowBottomNavigation.Model(3, R.drawable.ic_my_bets_1_svg))
+        bottomNavigation.add(MeowBottomNavigation.Model(1,R.drawable.ic_account_balance_wallet_black_24dp))
+        bottomNavigation.add(MeowBottomNavigation.Model(2,R.drawable.ic_my_bets_1_svg))
+        bottomNavigation.add(MeowBottomNavigation.Model(3,R.drawable.ic_home ))
         bottomNavigation.add(MeowBottomNavigation.Model(4, R.drawable.ic_roulette))
         bottomNavigation.add(MeowBottomNavigation.Model(5, R.drawable.ic_leaderboard))
         bottomNavigation.add(MeowBottomNavigation.Model(6, R.drawable.ic_more))
 
-        fragments.add(Home())
         fragments.add(BlankFragment())
         fragments.add(MyBetsFrag())
+        fragments.add(Home())
         fragments.add(RouletteFrag())
         fragments.add(LeaderBoardFrag())
         fragments.add(More())
         fragment = fragments[0]
-        bottomNavigation.show(ROULETTE)
+        bottomNavigation.show(ID_WALLET)
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment!!).commit()
 
 

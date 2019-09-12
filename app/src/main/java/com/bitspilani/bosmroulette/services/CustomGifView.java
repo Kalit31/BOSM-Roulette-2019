@@ -35,13 +35,13 @@ public class CustomGifView extends View {
 
     private void init(Context context){
         setFocusable(true);
-        gifInputStream = context.getResources()
-                .openRawResource(R.drawable.giphy_s);
-
-        gifMovie = Movie.decodeStream(gifInputStream);
-        movieWidth = gifMovie.width();
-        movieHeight = gifMovie.height();
-        movieDuration = gifMovie.duration();
+//        gifInputStream = context.getResources()
+//                .openRawResource(R.drawable.giphy_s);
+//
+//        gifMovie = Movie.decodeStream(gifInputStream);
+//        movieWidth = gifMovie.width();
+//        movieHeight = gifMovie.height();
+//        movieDuration = gifMovie.duration();
     }
 
     @Override

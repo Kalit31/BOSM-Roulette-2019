@@ -130,7 +130,7 @@ public class BlankFragment extends Fragment {
                 .setQuery(query,Fixture.class)
                 .build();
         adapter = new TrendingAdapter(options,getContext());
-        rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false));
+        rv.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
         SnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(rv);
         rv.addItemDecoration(new LinePageIndicatorDecoration());

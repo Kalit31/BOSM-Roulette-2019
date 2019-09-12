@@ -2,6 +2,7 @@ package com.bitspilani.bosmroulette.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -26,6 +27,7 @@ class HomeActivity : AppCompatActivity() {
     private var selectedFrag = 0
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -45,7 +47,7 @@ class HomeActivity : AppCompatActivity() {
         fragments.add(MyBetsFrag())
         fragments.add(RouletteFrag())
         fragments.add(LeaderBoardFrag())
-        fragments.add(RouletteFrag())
+        fragments.add(More())
         fragment = fragments[0]
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment!!).commit()
 
@@ -71,6 +73,7 @@ class HomeActivity : AppCompatActivity() {
             main!!.setBackgroundResource(R.drawable.roulette_bg)
 
         bottomNavigation.setOnClickMenuListener {        }
+
 
 
 

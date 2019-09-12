@@ -24,7 +24,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bitspilani.bosmroulette.R;
+import com.bitspilani.bosmroulette.activity.HomeActivity;
 import com.bitspilani.bosmroulette.activity.ScoreActivity;
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -261,6 +263,7 @@ public class RouletteFrag extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(new Date());

@@ -32,6 +32,7 @@ public class BetDialog extends Dialog implements View.OnClickListener {
     String userId;
     FixtureModel fixture;
     Context context;
+
     TextView team1, team2, amt50, amt100, amt150, amt200, amt;
     Button placebet;
     int betAmount = 0, flag = -1, amtflag;
@@ -90,23 +91,23 @@ public class BetDialog extends Dialog implements View.OnClickListener {
             case R.id.team11:
                 flag = 0;
                 team1.setBackgroundResource(R.drawable.amtselectedborder);
-                team2.setBackgroundResource(R.drawable.amtborder);
+                team2.setBackgroundResource(R.drawable.amtborderdark);
                 team1.setTextColor(Color.parseColor("#ffffff"));
-                team2.setTextColor(Color.parseColor("#000000"));
+                team2.setTextColor(Color.parseColor("#ffffff"));
                 break;
             case R.id.team22:
                 flag = 1;
                 team2.setBackgroundResource(R.drawable.amtselectedborder);
-                team1.setBackgroundResource(R.drawable.amtborder);
+                team1.setBackgroundResource(R.drawable.amtborderdark);
                 team2.setTextColor(Color.parseColor("#ffffff"));
-                team1.setTextColor(Color.parseColor("#000000"));
+                team1.setTextColor(Color.parseColor("#ffffff"));
                 break;
 
             case R.id.place_bet:
-                if ((flag == 0 || flag == 1) && betAmount > 0) {
+                if ((flag == 0 || flag == 1) && betAmount > 0&&walletamount - betAmount >= 0) {
                     placebet();
                     dismiss();
-                } else if (walletamount - betAmount <= 0)
+                } else if ((flag == 0 || flag == 1)&&walletamount - betAmount <= 0)
                     Toast.makeText(context, "Not enough balance!!", Toast.LENGTH_SHORT).show();
                 else if (betAmount == 0)
                     Toast.makeText(context, "Select amount", Toast.LENGTH_SHORT).show();
@@ -134,13 +135,13 @@ public class BetDialog extends Dialog implements View.OnClickListener {
                 break;
 
             case R.id.amt150:
-                betAmount += 150;
+                betAmount += 200;
                 amt.setText(String.valueOf(betAmount));
                 amtflag = 1;
                 break;
 
             case R.id.amt200:
-                betAmount += 200;
+                betAmount += 500;
                 amt.setText(String.valueOf(betAmount));
                 amtflag = 1;
                 break;

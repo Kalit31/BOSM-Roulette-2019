@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class LinePageIndicatorDecoration extends RecyclerView.ItemDecoration {
 
-    private int colorActive = 0xFF152C02;
-    private int colorInactive = 0x66FFFFFF;
+    private int colorActive = 0xFF1B5C44;
+    private int colorInactive = 0xFFFFFFFF;
 
     private static final float DP = Resources.getSystem().getDisplayMetrics().density;
 

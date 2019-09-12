@@ -187,10 +187,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trending_rv"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="230dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/border_bet"
+
         android:foregroundGravity="center"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/guideline4" />

@@ -3,18 +3,18 @@ package com.bitspilani.bosmroulette.models;
 public class TrendingModel {
     private String college1,college2;
     private String timestamp;
-    private String game;
+    private String sports_name;
     private String matchId;
     private String score1,score2;
 
     public TrendingModel() {
     }
 
-    public TrendingModel(String college1, String college2, String timestamp, String game, String matchId, String score1, String score2) {
+    public TrendingModel(String college1, String college2, String timestamp, String sports_name, String matchId, String score1, String score2) {
         this.college1 = college1;
         this.college2 = college2;
         this.timestamp = timestamp;
-        this.game = game;
+        this.sports_name = sports_name;
         this.matchId = matchId;
         this.score1 = score1;
         this.score2 = score2;
@@ -44,12 +44,12 @@ public class TrendingModel {
         this.timestamp = timestamp;
     }
 
-    public String getGame() {
-        return game;
+    public String getSports_name() {
+        return sports_name;
     }
 
     public void setGame(String game) {
-        this.game = game;
+        this.sports_name = game;
     }
 
     public String getMatchId() {

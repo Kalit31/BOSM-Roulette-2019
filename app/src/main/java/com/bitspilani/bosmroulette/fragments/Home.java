@@ -33,7 +33,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -44,6 +43,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 
 public class Home extends Fragment {
@@ -90,8 +90,8 @@ public class Home extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ProgressBar progressBar = view.findViewById(R.id.progressbarmatches);
         Sprite viewloader = new Wave();
-        textView=view.findViewById(R.id.textView3);
-        baxter=view.findViewById(R.id.imageView);
+        textView = view.findViewById(R.id.textView3);
+        baxter = view.findViewById(R.id.imageView);
         textView.setVisibility(View.INVISIBLE);
         baxter.setVisibility(View.INVISIBLE);
         progressBar.setIndeterminateDrawable(viewloader);
@@ -110,9 +110,10 @@ public class Home extends Fragment {
         }
 
 
-        db.collection("users").document(userId).collection("bets").orderBy("timestamp", Query.Direction.ASCENDING)
+        db.collection("users").document(userId).collection("bets")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    int i =0;
+                    int i = 0;
+
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 
@@ -132,9 +133,18 @@ public class Home extends Fragment {
                                                     doc.getData().get("matchId").toString(),
                                                     doc.getData().get("sports_name").toString(),
                                                     i);
-//
-                                            fixtures.add(ob);
-                                            i++;
+                                            if (!(matchesBetId.contains(Objects.requireNonNull(doc.getData().get("matchId")).toString()))) {
+                                                try {
+                                                    d2 = sdf.parse(ob.getTimestamp());
+                                                } catch (ParseException e1) {
+                                                    e1.printStackTrace();
+                                                }
+                                                if (d2.getTime() >= d1.getTime())
+                                                    fixtures.add(ob);
+                                                i++;
+                                            }
+
+
                                         }
 
                                         Comparator<FixtureModel> compareByWallet = (FixtureModel o1, FixtureModel o2) -> {
@@ -185,8 +195,7 @@ public class Home extends Fragment {
                                         if (adapter.getItemCount() == 0) {
                                             textView.setVisibility(View.VISIBLE);
                                             baxter.setVisibility(View.VISIBLE);
-                                        }
-                                        else {
+                                        } else {
                                             textView.setVisibility(View.INVISIBLE);
                                             baxter.setVisibility(View.INVISIBLE);
                                         }

@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_margin="10dp"
-    android:background="@drawable/backgroundblock"
+
+    android:background="@drawable/amtborder"
     android:layout_height="250dp">
 
     <androidx.constraintlayout.widget.Guideline
@@ -35,12 +36,12 @@
             android:layout_height="50dp"
             android:layout_marginLeft="8dp"
             android:layout_weight="2"
-            android:background="@drawable/amtborder"
+            android:background="@drawable/amtborderdark"
             android:fontFamily="@font/oswald"
 
             android:gravity="center"
             android:text="Team1"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
             android:textSize="25sp" />
 
         <TextView
@@ -60,11 +61,11 @@
             android:layout_marginRight="8dp"
             android:layout_weight="2"
 
-            android:background="@drawable/amtborder"
+            android:background="@drawable/amtborderdark"
             android:fontFamily="@font/oswald"
             android:gravity="center"
             android:text="Team2"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
             android:textSize="25sp" />
 
     </LinearLayout>
@@ -134,7 +135,7 @@
         android:paddingTop="1dp"
         android:paddingRight="12dp"
         android:paddingBottom="1dp"
-        android:text="+150"
+        android:text="+200"
         android:textColor="#000000"
         android:textSize="25sp"
         android:visibility="visible"
@@ -156,7 +157,7 @@
         android:paddingTop="1dp"
         android:paddingRight="12dp"
         android:paddingBottom="1dp"
-        android:text="+200"
+        android:text="+500"
         android:textColor="#000000"
         android:textSize="25sp"
         android:visibility="visible"
@@ -172,7 +173,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
-        android:textColor="#ffffff"
+        android:textColor="#000000"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintEnd_toEndOf="parent"

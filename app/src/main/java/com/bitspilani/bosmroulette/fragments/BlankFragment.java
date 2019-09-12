@@ -145,6 +145,7 @@ public class BlankFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL,false));
         SnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(rv);
+
         rv.addItemDecoration(new LinePageIndicatorDecoration());
         rv.setHasFixedSize(true);
         rv.setAdapter(adapter);

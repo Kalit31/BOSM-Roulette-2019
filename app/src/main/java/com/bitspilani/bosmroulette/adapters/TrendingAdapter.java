@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bitspilani.bosmroulette.R;
 import com.bitspilani.bosmroulette.models.TrendingModel;
-import com.bitspilani.bosmroulette.models.TrendingModel;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
@@ -38,7 +37,7 @@ public class TrendingAdapter extends FirestoreRecyclerAdapter<TrendingModel,Tren
     protected void onBindViewHolder(@NonNull ViewHolder holder, int i, @NonNull TrendingModel model) {
         holder.team1.setText(model.getCollege1());
         holder.team2.setText(model.getCollege2());
-        holder.sports.setText(model.getGame());
+        holder.sports_name.setText(model.getSports_name());
         if(!model.getScore1().equals("-1"))
                 holder.score1.setText(model.getScore1());
         else
@@ -52,12 +51,12 @@ public class TrendingAdapter extends FirestoreRecyclerAdapter<TrendingModel,Tren
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView sports,team1,team2,score1,score2;
+        TextView sports_name,team1,team2,score1,score2;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            sports = itemView.findViewById(R.id.sports);
+            sports_name = itemView.findViewById(R.id.sports);
             team1 = itemView.findViewById(R.id.team1);
             team2 = itemView.findViewById(R.id.team2);
             score1 = itemView.findViewById(R.id.score1);

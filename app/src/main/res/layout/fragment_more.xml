@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.More">
     <LinearLayout
@@ -11,26 +12,26 @@
         android:orientation="vertical">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        >-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginStart="-20dp"
-            android:layout_marginTop="-20dp"
-            android:layout_marginEnd="-20dp"
-            android:layout_marginBottom="-20dp"
-            android:background="@drawable/upper_bar"
-            android:fontFamily="@font/oswald"
-            android:gravity="center"
-            android:text="MORE"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="120dp"-->
+<!--            android:layout_marginStart="-20dp"-->
+<!--            android:layout_marginTop="-20dp"-->
+<!--            android:layout_marginEnd="-20dp"-->
+<!--            android:layout_marginBottom="-20dp"-->
+<!--            android:background="@drawable/upper_bar"-->
+<!--            android:fontFamily="@font/oswald"-->
+<!--            android:gravity="center"-->
+<!--            android:text="MORE"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="25sp" />-->
 
-    </RelativeLayout>
+<!--    </RelativeLayout>-->
    <!-- <com.github.ybq.android.spinkit.SpinKitView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,16 +43,17 @@
         />-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="8dp"
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="80dp"
             android:id="@+id/c1"
-            android:background="@drawable/back2"
+            android:layout_weight="1"
+            android:background="@drawable/amtborder"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
@@ -68,7 +70,7 @@
                 android:elevation="9dp"
                 android:padding="4dp"
                 android:text="ABOUT"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="40sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -84,9 +86,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="80dp"
             android:id="@+id/c2"
-            android:background="@drawable/back2"
+            android:layout_weight="1"
+            android:background="@drawable/amtborder"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
@@ -103,7 +106,7 @@
                 android:padding="4dp"
                 android:elevation="9dp"
                 android:text="DEVELOPERS"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="40sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -119,10 +122,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="vertical"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:id="@+id/c3"
-            android:background="@drawable/back2"
+            android:background="@drawable/amtborder"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
@@ -139,7 +143,7 @@
                 android:elevation="9dp"
                 android:padding="4dp"
                 android:text="HPC BLOG"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="40sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

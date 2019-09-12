@@ -97,4 +97,9 @@ class HomeActivity : AppCompatActivity() {
             }
         });*/
     }
+
+    override fun onBackPressed() {
+        if(RouletteFrag.notallowback==false)
+        super.onBackPressed()
+    }
 }

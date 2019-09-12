@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bitspilani.bosmroulette.R;
 import com.bitspilani.bosmroulette.activity.ScoreActivity;
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -88,6 +89,8 @@ public class RouletteFrag extends Fragment {
     private static final float HALF_SECTOR = 360f / 37f / 2f;
     private TextView featureInfo;
     KonfettiView konfettiView;
+    public static boolean notallowback;
+    MeowBottomNavigation bottomNavigation;
     private ImageView bonus;
     private ImageView loss;
 
@@ -106,6 +109,7 @@ public class RouletteFrag extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_roulette, container, false);
 
+        bottomNavigation=getActivity().findViewById(R.id.bottom_nav);
         mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
         bonus = view.findViewById(R.id.flash);
         loss = view.findViewById(R.id.heart);
@@ -142,6 +146,8 @@ public class RouletteFrag extends Fragment {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 spin(view);
                 wheel.setEnabled(false);
+                bottomNavigation.setVisibility(View.INVISIBLE);
+                notallowback=true;
                 return true;
             }
         });
@@ -292,6 +298,9 @@ public class RouletteFrag extends Fragment {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(new Date());
                 calendar.add(Calendar.HOUR_OF_DAY, 3);
+
+                bottomNavigation.setVisibility(View.VISIBLE);
+                notallowback=false;
 
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
                 String currentTime = sdf.format(calendar.getTime());

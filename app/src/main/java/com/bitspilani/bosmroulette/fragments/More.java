@@ -61,6 +61,13 @@ public class More extends Fragment {
             }
         });
 
+        c3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         return view;
     }
 

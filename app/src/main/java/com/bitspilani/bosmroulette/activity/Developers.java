@@ -20,9 +20,12 @@ public class Developers extends AppCompatActivity {
         setContentView(R.layout.activity_developers);
         RecyclerView recyclerView=findViewById(R.id.recycler_view);
         ArrayList<DevDesc> list=new ArrayList<>();
+        list.add(new DevDesc("Ayush Singh","App Developer",R.drawable.casinochip));
         list.add(new DevDesc("Gauransh Sawhney","App Developer",R.drawable.casinochip));
-        list.add(new DevDesc("Gauransh Sawhney","App Developer",R.drawable.casinochip));
-        list.add(new DevDesc("Gauransh Sawhney","App Developer",R.drawable.casinochip));
+        list.add(new DevDesc("Kalit Naresh Inani","App Developer",R.drawable.casinochip));
+        list.add(new DevDesc("Mukund Paliwal","UI/UX Designer",R.drawable.casinochip));
+        list.add(new DevDesc("Ayushi Jain","UI/UX Designer",R.drawable.casinochip));
+        list.add(new DevDesc("Sonal Prasad","UI/UX Designer",R.drawable.casinochip));
         DevAdapter devAdapter=new DevAdapter(list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);

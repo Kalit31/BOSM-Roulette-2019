@@ -24,6 +24,7 @@
         >
 
         <TextView
+            android:id="@+id/leaderboardtv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -35,8 +36,9 @@
             android:layout_marginEnd="-20dp"
             android:layout_marginBottom="-20dp"
             android:background="@drawable/upper_bar"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/oswald"
             android:gravity="center"
+
             android:text="LEADERBOARD"
             android:textColor="@color/white"
             android:textSize="25sp" />
@@ -103,6 +105,8 @@
                 android:fontFamily="@font/cerapro_bold"
                 android:gravity="center"
                 android:text="Name"
+                android:maxLines="3"
+                android:textSize="22sp"
                 android:textColor="#ffffff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -116,6 +120,7 @@
                 android:fontFamily="@font/cerapro_bold"
                 android:gravity="center"
                 android:text="Score"
+                android:textSize="18sp"
                 android:textColor="#ffffff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

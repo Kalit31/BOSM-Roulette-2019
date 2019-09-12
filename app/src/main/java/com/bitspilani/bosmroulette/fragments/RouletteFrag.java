@@ -5,12 +5,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,11 +18,14 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.bitspilani.bosmroulette.R;
-import com.bitspilani.bosmroulette.activity.HomeActivity;
 import com.bitspilani.bosmroulette.activity.ScoreActivity;
-import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,6 +49,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.ButterKnife;
+import nl.dionsegijn.konfetti.KonfettiView;
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -85,7 +87,7 @@ public class RouletteFrag extends Fragment {
     private int degree = 0, degreeOld = 0;
     private static final float HALF_SECTOR = 360f / 37f / 2f;
     private TextView featureInfo;
-
+    KonfettiView konfettiView;
     private ImageView bonus;
     private ImageView loss;
 
@@ -110,7 +112,24 @@ public class RouletteFrag extends Fragment {
         wheel = view.findViewById(R.id.wheel);
         ButterKnife.bind((Activity) getContext());
         Calendar calendar = Calendar.getInstance();
+        konfettiView = view.findViewById(R.id.viewKonfetti);
         calendar.setTime(new Date());
+        if (bonus.getVisibility() == View.VISIBLE) {
+            bonus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Extra 10% points on each bet won during the active time period!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        if (loss.getVisibility() == View.VISIBLE) {
+            loss.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "You get 100% of the points back on lost bets!  ", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         //     featureInfo = view.findViewById(R.id.tV_feature);
         String currentTime = sdf.format(calendar.getTime());
         try {
@@ -147,7 +166,7 @@ public class RouletteFrag extends Fragment {
                         bonus.setVisibility(View.INVISIBLE);
                         HashMap<String, Object> disablebonus = new HashMap<>();
                         disablebonus.put("bonus", false);
-                        disablebonus.put("bonusTime","");
+                        disablebonus.put("bonusTime", "");
                         db.collection("users").document(userId).set(disablebonus, SetOptions.merge());
                     }
                 }
@@ -163,8 +182,11 @@ public class RouletteFrag extends Fragment {
                         loss.setVisibility(View.INVISIBLE);
                         HashMap<String, Object> disableloss = new HashMap<>();
                         disableloss.put("loss", false);
-                        disableloss.put("lossTime","");
+                        disableloss.put("lossTime", "");
                         db.collection("users").document(userId).set(disableloss, SetOptions.merge());
+                    }
+                    else {
+                        loss.setVisibility(View.VISIBLE);
                     }
                 }
 
@@ -265,7 +287,7 @@ public class RouletteFrag extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                
+
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(new Date());
@@ -281,6 +303,16 @@ public class RouletteFrag extends Fragment {
                     bonusMap.put("bonus", true);
                     bonusMap.put("bonusTime", currentTime);
                     bonus.setVisibility(View.VISIBLE);
+                    konfettiView.build().
+                            addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                            .setDirection(0.0, 359.0)
+                            .setSpeed(1f, 5f)
+                            .setFadeOutEnabled(true)
+                            .setTimeToLive(2000L)
+                            .addShapes(Shape.RECT, Shape.CIRCLE)
+                            .addSizes(new Size(12, 5))
+                            .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
+                            .streamFor(300, 5000L);
                     db.collection("users").document(userId).set(bonusMap, SetOptions.merge());
                     //         featureInfo.setText("Bonus Activated for 3 hours!!");
                 } else if (getSector(360 - (degree % 360)).charAt(0) == 'l') {
@@ -288,6 +320,16 @@ public class RouletteFrag extends Fragment {
                     lossMap.put("loss", true);
                     loss.setVisibility(View.VISIBLE);
                     lossMap.put("lossTime", currentTime);
+                    konfettiView.build().
+                            addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                            .setDirection(0.0, 359.0)
+                            .setSpeed(1f, 5f)
+                            .setFadeOutEnabled(true)
+                            .setTimeToLive(2000L)
+                            .addShapes(Shape.RECT, Shape.CIRCLE)
+                            .addSizes(new Size(12, 5))
+                            .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
+                            .streamFor(300, 5000L);
                     db.collection("users").document(userId).set(lossMap, SetOptions.merge());
                     //       featureInfo.setText("Loss Forgiveness activated for 3 hours !!");
                 } else {
@@ -387,6 +429,12 @@ public class RouletteFrag extends Fragment {
         } while (text == null && i < sectors.length);
 
         return text;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 }
 

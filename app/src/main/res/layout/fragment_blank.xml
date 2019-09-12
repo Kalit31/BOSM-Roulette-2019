@@ -83,7 +83,7 @@
             android:id="@+id/username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/cerapro_bold"
+            android:fontFamily="@font/oswald"
             android:gravity="center"
             android:padding="8dp"
             android:text="Name"
@@ -257,20 +257,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.48" />
+        app:layout_constraintGuide_begin="351dp" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="Trending matches"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:background="@drawable/border_bet"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline6"
-        />
+<!--    <TextView-->
+<!--        android:id="@+id/textView3"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
 
+<!--        android:fontFamily="@font/oswald"-->
+<!--        android:gravity="center"-->
+<!--        android:text="Trending Matches"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="28sp"-->
+<!--        android:paddingLeft="20dp"-->
+<!--        android:drawableRight="@drawable/trending"-->
+<!--        android:paddingRight="20dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/guideline7"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/guideline6" />-->
+<LinearLayout
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toTopOf="@+id/guideline7"
+    app:layout_constraintTop_toTopOf="@+id/guideline6"
+    android:layout_width="match_parent"
+    android:layout_height="0dp">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/oswald"
+    android:gravity="center_horizontal"
+    android:text="Trending Matches"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="20dp"
+    
+    android:drawableRight="@drawable/trending"
+    android:textColor="@color/white"
+    android:textSize="30sp"/>
+
+</LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

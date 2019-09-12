@@ -44,7 +44,7 @@
             android:layout_marginEnd="-20dp"
             android:layout_marginBottom="-20dp"
             android:background="@drawable/upper_bar"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/oswald"
             android:gravity="center"
             android:text="UPCOMING MATCHES"
             android:textColor="@color/white"

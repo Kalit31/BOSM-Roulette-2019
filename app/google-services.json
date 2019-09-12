@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "601369924262-s9vfmbtjqrp40kmhadjv16a1f29nkaag.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bitspilani.bosm2019",
+            "certificate_hash": "11307c0fc46ed25d46b88777c87ae979f266ac05"
+          }
+        },
+        {
           "client_id": "601369924262-rhad47ickbjtsfh6ln0og0m37v3luskt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -68,12 +76,20 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:601369924262:android:770d6f49f1846317",
+        "mobilesdk_app_id": "1:601369924262:android:c6e032cb8701ac739bda67",
         "android_client_info": {
           "package_name": "com.bitspilani.bosmportal"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "601369924262-le1rtjglml3dhrvhut48cp8dmm6mr56i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bitspilani.bosmportal",
+            "certificate_hash": "8d59ee7781ff7d2e3729a3273054549b5b8d4179"
+          }
+        },
         {
           "client_id": "601369924262-kdnt3tfodl37ek6okh0n901sl1vuvbja.apps.googleusercontent.com",
           "client_type": 3
@@ -110,6 +126,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "601369924262-46ij39cafcm7hj0enc0advq4a7qe3vti.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bitspilani.bosmroulette",
+            "certificate_hash": "76a81c691e68388fae1ad99f0ad695e8d5df17dd"
+          }
+        },
         {
           "client_id": "601369924262-gi8vl837ttaulfjnot2elc2hn6j7rncm.apps.googleusercontent.com",
           "client_type": 1,

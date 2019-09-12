@@ -44,12 +44,14 @@
         android:textColor="#3F7017"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:layout_marginRight="10dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline42"
         app:layout_constraintEnd_toStartOf="@+id/vs"
         app:layout_constraintTop_toTopOf="@+id/guideline41" />
 
     <TextView
         android:id="@+id/vs"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -69,6 +71,7 @@
         android:id="@+id/team2"
         android:layout_width="130dp"
         android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
         android:background="@drawable/amtborder"
         android:ellipsize="end"
         android:gravity="center"

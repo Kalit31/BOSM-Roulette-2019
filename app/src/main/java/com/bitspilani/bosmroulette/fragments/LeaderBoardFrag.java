@@ -1,19 +1,18 @@
 package com.bitspilani.bosmroulette.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bitspilani.bosmroulette.adapters.LeaderBoardAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bitspilani.bosmroulette.R;
+import com.bitspilani.bosmroulette.adapters.LeaderBoardAdapter;
 import com.bitspilani.bosmroulette.models.RankClass;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +34,7 @@ public class LeaderBoardFrag extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference leaderRef;
     private FirebaseAuth mAuth;
+    private TextView leaderboard;
     FirebaseUser user;
     private static ArrayList<RankClass> mArrayList = new ArrayList<>();
     private static ArrayList<RankClass> mArrayListTemp = new ArrayList<>();
@@ -51,13 +51,15 @@ public class LeaderBoardFrag extends Fragment {
          leaderlist = v.findViewById(R.id.leader_rv);
          yourRank = v.findViewById(R.id.your_rank);
          yourScore = v.findViewById(R.id.your_score);
+         leaderboard=v.findViewById(R.id.leaderboardtv);
          yourName = v.findViewById(R.id.your_name);
         mAuth=FirebaseAuth.getInstance();
+
         user=mAuth.getCurrentUser();
         String name=user.getDisplayName();
         String userId=user.getUid();
 
-        yourName.setText(name);
+        yourName.setText(name.toUpperCase());
 
         Log.d("name",name);
         if (userId != null) {

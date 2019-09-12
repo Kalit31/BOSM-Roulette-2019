@@ -1,8 +1,5 @@
 package com.bitspilani.bosmroulette.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,13 +11,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bitspilani.bosmroulette.R;
 import com.bitspilani.bosmroulette.models.UserBetModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -127,8 +126,8 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                            finish();
+              //             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                 //           finish();
 
                         } else {
 
@@ -176,7 +175,10 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                    Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+
+                                    startActivity(i);
+
                                     finish();
                                 } else {
 

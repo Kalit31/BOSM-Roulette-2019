@@ -6,18 +6,19 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bitspilani.bosmroulette.BetDialog;
 import com.bitspilani.bosmroulette.R;
@@ -26,10 +27,6 @@ import com.bitspilani.bosmroulette.models.Fixture;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.Wave;
 import com.google.android.gms.tasks.OnSuccessListener;
-
-import com.bitspilani.bosmroulette.R;
-import com.bitspilani.bosmroulette.adapters.CustomAdapter;
-import com.bitspilani.bosmroulette.models.Fixture;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -57,6 +54,8 @@ public class Home extends Fragment {
     SharedPreferences sharedPreferences;
     private Date d1, d2;
     private CustomAdapter adapter;
+    ImageView baxter;
+    TextView textView;
     private String userId;
     private FirebaseAuth mAuth;
     private ArrayList<String> matchesBetId;
@@ -89,12 +88,17 @@ public class Home extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ProgressBar progressBar = view.findViewById(R.id.progressbarmatches);
         Sprite viewloader = new Wave();
+        textView=view.findViewById(R.id.textView3);
+        baxter=view.findViewById(R.id.imageView);
+        textView.setVisibility(View.INVISIBLE);
+        baxter.setVisibility(View.INVISIBLE);
         progressBar.setIndeterminateDrawable(viewloader);
         mAuth = FirebaseAuth.getInstance();
         String userId = mAuth.getCurrentUser().getUid();
         matchesBetId = new ArrayList<>();
         ArrayList<Fixture> fixtures = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        //   DateFormat dateFormat=new DateFormat("MMM dd HH:mm:ss",Locale) ;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
         String currentTime = sdf.format(new Date());
         Log.d("mytime", currentTime.toString());
         try {
@@ -147,7 +151,6 @@ public class Home extends Fragment {
                                         adapter = new CustomAdapter(fixtures, getContext());
                                         recyclerView.setAdapter(adapter);
 
-
                                         adapter.setOnItemClickListener(new CustomAdapter.ClickListener() {
                                             @Override
                                             public void onItemClicked(int position, View v) {
@@ -157,11 +160,11 @@ public class Home extends Fragment {
                                                             @Override
                                                             public void onSuccess(DocumentSnapshot documentSnapshot) {
                                                                 double wallet = Double.parseDouble(documentSnapshot.get("wallet").toString());
-                                                                        BetDialog betDialog=new BetDialog(getContext(),fixtures.get(position),wallet);
-                                                                        betDialog.show();
-                                                                        Window window=betDialog.getWindow();
-                                                                        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT,720);
-                                                                        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                                                BetDialog betDialog = new BetDialog(getContext(), fixtures.get(position), wallet);
+                                                                betDialog.show();
+                                                                Window window = betDialog.getWindow();
+                                                                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 720);
+                                                                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                                                             }
                                                         }
@@ -170,7 +173,14 @@ public class Home extends Fragment {
                                         });
 
                                         progressBar.setVisibility(View.INVISIBLE);
-
+                                        if (adapter.getItemCount() == 0) {
+                                            textView.setVisibility(View.VISIBLE);
+                                            baxter.setVisibility(View.VISIBLE);
+                                        }
+                                        else {
+                                            textView.setVisibility(View.INVISIBLE);
+                                            baxter.setVisibility(View.INVISIBLE);
+                                        }
                                     }
                                 });
                     }

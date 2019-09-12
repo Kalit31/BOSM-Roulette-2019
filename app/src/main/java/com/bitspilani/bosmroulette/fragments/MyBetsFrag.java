@@ -3,18 +3,17 @@ package com.bitspilani.bosmroulette.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.bitspilani.bosmroulette.R;
 import com.bitspilani.bosmroulette.adapters.MyBetAdapter;
@@ -37,8 +36,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.media.CamcorderProfile.get;
-
 public class MyBetsFrag extends Fragment {
 
     private RecyclerView betlist;
@@ -51,7 +48,7 @@ public class MyBetsFrag extends Fragment {
     private double wallet;
     private FirebaseAuth mAuth;
     private double betAmount;
-private ProgressBar progressBar;
+    private ProgressBar progressBar;
 
     public MyBetsFrag() {
         // Required empty public constructor
@@ -64,8 +61,8 @@ private ProgressBar progressBar;
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_my_bets, container, false);
         betlist = v.findViewById(R.id.myBets_rv);
-        progressBar=v.findViewById(R.id.progressbar);
-        Sprite wave= new Wave();
+        progressBar = v.findViewById(R.id.progressbar);
+        Sprite wave = new Wave();
         progressBar.setIndeterminateDrawable(wave);
         mAuth = FirebaseAuth.getInstance();
         String userId = mAuth.getCurrentUser().getUid();
@@ -99,8 +96,8 @@ private ProgressBar progressBar;
                             betlist.setLayoutManager(new LinearLayoutManager(getContext()));
                             betlist.setHasFixedSize(true);
                             betlist.setAdapter(adapter);
-                            
-                         progressBar.setVisibility(View.INVISIBLE);
+
+                            progressBar.setVisibility(View.INVISIBLE);
 
                             for (UserBetModel item : it) {
 
@@ -151,6 +148,32 @@ private ProgressBar progressBar;
                                                                     wallet = wallet + (betAmount * 1.25 + betAmount * (1 - (double) win_team / (lose_team * 100))) * 1.1;
                                                                 else
                                                                     wallet = wallet + betAmount * 1.25 + betAmount * (1 - (double) win_team / (lose_team * 100));
+                                                                Map<String, Double> newWallet = new HashMap<>();
+                                                                newWallet.put("wallet", wallet);
+
+                                                                db.collection("users").document(userId).set(newWallet, SetOptions.merge());
+                                                                Map<String, Object> map = new HashMap<>();
+                                                                map.put("update", true);
+                                                                map.put("result", item.getBettedOn());
+
+                                                                db.collection("users").document(userId).collection("bets")
+                                                                        .document(item.getMatch_id()).set(map, SetOptions.merge());
+                                                            }
+                                                        }
+                                                    });
+                                                } else if (Integer.parseInt(document.getData().get("winner").toString()) == 2) {
+                                                    db.collection("users").document(userId)
+                                                            .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                            if (task.isSuccessful()) {
+                                                                DocumentSnapshot doc = task.getResult();
+                                                                wallet = Double.parseDouble(doc.get("wallet").toString());
+                                                                if (Boolean.parseBoolean(doc.get("bonus").toString()))
+                                                                    wallet = wallet + betAmount;
+                                                                else
+                                                                    wallet = wallet + betAmount;
                                                                 Map<String, Double> newWallet = new HashMap<>();
                                                                 newWallet.put("wallet", wallet);
 

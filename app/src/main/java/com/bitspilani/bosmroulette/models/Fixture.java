@@ -6,7 +6,6 @@ public class Fixture {
     private String game;
     private String matchId;
 
-
     public Fixture() {
     }
 
@@ -16,6 +15,7 @@ public class Fixture {
         this.timestamp = timestamp;
         this.matchId = matchId;
         this.game = game;
+
     }
 
     public String getGame() {

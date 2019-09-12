@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="20dp"
-    android:background="@drawable/trending_bg">
+    android:background="@drawable/background_image_trending">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline41"

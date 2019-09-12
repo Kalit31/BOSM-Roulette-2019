@@ -126,8 +126,8 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-              //             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                 //           finish();
+                            //             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            //           finish();
 
                         } else {
 
@@ -188,13 +188,16 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
                     }
-                    else {
+
+                    else{
                         Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
+
+
                     }
                 }
-            });
+            });}}}
 
 //            db.collection("users").whereEqualTo("email", user.getEmail())
 //                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -222,9 +225,4 @@ public class LoginActivity extends AppCompatActivity {
 //                            }
 //                        }
 //                    });
-
-        }
-
-    }
-}
 

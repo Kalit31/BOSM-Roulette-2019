@@ -75,7 +75,7 @@ public class RouletteFrag extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String t1 = "0";
 
-    private static final long START_TIME_IN_MILLIS = 20000;
+    private static final long START_TIME_IN_MILLIS = 7200000;
     private FirebaseAuth mAuth;
     private String userId;
     private TextView mTextViewCountDown;
@@ -109,7 +109,7 @@ public class RouletteFrag extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_roulette, container, false);
 
-        bottomNavigation=getActivity().findViewById(R.id.bottom_nav);
+        bottomNavigation = getActivity().findViewById(R.id.bottom_nav);
         mTextViewCountDown = view.findViewById(R.id.text_view_countdown);
         bonus = view.findViewById(R.id.flash);
         loss = view.findViewById(R.id.heart);
@@ -118,22 +118,20 @@ public class RouletteFrag extends Fragment {
         Calendar calendar = Calendar.getInstance();
         konfettiView = view.findViewById(R.id.viewKonfetti);
         calendar.setTime(new Date());
-        if (bonus.getVisibility() == View.VISIBLE) {
-            bonus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "Extra 10% points on each bet won during the active time period!", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        if (loss.getVisibility() == View.VISIBLE) {
-            loss.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "You get 100% of the points back on lost bets!  ", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+
+
+        loss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "You get 100% of the points back on lost bets!  ", Toast.LENGTH_SHORT).show();
+            }
+        });
+        bonus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Extra 10% points on each bet won during the active time period!", Toast.LENGTH_SHORT).show();
+            }
+        });
         //     featureInfo = view.findViewById(R.id.tV_feature);
         String currentTime = sdf.format(calendar.getTime());
         try {
@@ -147,7 +145,7 @@ public class RouletteFrag extends Fragment {
                 spin(view);
                 wheel.setEnabled(false);
                 bottomNavigation.setVisibility(View.INVISIBLE);
-                notallowback=true;
+                notallowback = true;
                 return true;
             }
         });
@@ -190,8 +188,7 @@ public class RouletteFrag extends Fragment {
                         disableloss.put("loss", false);
                         disableloss.put("lossTime", "");
                         db.collection("users").document(userId).set(disableloss, SetOptions.merge());
-                    }
-                    else {
+                    } else {
                         loss.setVisibility(View.VISIBLE);
                     }
                 }
@@ -204,10 +201,10 @@ public class RouletteFrag extends Fragment {
     }
 
     private void updateCountDownText() {
-        int minutes = (int) (mTimeLeftInMillis / 1000) / 60;
+        int minutes = (int) ((mTimeLeftInMillis / (1000 * 60)) % 60);
         int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
-
-        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        int hours = (int) ((mTimeLeftInMillis / (1000 * 60 * 60)) % 24);
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
 
         mTextViewCountDown.setText(timeLeftFormatted);
     }
@@ -300,7 +297,7 @@ public class RouletteFrag extends Fragment {
                 calendar.add(Calendar.HOUR_OF_DAY, 3);
 
                 bottomNavigation.setVisibility(View.VISIBLE);
-                notallowback=false;
+                notallowback = false;
 
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
                 String currentTime = sdf.format(calendar.getTime());
@@ -322,6 +319,7 @@ public class RouletteFrag extends Fragment {
                             .addSizes(new Size(12, 5))
                             .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
                             .streamFor(300, 5000L);
+                    Toast.makeText(getContext(), "Extra 10% points on each bet won during the active time period! So try your luck", Toast.LENGTH_LONG).show();
                     db.collection("users").document(userId).set(bonusMap, SetOptions.merge());
                     //         featureInfo.setText("Bonus Activated for 3 hours!!");
                 } else if (getSector(360 - (degree % 360)).charAt(0) == 'l') {
@@ -339,6 +337,7 @@ public class RouletteFrag extends Fragment {
                             .addSizes(new Size(12, 5))
                             .setPosition(-50f, konfettiView.getWidth() + 50f, -50f, -50f)
                             .streamFor(300, 5000L);
+                    Toast.makeText(getContext(), "You get 100% of the points back on lost bets! So bet away  ", Toast.LENGTH_LONG).show();
                     db.collection("users").document(userId).set(lossMap, SetOptions.merge());
                     //       featureInfo.setText("Loss Forgiveness activated for 3 hours !!");
                 } else {

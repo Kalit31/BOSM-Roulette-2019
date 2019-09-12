@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.bitspilani.bosmroulette.models.Fixture;
+import com.bitspilani.bosmroulette.models.FixtureModel;
 import com.bitspilani.bosmroulette.models.PlaceBetModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class BetDialog extends Dialog implements View.OnClickListener {
     String userId;
-    Fixture fixture;
+    FixtureModel fixture;
     Context context;
     TextView team1, team2, amt50, amt100, amt150, amt200, amt;
     Button placebet;
@@ -39,7 +39,7 @@ public class BetDialog extends Dialog implements View.OnClickListener {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
 
-    public BetDialog(@NonNull Context context, Fixture fixture, double walletamount) {
+    public BetDialog(@NonNull Context context, FixtureModel fixture, double walletamount) {
         super(context);
         this.context = context;
         this.fixture = fixture;

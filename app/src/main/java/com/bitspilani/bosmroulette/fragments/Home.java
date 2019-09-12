@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bitspilani.bosmroulette.BetDialog;
 import com.bitspilani.bosmroulette.R;
 import com.bitspilani.bosmroulette.adapters.CustomAdapter;
-import com.bitspilani.bosmroulette.models.Fixture;
+import com.bitspilani.bosmroulette.models.FixtureModel;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.Wave;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,15 +33,17 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 
 public class Home extends Fragment {
@@ -96,7 +98,7 @@ public class Home extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         String userId = mAuth.getCurrentUser().getUid();
         matchesBetId = new ArrayList<>();
-        ArrayList<Fixture> fixtures = new ArrayList<>();
+        ArrayList<FixtureModel> fixtures = new ArrayList<>();
         //   DateFormat dateFormat=new DateFormat("MMM dd HH:mm:ss",Locale) ;
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
         String currentTime = sdf.format(new Date());
@@ -108,11 +110,12 @@ public class Home extends Fragment {
         }
 
 
-        db.collection("users").document(userId).collection("bets")
+        db.collection("users").document(userId).collection("bets").orderBy("timestamp", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
-
+                    int i =0;
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+
                         matchesBetId.clear();
                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
                             matchesBetId.add(doc.getId());
@@ -123,23 +126,29 @@ public class Home extends Fragment {
                                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                                         fixtures.clear();
                                         for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                                            Fixture ob = new Fixture(doc.getData().get("college1").toString(),
+                                            FixtureModel ob = new FixtureModel(doc.getData().get("college1").toString(),
                                                     doc.getData().get("college2").toString(),
                                                     doc.getData().get("timestamp").toString(),
                                                     doc.getData().get("matchId").toString(),
-                                                    doc.getData().get("sports_name").toString());
-
-                                            if (!(matchesBetId.contains(Objects.requireNonNull(doc.getData().get("matchId")).toString()))) {
-                                                try {
-                                                    d2 = sdf.parse(ob.getTimestamp());
-                                                } catch (ParseException e1) {
-                                                    e1.printStackTrace();
-                                                }
-                                                if (d2.getTime() >= d1.getTime())
-                                                    fixtures.add(ob);
-                                            }
-
+                                                    doc.getData().get("sports_name").toString(),
+                                                    i);
+//
+                                            fixtures.add(ob);
+                                            i++;
                                         }
+
+                                        Comparator<FixtureModel> compareByWallet = (FixtureModel o1, FixtureModel o2) -> {
+                                            try {
+                                                int i = sdf.parse(o1.getTimestamp()).compareTo(sdf.parse(o2.getTimestamp()));
+                                                return i;
+                                            } catch (ParseException ex) {
+                                                ex.printStackTrace();
+                                            }
+                                            return 0;
+                                        };
+
+                                        Collections.sort(fixtures, compareByWallet);
+
                                         recyclerView = view.findViewById(R.id.recycler_view);
                                         recyclerView.setHasFixedSize(false);
 

@@ -10,16 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bitspilani.bosmroulette.R;
-import com.bitspilani.bosmroulette.models.Fixture;
+import com.bitspilani.bosmroulette.models.FixtureModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
-    private ArrayList<Fixture> fixtures;
+    private ArrayList<FixtureModel> fixtures;
     private Context context;
     private static ClickListener clickListener;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -27,7 +31,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     String userId;
 
 
-    public CustomAdapter(ArrayList<Fixture> fixtures, Context context) {
+    public CustomAdapter(ArrayList<FixtureModel> fixtures, Context context) {
         this.fixtures = fixtures;
         this.context = context;
         mAuth = FirebaseAuth.getInstance();
@@ -47,10 +51,25 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull final CustomAdapter.ViewHolder holder, int position) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
 
         holder.team1.setText(fixtures.get(position).getCollege1());
         holder.team2.setText(fixtures.get(position).getCollege2());
-        holder.time.setText(fixtures.get(position).getTimestamp());
+        String time =  fixtures.get(position).getTimestamp();
+        Date date =new Date();
+        try {
+            date = sdf.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int hours = date.getHours();
+        int minutes = date.getMinutes();
+
+        int dt = date.getDate();
+        String month = " Sept";
+
+        String t = dt + month + "\n"+ hours+" : "+ minutes;
+        holder.time.setText(t);
         holder.sports.setText(fixtures.get(position).getGame());
 
         //teams = new String[]{};

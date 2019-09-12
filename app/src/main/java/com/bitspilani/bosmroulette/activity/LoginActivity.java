@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
     TextView gmail;
-    SignInButton button;
+    Button button;
     SharedPreferences sharedPref;
     public static ArrayList<UserBetModel> userBetsList;
 

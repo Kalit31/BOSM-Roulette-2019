@@ -48,13 +48,14 @@ public class LeaderBoardAdapter extends RecyclerView.Adapter<LeaderBoardAdapter.
         }
 
         if(position == 0){
-            holder.layout.setBackgroundColor(Color.argb(220,238,162,40));
+            holder.layout.setBackgroundColor(0xffeea228);
         }
         if(position == 1){
-            holder.layout.setBackgroundColor( Color.argb(220,98,159,252));
+            holder.layout.setBackgroundColor( Color.argb(255,98,159,252));
         }
         if(position == 2){
-            holder.layout.setBackgroundColor(Color.argb(220,119,216,181));
+
+            holder.layout.setBackgroundColor(Color.argb(255,119,216,181));
         }
         else
             holder.layout.setAlpha((float) (0.85));

@@ -11,27 +11,37 @@
         android:supportsRtl="true"
         android:theme="@style/BOSMAppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".activity.Developers"></activity>
-        <activity android:name=".services.SplashScreen">
+        <activity
+            android:name=".services.SplashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".activity.ScoreActivity"
+            android:name="com.bitspilani.bosmroulette.activity.ScoreActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.CustomTheme"></activity>
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
         <activity
-            android:name=".activity.HomeActivity"
+            android:name="com.bitspilani.bosmroulette.activity.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.MyActivity"
+            android:name="com.bitspilani.bosmroulette.activity.MyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.LoginActivity"
-            android:screenOrientation="portrait"></activity>
+            android:name="com.bitspilani.bosmroulette.activity.LoginActivity"
+            android:screenOrientation="portrait">
+
+
+        </activity>
+
+
         <activity
             android:name=".activity.WelcomeActivity"
             android:screenOrientation="portrait" /> <!-- <activity android:name=".activity.MyActivity"/> -->

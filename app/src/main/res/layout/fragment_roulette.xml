@@ -54,7 +54,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-
+android:visibility="invisible"
             android:id="@+id/heart"
             android:layout_width="64dp"
             android:layout_height="64dp"

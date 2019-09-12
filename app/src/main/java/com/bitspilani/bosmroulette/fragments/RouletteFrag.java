@@ -147,6 +147,7 @@ public class RouletteFrag extends Fragment {
                         bonus.setVisibility(View.INVISIBLE);
                         HashMap<String, Object> disablebonus = new HashMap<>();
                         disablebonus.put("bonus", false);
+                        disablebonus.put("bonusTime","");
                         db.collection("users").document(userId).set(disablebonus, SetOptions.merge());
                     }
                 }
@@ -162,6 +163,7 @@ public class RouletteFrag extends Fragment {
                         loss.setVisibility(View.INVISIBLE);
                         HashMap<String, Object> disableloss = new HashMap<>();
                         disableloss.put("loss", false);
+                        disableloss.put("lossTime","");
                         db.collection("users").document(userId).set(disableloss, SetOptions.merge());
                     }
                 }

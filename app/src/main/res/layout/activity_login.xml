@@ -13,6 +13,7 @@
         android:id="@+id/logind"
         android:layout_width="match_parent"
         android:layout_height="283dp"
+
         android:layout_alignParentTop="true"
         android:layout_marginTop="-35dp"
         android:src="@drawable/signinbg" />
@@ -23,15 +24,29 @@
         android:layout_height="200dp"
         android:src="@drawable/final_baxter" />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/googlelogin"
-        android:layout_below="@id/logind"
+<!--    <com.google.android.gms.common.SignInButton-->
+<!--        android:id="@+id/googlelogin"-->
+<!--        android:layout_below="@id/logind"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:layout_marginTop="200dp"-->
+<!--        android:paddingLeft="40dp"-->
+<!--        android:paddingRight="40dp">-->
+
+<!--    </com.google.android.gms.common.SignInButton>-->
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="200dp"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp">
-
-    </com.google.android.gms.common.SignInButton>
+        android:layout_below="@id/logind"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/googlelogin"
+        android:background="@drawable/loginbuttonbg"
+        android:drawableLeft="@drawable/search"
+        android:fontFamily="@font/cerapro_bold"
+        android:paddingLeft="10dp"
+        android:text="Sign in with Google Acount"
+        android:textColor="#000000" />
 </RelativeLayout>

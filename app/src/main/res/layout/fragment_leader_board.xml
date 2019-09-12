@@ -35,6 +35,7 @@
             android:layout_marginEnd="-20dp"
             android:layout_marginBottom="-20dp"
             android:background="@drawable/upper_bar"
+            android:fontFamily="@font/montserrat"
             android:gravity="center"
             android:text="LEADERBOARD"
             android:textColor="@color/white"
@@ -77,46 +78,49 @@
         app:layout_constraintGuide_percent="0.66" />
 
 
-        <TextView
-        android:id="@+id/your_rank"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/circle"
-        android:gravity="center"
-        android:text="Rank"
-        android:textColor="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+            <TextView
+                android:id="@+id/your_rank"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/circle"
+                android:fontFamily="@font/cerapro_bold"
+                android:gravity="center"
+                android:text="Rank"
+                android:textColor="#ffffff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
 
-        <TextView
-        android:id="@+id/your_name"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="Name"
-        android:textColor="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/your_name"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/cerapro_bold"
+                android:gravity="center"
+                android:text="Name"
+                android:textColor="#ffffff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-        android:id="@+id/your_score"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="Score"
-        android:textColor="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/your_score"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/cerapro_bold"
+                android:gravity="center"
+                android:text="Score"
+                android:textColor="#ffffff"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -49,6 +49,7 @@ class HomeActivity : AppCompatActivity() {
         fragments.add(LeaderBoardFrag())
         fragments.add(More())
         fragment = fragments[0]
+        bottomNavigation.show(ROULETTE)
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment!!).commit()
 
 

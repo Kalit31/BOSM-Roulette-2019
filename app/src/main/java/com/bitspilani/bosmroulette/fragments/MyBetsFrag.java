@@ -161,6 +161,20 @@ public class MyBetsFrag extends Fragment {
                                                             }
                                                         }
                                                     });
+                                                    db.collection("users").document(userId).collection("bets").document(item.getMatch_id()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                            DocumentSnapshot snapshot = task.getResult();
+                                                            Double bet = Double.parseDouble(snapshot.get("betAmount").toString());
+
+                                                            bet = betAmount * .25 + betAmount * (1 - (double) win_team / (lose_team * 100));
+                                                            HashMap<String, Object> hashMap = new HashMap<>();
+                                                            hashMap.put("betAmount", bet);
+                                                            db.collection("users").document(userId).collection("bets").document(item.getMatch_id()).set(hashMap, SetOptions.merge());
+
+
+                                                        }
+                                                    });
                                                 } else if (Integer.parseInt(document.getData().get("winner").toString()) == 2) {
                                                     db.collection("users").document(userId)
                                                             .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

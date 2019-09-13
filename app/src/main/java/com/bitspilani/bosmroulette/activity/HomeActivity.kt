@@ -66,7 +66,7 @@ class HomeActivity : AppCompatActivity() {
             }
             fragment = fragments[selectedFrag]
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment!!).commit()
-            if(selectedFrag==3 || selectedFrag==5)
+            if(selectedFrag==3)
                 main!!.setBackgroundResource(R.drawable.roulette_bg)
             else
                 main!!.setBackgroundResource(R.drawable.bg)

@@ -25,7 +25,7 @@
             android:paddingHorizontal="5dp"
             app:cardBackgroundColor="@android:color/transparent"
             app:cardElevation="3dp"
-            app:cardCornerRadius="40dp">
+            app:cardCornerRadius="10dp">
             <!--app:cardBackgroundColor="#424242"-->
             <!--android:foreground="?android:attr/selectableItemBackground"-->
 
@@ -34,8 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:background="@drawable/back2"
-                android:alpha="0.85"
+                android:background="#EF9A9A"
+                android:alpha="0.5"
                 android:layout_alignParentTop="true"
                 android:gravity="center"
                 android:orientation="horizontal"

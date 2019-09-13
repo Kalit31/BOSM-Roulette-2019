@@ -23,7 +23,7 @@
                 <ImageView
                     android:layout_width="310dp"
                     android:layout_height="215dp"
-                    android:src="@drawable/currency" />
+                    android:src="@drawable/poker" />
             </LinearLayout>
 
             <TextView

@@ -190,7 +190,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     else{
-                        Intent i = new Intent(LoginActivity.this, WelcomeActivity.class);
+                        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
                         finish();

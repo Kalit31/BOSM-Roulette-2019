@@ -166,13 +166,16 @@ public class RouletteFrag extends Fragment {
                         ex.printStackTrace();
                     }
 
-                    if (d2.getTime() >= d1.getTime()) {
-                        bonus.setVisibility(View.INVISIBLE);
-                        HashMap<String, Object> disablebonus = new HashMap<>();
-                        disablebonus.put("bonus", false);
-                        disablebonus.put("bonusTime", "");
-                        db.collection("users").document(userId).set(disablebonus, SetOptions.merge());
+                    if(d2 != null){
+                        if (d2.getTime() >= d1.getTime()) {
+                            bonus.setVisibility(View.INVISIBLE);
+                            HashMap<String, Object> disablebonus = new HashMap<>();
+                            disablebonus.put("bonus", false);
+                            disablebonus.put("bonusTime", "");
+                            db.collection("users").document(userId).set(disablebonus, SetOptions.merge());
+                        }
                     }
+
                 }
                 if (documentSnapshot.get("lossTime").toString().length() != 0) {
                     try {
@@ -182,15 +185,18 @@ public class RouletteFrag extends Fragment {
                     }
                     Log.d("current", d1.toString());
                     Log.d("loss", d3.toString());
-                    if (d1.getTime() >= d3.getTime()) {
-                        loss.setVisibility(View.INVISIBLE);
-                        HashMap<String, Object> disableloss = new HashMap<>();
-                        disableloss.put("loss", false);
-                        disableloss.put("lossTime", "");
-                        db.collection("users").document(userId).set(disableloss, SetOptions.merge());
-                    } else {
-                        loss.setVisibility(View.VISIBLE);
+                    if(d3 != null){
+                        if (d1.getTime() >= d3.getTime()) {
+                            loss.setVisibility(View.INVISIBLE);
+                            HashMap<String, Object> disableloss = new HashMap<>();
+                            disableloss.put("loss", false);
+                            disableloss.put("lossTime", "");
+                            db.collection("users").document(userId).set(disableloss, SetOptions.merge());
+                        } else {
+                            loss.setVisibility(View.VISIBLE);
+                        }
                     }
+
                 }
 
             }

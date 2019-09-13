@@ -155,7 +155,13 @@ public class BetDialog extends Dialog implements View.OnClickListener {
     void placebet() {
 
         Map<String, Object> bet = new HashMap<>();
-        PlaceBetModel ob = new PlaceBetModel(betAmount, userId, "BITS");
+        PlaceBetModel ob;
+        if(flag == 0) {
+            ob = new PlaceBetModel(betAmount, userId, team1.getText().toString());
+        }
+        else {
+            ob = new PlaceBetModel(betAmount, userId, team2.getText().toString());
+        }
 
         db.collection("matches").document(fixture.getMatchId().toString()).update(
                 "roulette", FieldValue.arrayUnion(ob)

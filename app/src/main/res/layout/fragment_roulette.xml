@@ -29,7 +29,7 @@
             android:layout_width="157dp"
             android:layout_height="198dp"
             android:layout_marginStart="86dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginBottom="-20dp"
             android:layout_marginEnd="85dp"
             android:src="@drawable/final_baxter"
             app:layout_constraintBottom_toTopOf="@+id/constraint1"
@@ -119,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="-53dp" />
+             />
 
         <TextView
             android:id="@+id/textView4"

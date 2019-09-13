@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bitspilani.bosmroulette.R;
 import com.bitspilani.bosmroulette.adapters.LeaderBoardAdapter;
 import com.bitspilani.bosmroulette.models.RankClass;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.Wave;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,11 +57,12 @@ public class LeaderBoardFrag extends Fragment {
          leaderboard=v.findViewById(R.id.leaderboardtv);
          yourName = v.findViewById(R.id.your_name);
         mAuth=FirebaseAuth.getInstance();
-
+        ProgressBar progressBar = v.findViewById(R.id.progressbarmatches);
+        Sprite viewloader = new Wave();
         user=mAuth.getCurrentUser();
         String name=user.getDisplayName();
         String userId=user.getUid();
-
+        progressBar.setIndeterminateDrawable(viewloader);
         yourName.setText(name.toUpperCase());
 
         Log.d("name",name);
@@ -102,6 +106,9 @@ public class LeaderBoardFrag extends Fragment {
                             leaderlist.setLayoutManager(new LinearLayoutManager(getContext()));
                             leaderlist.setHasFixedSize(true);
                             leaderlist.setAdapter(adapter);
+
+                            progressBar.setVisibility(View.INVISIBLE);
+
                         }
                     }
             );

@@ -23,7 +23,7 @@ public class Developers extends AppCompatActivity {
 
         list.add(new DevDesc("Ayush Singh","App Developer",R.drawable.ayushnew));
         list.add(new DevDesc("Gauransh Sawhney","App Developer",R.drawable.gausa));
-        list.add(new DevDesc("Kalit Naresh Inani","App Developer",R.drawable.kalit));
+        list.add(new DevDesc("Kalit Inani","App Developer",R.drawable.kalit));
         list.add(new DevDesc("Mukund Paliwal","UI/UX Designer",R.drawable.casinochip));
         list.add(new DevDesc("Ayushi Jain","UI/UX Designer",R.drawable.ayushi));
         list.add(new DevDesc("Sonal Prasad","UI/UX Designer",R.drawable.sopra));

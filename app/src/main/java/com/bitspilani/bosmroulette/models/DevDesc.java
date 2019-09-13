@@ -1,10 +1,9 @@
 package com.bitspilani.bosmroulette.models;
 
 public class DevDesc {
-    String name,desc;
-    int Id;
+    String name,desc,Id;
 
-    public DevDesc(String name, String desc, int Id){
+    public DevDesc(String name, String desc, String Id){
         this.desc=desc;
         this.name=name;
         this.Id=Id;
@@ -18,7 +17,7 @@ public class DevDesc {
         return desc;
     }
 
-    public int getId() {
+    public String getId() {
         return Id;
     }
 }

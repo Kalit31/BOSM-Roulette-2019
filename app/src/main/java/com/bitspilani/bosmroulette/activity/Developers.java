@@ -21,13 +21,13 @@ public class Developers extends AppCompatActivity {
         RecyclerView recyclerView=findViewById(R.id.recycler_view);
         ArrayList<DevDesc> list=new ArrayList<>();
 
-        list.add(new DevDesc("Ayush Singh","App Developer",R.drawable.ayushnew));
-        list.add(new DevDesc("Gauransh Sawhney","App Developer",R.drawable.gausa));
-        list.add(new DevDesc("Kalit Inani","App Developer",R.drawable.kalit));
-        list.add(new DevDesc("Mukund Paliwal","UI/UX Designer",R.drawable.mukund));
-        list.add(new DevDesc("Ayushi Jain","UI/UX Designer",R.drawable.ayushi));
-        list.add(new DevDesc("Sonal Prasad","UI/UX Designer",R.drawable.sopra));
-        DevAdapter devAdapter=new DevAdapter(list);
+        list.add(new DevDesc("Ayush Singh","App Developer","Ayush.jpg"));
+        list.add(new DevDesc("Gauransh Sawhney","App Developer","Gauransh.jpg"));
+        list.add(new DevDesc("Kalit Inani","App Developer","Kalit.jpg"));
+        list.add(new DevDesc("Mukund Paliwal","UI/UX Designer","Mukund.png"));
+        list.add(new DevDesc("Ayushi Jain","UI/UX Designer","AYUSHI.jpg"));
+        list.add(new DevDesc("Sonal Prasad","UI/UX Designer","Sonal.jpg"));
+        DevAdapter devAdapter=new DevAdapter(this,list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(devAdapter);

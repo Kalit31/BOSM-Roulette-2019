@@ -214,6 +214,7 @@
         android:text=""
         android:gravity="center"
         android:textColor="#ffffff"
+        android:fontFamily="@font/cerapro_light"
         app:layout_constraintBottom_toTopOf="@+id/imageView4"
         app:layout_constraintEnd_toStartOf="@+id/guideline16"
         app:layout_constraintStart_toStartOf="parent"

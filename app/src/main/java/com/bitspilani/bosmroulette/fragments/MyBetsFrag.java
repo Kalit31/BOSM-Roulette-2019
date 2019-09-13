@@ -167,10 +167,10 @@ public class MyBetsFrag extends Fragment {
                                                 }
 
                                             }
-
+                                            betAmount = item.getBetAmount();
                                             if (is_result) {
                                                 if (item.getBettedOn() == Integer.parseInt(document.getData().get("winner").toString())) {
-                                                    betAmount = item.getBetAmount();
+
 
                                                     db.collection("users").document(userId)
                                                             .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -253,7 +253,8 @@ public class MyBetsFrag extends Fragment {
                                                                 DocumentSnapshot doc = task.getResult();
 
                                                                 wallet = Double.parseDouble(doc.get("wallet").toString());
-                                                                if (Boolean.parseBoolean(doc.get("loss").toString())) {
+                                                                Log.d("mytest",doc.get("loss").toString());
+                                                                if(Boolean.parseBoolean(doc.get("loss").toString())) {
                                                                     wallet = wallet + betAmount;
                                                                     betamt = 0;
                                                                 }

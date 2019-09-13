@@ -78,6 +78,7 @@ public class MyBetAdapter extends RecyclerView.Adapter<MyBetAdapter.ViewHolder>
             }
         }else{
             holder.betAmount.setBackground(context.getDrawable(R.drawable.yellow_block));
+            holder.betAmount.setText(strk.nextToken());
         }
     }
 

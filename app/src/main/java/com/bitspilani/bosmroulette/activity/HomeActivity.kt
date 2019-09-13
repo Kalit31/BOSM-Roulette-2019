@@ -7,11 +7,13 @@ import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager.widget.ViewPager
 import com.bitspilani.bosmroulette.R
 import com.bitspilani.bosmroulette.fragments.*
 import com.bitspilani.bosmroulette.models.ZoomOutSlideTransformer
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.ArrayList
 
 class HomeActivity : AppCompatActivity() {
@@ -52,7 +54,6 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigation.show(ID_WALLET)
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment!!).commit()
 
-
         bottomNavigation.setOnShowListener {
             selectedFrag = when (it.id){
                 ID_WALLET -> 0
@@ -70,32 +71,7 @@ class HomeActivity : AppCompatActivity() {
             else
                 main!!.setBackgroundResource(R.drawable.bg)
         }
-       // if(selectedFrag==1 || selectedFrag==5)
-         //   main!!.setBackgroundResource(R.drawable.roulette_bg)
-
         bottomNavigation.setOnClickMenuListener {        }
-
-
-
-
-
-     //   val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-       //         .requestEmail()
-         //       .requestIdToken(getString(R.string.default_web_client_id))
-           //     .build()
-        //  googleSignInClient = GoogleSignIn.getClient(this, gso)
-      //  val mAuth = FirebaseAuth.getInstance()
-        //  Button button=findViewById(R.id.button);
-        //   TextView textView=findViewById(R.id.textView4);
-        //  textView.setText(mAuth.getCurrentUser().getEmail());
-        /*        button.setOnClickListener(new  View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
-            }
-        });*/
     }
 
     override fun onBackPressed() {

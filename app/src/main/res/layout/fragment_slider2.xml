@@ -21,9 +21,12 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="310dp"
-                    android:layout_height="215dp"
-                    android:src="@drawable/poker" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleY="0.7"
+                    android:scaleX="0.7"
+                    android:layout_weight="0.1"
+                    android:src="@drawable/currency_3"/>
             </LinearLayout>
 
             <TextView

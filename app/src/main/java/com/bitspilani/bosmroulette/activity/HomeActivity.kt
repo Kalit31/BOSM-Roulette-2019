@@ -65,13 +65,13 @@ class HomeActivity : AppCompatActivity() {
             }
             fragment = fragments[selectedFrag]
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment!!).commit()
-            if(selectedFrag==3)
+            if(selectedFrag==3 || selectedFrag==5)
                 main!!.setBackgroundResource(R.drawable.roulette_bg)
             else
                 main!!.setBackgroundResource(R.drawable.bg)
         }
-        if(selectedFrag==1)
-            main!!.setBackgroundResource(R.drawable.roulette_bg)
+       // if(selectedFrag==1 || selectedFrag==5)
+         //   main!!.setBackgroundResource(R.drawable.roulette_bg)
 
         bottomNavigation.setOnClickMenuListener {        }
 

@@ -16,10 +16,12 @@
 
 
             <ImageView
-                android:layout_width="300dp"
-                android:layout_height="300dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX=".7"
+                android:scaleY="0.7"
                android:layout_weight="0.1"
-                android:src="@drawable/poker" />
+                android:src="@drawable/currency_3" />
 
 
             <TextView

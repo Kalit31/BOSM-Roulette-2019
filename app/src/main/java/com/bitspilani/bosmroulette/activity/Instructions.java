@@ -34,8 +34,8 @@ public class Instructions extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        String name=getCallingActivity().getClassName();
-        // Checking for first time launch - before calling setContentView()
+
+
 
 
         // Making notification bar transparent

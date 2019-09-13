@@ -35,10 +35,10 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-            String name=getCallingActivity().getClassName();
+       //     String name=getCallingActivity().getClassName();
             // Checking for first time launch - before calling setContentView()
             prefManager = new PrefManager(this);
-            if (!prefManager.isFirstTimeLaunch() && name.equals(HomeActivity.class.toString())) {
+            if (!prefManager.isFirstTimeLaunch() ) {
                 launchHomeScreen();
                 finish();
             }
@@ -89,6 +89,11 @@ public class WelcomeActivity extends AppCompatActivity {
                         // move to next screen
                         viewPager.setCurrentItem(current);
                     } else {
+//                        SharedPreferences.Editor sharedPreferencesEditor =
+//                                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+//                        sharedPreferencesEditor.putBoolean(
+//                                COMPLETED_ONBOARDING_PREF_NAME, true);
+//                        sharedPreferencesEditor.apply();
                         launchHomeScreen();
                     }
                 }

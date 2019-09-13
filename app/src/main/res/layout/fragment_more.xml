@@ -53,7 +53,7 @@
             android:layout_height="80dp"
             android:id="@+id/c1"
             android:layout_weight="1"
-            android:background="@drawable/amtborder"
+            android:background="#EF9A9A"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
@@ -89,7 +89,7 @@
             android:layout_height="80dp"
             android:id="@+id/c2"
             android:layout_weight="1"
-            android:background="@drawable/amtborder"
+            android:background="#EF9A9A"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
@@ -122,11 +122,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="vertical"
+
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:id="@+id/c3"
-            android:background="@drawable/amtborder"
+            android:background="#EF9A9A"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"

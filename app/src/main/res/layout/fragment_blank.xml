@@ -27,9 +27,23 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="-10dp"
             android:background="@drawable/home_upper" />
+
     </RelativeLayout>
 
 
+    <ImageView
+        android:id="@+id/instruction"
+        android:layout_width="25dp"
+        android:layout_height="26dp"
+        android:fontFamily="@font/cerapro_bold"
+        android:src="@drawable/info"
+        android:text="i"
+        android:textColor="@color/white"
+        android:textSize="23sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline28"
+        app:layout_constraintEnd_toStartOf="@+id/guideline31"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <Button
         android:id="@+id/signOut"
         android:layout_width="0dp"
@@ -222,7 +236,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.10" />
+        app:layout_constraintGuide_begin="41dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline32"

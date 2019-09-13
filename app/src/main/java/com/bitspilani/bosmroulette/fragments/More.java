@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import com.bitspilani.bosmroulette.R;
 import com.bitspilani.bosmroulette.activity.Developers;
+import com.bitspilani.bosmroulette.activity.HPC;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class More extends Fragment {
         c3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(getActivity(), HPC.class));
+                startActivity(new Intent(getActivity(), HPC.class));
             }
         });
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +21,9 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import com.bitspilani.bosmroulette.LinePageIndicatorDecoration;
 import com.bitspilani.bosmroulette.R;
+import com.bitspilani.bosmroulette.activity.Instructions;
 import com.bitspilani.bosmroulette.activity.LoginActivity;
+import com.bitspilani.bosmroulette.activity.WelcomeActivity;
 import com.bitspilani.bosmroulette.adapters.TrendingAdapter;
 import com.bitspilani.bosmroulette.models.TrendingModel;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -42,6 +45,7 @@ public class BlankFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private Button signOut;
+    private ImageView instruction;
     private GoogleSignInClient mGoogleSignInClient;
     TextView balance, name;
     private FirebaseAuth mAuth;
@@ -81,6 +85,7 @@ public class BlankFragment extends Fragment {
         signOut = v.findViewById(R.id.signOut);
         balance = v.findViewById(R.id.balance);
         name = v.findViewById(R.id.username);
+        instruction=v.findViewById(R.id.instruction);
         builder = new AlertDialog.Builder(getContext());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -129,6 +134,15 @@ public class BlankFragment extends Fragment {
                 //Setting the title manually
                 alert.setTitle("Sign Out");
                 alert.show();
+            }
+        });
+
+        instruction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), Instructions.class);
+                startActivity(intent);
+
             }
         });
         return v;

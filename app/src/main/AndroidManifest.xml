@@ -14,7 +14,10 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".activity.HPC"></activity>
-        <activity android:name=".activity.Developers" />
+        <activity android:name=".activity.Instructions"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.Developers"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".services.MyFirebaseMessagingService"

@@ -12,7 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/BOSMAppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_launcher" />
 
+        <!-- Set color used with incoming notification messages.
+        This is used when no color is set for the incoming notification message. See README
+        (https://github.com/firebase/quickstart-android/tree/master/messaging#custom-default-color) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
         <activity android:name=".activity.HPC"></activity>
         <activity android:name=".activity.Instructions"
             android:screenOrientation="portrait"/>

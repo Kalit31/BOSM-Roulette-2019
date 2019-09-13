@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,7 +51,8 @@ public class MyBetsFrag extends Fragment {
     private FirebaseAuth mAuth;
     private double betAmount;
     private ProgressBar progressBar;
-
+ TextView textView;
+     ImageView baxter;
     public MyBetsFrag() {
         // Required empty public constructor
     }
@@ -63,6 +66,8 @@ public class MyBetsFrag extends Fragment {
         betlist = v.findViewById(R.id.myBets_rv);
         progressBar = v.findViewById(R.id.progressbar);
         Sprite wave = new Wave();
+        textView=v.findViewById(R.id.textView8);
+        baxter=v.findViewById(R.id.imageView7);
         progressBar.setIndeterminateDrawable(wave);
         mAuth = FirebaseAuth.getInstance();
         String userId = mAuth.getCurrentUser().getUid();
@@ -98,7 +103,13 @@ public class MyBetsFrag extends Fragment {
                             betlist.setAdapter(adapter);
 
                             progressBar.setVisibility(View.INVISIBLE);
-
+                            if (adapter.getItemCount() == 0) {
+                                textView.setVisibility(View.VISIBLE);
+                                baxter.setVisibility(View.VISIBLE);
+                            } else {
+                                textView.setVisibility(View.INVISIBLE);
+                                baxter.setVisibility(View.INVISIBLE);
+                            }
                             for (UserBetModel item : it) {
 
                                 Log.d("itemid", item.getMatch_id());

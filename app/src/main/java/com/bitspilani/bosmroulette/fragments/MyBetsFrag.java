@@ -125,11 +125,36 @@ public class MyBetsFrag extends Fragment {
                                                     .document(item.getMatch_id()).set(scoreMap, SetOptions.merge());
 
                                             if (Integer.parseInt(document.getData().get("winner").toString()) == 0) {
-                                                win_team = team1;
-                                                lose_team = team1;
+                                                if(team1 == 0 && team2 == 0){
+                                                   win_team = 1;
+                                                   lose_team = 1;
+                                                }else if(team1 == 0) {
+                                                    win_team = 1;
+                                                    lose_team = team2;
+                                                }
+                                                else if(team2 == 0){
+                                                    win_team = team1;
+                                                    lose_team = 1;
+                                                }else{
+                                                    win_team = team1;
+                                                    lose_team = team2;
+                                                }
                                             } else {
-                                                win_team = team2;
-                                                lose_team = team1;
+                                                if(team1 == 0 && team2 == 0){
+                                                    win_team = 1;
+                                                    lose_team = 1;
+                                                }else if(team1 == 0) {
+                                                    win_team = 1;
+                                                    lose_team = team1;
+                                                }
+                                                else if(team2 == 0){
+                                                    win_team = team2;
+                                                    lose_team = 1;
+                                                }else{
+                                                    win_team = team2;
+                                                    lose_team = team1;
+                                                }
+
                                             }
 
                                             if (is_result) {
@@ -144,10 +169,15 @@ public class MyBetsFrag extends Fragment {
                                                             if (task.isSuccessful()) {
                                                                 DocumentSnapshot doc = task.getResult();
                                                                 wallet = Double.parseDouble(doc.get("wallet").toString());
-                                                                if (Boolean.parseBoolean(doc.get("bonus").toString()))
+                                                                double betamt;
+                                                                if (Boolean.parseBoolean(doc.get("bonus").toString())){
                                                                     wallet = wallet + (betAmount * 1.25 + betAmount * (1 - (double) win_team / (lose_team * 100))) * 1.1;
-                                                                else
+                                                                    betamt = (betAmount * 1.25 + betAmount * (1 - (double) win_team / (lose_team * 100))) * 1.1;
+                                                                }
+                                                                else{
                                                                     wallet = wallet + betAmount * 1.25 + betAmount * (1 - (double) win_team / (lose_team * 100));
+                                                                    betamt = betAmount * 1.25 + betAmount * (1 - (double) win_team / (lose_team * 100));
+                                                                }
                                                                 Map<String, Double> newWallet = new HashMap<>();
                                                                 newWallet.put("wallet", wallet);
 
@@ -155,26 +185,27 @@ public class MyBetsFrag extends Fragment {
                                                                 Map<String, Object> map = new HashMap<>();
                                                                 map.put("update", true);
                                                                 map.put("result", item.getBettedOn());
+                                                                map.put("betAmount",betamt);
 
                                                                 db.collection("users").document(userId).collection("bets")
                                                                         .document(item.getMatch_id()).set(map, SetOptions.merge());
                                                             }
                                                         }
                                                     });
-                                                    db.collection("users").document(userId).collection("bets").document(item.getMatch_id()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                            DocumentSnapshot snapshot = task.getResult();
-                                                            Double bet = Double.parseDouble(snapshot.get("betAmount").toString());
-
-                                                            bet = betAmount * .25 + betAmount * (1 - (double) win_team / (lose_team * 100));
-                                                            HashMap<String, Object> hashMap = new HashMap<>();
-                                                            hashMap.put("betAmount", bet);
-                                                            db.collection("users").document(userId).collection("bets").document(item.getMatch_id()).set(hashMap, SetOptions.merge());
-
-
-                                                        }
-                                                    });
+//                                                    db.collection("users").document(userId).collection("bets").document(item.getMatch_id()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                                                        @Override
+//                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                                            DocumentSnapshot snapshot = task.getResult();
+//                                                            Double bet = Double.parseDouble(snapshot.get("betAmount").toString());
+//
+//                                                            bet = betAmount * .25 + betAmount * (1 - (double) win_team / (lose_team * 100));
+//                                                            HashMap<String, Object> hashMap = new HashMap<>();
+//                                                            hashMap.put("betAmount", bet);
+//                                                            db.collection("users").document(userId).collection("bets").document(item.getMatch_id()).set(hashMap, SetOptions.merge());
+//
+//
+//                                                        }
+//                                                    });
                                                 } else if (Integer.parseInt(document.getData().get("winner").toString()) == 2) {
                                                     db.collection("users").document(userId)
                                                             .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -207,13 +238,18 @@ public class MyBetsFrag extends Fragment {
                                                         @Override
                                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                             if (task.isSuccessful()) {
+                                                                double betamt;
                                                                 DocumentSnapshot doc = task.getResult();
 
                                                                 wallet = Double.parseDouble(doc.get("wallet").toString());
-                                                                if (Boolean.parseBoolean(doc.get("loss").toString()))
+                                                                if (Boolean.parseBoolean(doc.get("loss").toString())) {
                                                                     wallet = wallet + betAmount;
-                                                                else
+                                                                    betamt = 0;
+                                                                }
+                                                                else{
                                                                     wallet = wallet + betAmount * 0.25;
+                                                                    betamt = betAmount*0.75;
+                                                                }
 
                                                                 Map<String, Double> newWallet = new HashMap<>();
                                                                 newWallet.put("wallet", wallet);
@@ -223,6 +259,7 @@ public class MyBetsFrag extends Fragment {
                                                                 Map<String, Object> map = new HashMap<>();
                                                                 map.put("update", true);
                                                                 map.put("result", Integer.parseInt(document.getData().get("winner").toString()));
+                                                                map.put("betAmount",betamt);
 
                                                                 db.collection("users").document(userId).collection("bets")
                                                                         .document(item.getMatch_id()).set(map, SetOptions.merge());

@@ -54,7 +54,7 @@ public class MyBetAdapter extends RecyclerView.Adapter<MyBetAdapter.ViewHolder>
        }
 
         StringTokenizer strk = new StringTokenizer(String.valueOf(items.get(position).getBetAmount()),".");
-        holder.betAmount.setText(strk.nextToken());
+
         holder.game.setText(items.get(position).getGame());
         if(!((items.get(position).getScore1() == -1) && (items.get(position).getScore2()==-1))) {
             holder.score1.setVisibility(View.VISIBLE);
@@ -63,15 +63,17 @@ public class MyBetAdapter extends RecyclerView.Adapter<MyBetAdapter.ViewHolder>
             holder.score2.setText(String.valueOf(items.get(position).getScore2()));
         }
         else{
-            //holder.score1.setText("");
-            //holder.score2.setText("");
             holder.score1.setVisibility(View.INVISIBLE);
             holder.score2.setVisibility(View.INVISIBLE);
         }
         if(items.get(position).isUpdate()){
             if(items.get(position).getBettedOn() == items.get(position).getResult()){
                 holder.betAmount.setBackground(context.getDrawable(R.drawable.green_block));
+                holder.betAmount.setText("+"+strk.nextToken());
+                holder.status.setText("Won");
             }else{
+                holder.status.setText("Lose");
+                holder.betAmount.setText("-"+strk.nextToken());
                 holder.betAmount.setBackground(context.getDrawable(R.drawable.brown_block));
             }
         }else{
@@ -87,7 +89,7 @@ public class MyBetAdapter extends RecyclerView.Adapter<MyBetAdapter.ViewHolder>
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView team1,team2;
         TextView betAmount,game,score1,score2;
-
+        TextView status;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +99,7 @@ public class MyBetAdapter extends RecyclerView.Adapter<MyBetAdapter.ViewHolder>
             game = itemView.findViewById(R.id.game);
             score1 = itemView.findViewById(R.id.score1);
             score2 = itemView.findViewById(R.id.score2);
+            status = itemView.findViewById(R.id.tV_status);
         }
     }
 }

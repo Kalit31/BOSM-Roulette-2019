@@ -64,11 +64,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
         int hours = date.getHours();
         int minutes = date.getMinutes();
+        String testMinutes = String.valueOf(minutes);
+        if(testMinutes.length() == 1)
+            testMinutes = testMinutes + "0";
 
         int dt = date.getDate();
         String month = " Sept";
 
-        String t = dt + month + "\n"+ hours+" : "+ minutes;
+        String t = dt + month + "\n"+ hours+" : "+ testMinutes;
         holder.time.setText(t);
         holder.sports.setText(fixtures.get(position).getGame());
 

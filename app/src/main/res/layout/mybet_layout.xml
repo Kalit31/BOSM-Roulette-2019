@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline16"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_bias="0.4"
         app:srcCompat="@drawable/pokerchip" />
 
     <LinearLayout
@@ -206,7 +206,18 @@
 
     </LinearLayout>
 
-
+    <TextView
+        android:id="@+id/tV_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text=""
+        android:gravity="center"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bet_amount" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

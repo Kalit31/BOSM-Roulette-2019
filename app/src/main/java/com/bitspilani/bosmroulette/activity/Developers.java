@@ -28,6 +28,7 @@ public class Developers extends AppCompatActivity {
         list.add(new DevDesc("Ayushi Jain","UI/UX Designer","AYUSHI.jpg"));
         list.add(new DevDesc("Sonal Prasad","UI/UX Designer","Sonal.jpg"));
         DevAdapter devAdapter=new DevAdapter(this,list);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(devAdapter);

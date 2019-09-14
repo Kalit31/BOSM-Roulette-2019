@@ -1,161 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.More">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
 
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        >-->
+    <Button
+        android:id="@+id/developers"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:alpha="0.85"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/round_button2"
+        android:text="Developers"
 
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="120dp"-->
-<!--            android:layout_marginStart="-20dp"-->
-<!--            android:layout_marginTop="-20dp"-->
-<!--            android:layout_marginEnd="-20dp"-->
-<!--            android:layout_marginBottom="-20dp"-->
-<!--            android:background="@drawable/upper_bar"-->
-<!--            android:fontFamily="@font/oswald"-->
-<!--            android:gravity="center"-->
-<!--            android:text="MORE"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="25sp" />-->
-
-<!--    </RelativeLayout>-->
-   <!-- <com.github.ybq.android.spinkit.SpinKitView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/cerapro_bold"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/blog"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.591" />
+
+    <Button
+        android:id="@+id/help"
+        android:layout_width="130dp"
+        android:alpha="0.85"
+        android:layout_height="130dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/round_button"
+        android:text="Help"
+        android:fontFamily="@font/cerapro_bold"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/blog"
+        app:layout_constraintEnd_toStartOf="@+id/developers"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.591" />
+
+    <Button
+        android:id="@+id/blog"
+        android:alpha="0.85"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/round_button3"
+        android:text="HPC BLOG"
+        android:fontFamily="@font/cerapro_bold"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/progressbarmatches"
-        />-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:id="@+id/c1"
-            android:layout_weight="1"
-            android:background="#EF9A9A"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
-            android:alpha="0.85">
-
-            <TextView
-                android:id="@+id/about"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="4dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:elevation="9dp"
-                android:padding="4dp"
-                android:text="HELP"
-                android:textColor="#000000"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.524" />
 
 
 
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:id="@+id/c2"
-            android:layout_weight="1"
-            android:background="#EF9A9A"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
-            android:alpha="0.85">
 
-            <TextView
-                android:id="@+id/developers"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="4dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:padding="4dp"
-                android:elevation="9dp"
-                android:text="DEVELOPERS"
-                android:textColor="#000000"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:orientation="vertical"
-
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/c3"
-            android:background="#EF9A9A"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
-            android:alpha="0.85">
-
-            <TextView
-                android:id="@+id/hpc"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="4dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:elevation="9dp"
-                android:padding="4dp"
-                android:text="HPC BLOG"
-                android:textColor="#000000"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </LinearLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

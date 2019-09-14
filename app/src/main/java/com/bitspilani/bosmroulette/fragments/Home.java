@@ -136,12 +136,13 @@ public class Home extends Fragment {
                                             if (!(matchesBetId.contains(Objects.requireNonNull(doc.getData().get("matchId")).toString()))) {
                                                 try {
                                                     d2 = sdf.parse(ob.getTimestamp());
+                                                    if (d2.getTime() >= d1.getTime())
+                                                        fixtures.add(ob);
+                                                    i++;
                                                 } catch (ParseException e1) {
                                                     e1.printStackTrace();
                                                 }
-                                                if (d2.getTime() >= d1.getTime())
-                                                    fixtures.add(ob);
-                                                i++;
+
                                             }
 
 

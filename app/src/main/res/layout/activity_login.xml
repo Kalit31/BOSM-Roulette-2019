@@ -47,6 +47,6 @@
         android:drawableLeft="@drawable/search"
         android:fontFamily="@font/cerapro_bold"
         android:paddingLeft="10dp"
-        android:text="Sign in with Google Acount"
+        android:text="Sign in with Google Account"
         android:textColor="#000000" />
 </RelativeLayout>

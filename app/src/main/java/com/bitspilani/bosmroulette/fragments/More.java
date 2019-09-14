@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.bitspilani.bosmroulette.R;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 
 
 public class More extends Fragment {
-    ConstraintLayout c1,c2,c3;
+    Button c1,c2,c3;
 
 
     public More() {
@@ -45,9 +46,9 @@ public class More extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_more, container, false);
-        c1=view.findViewById(R.id.c1);
-        c2=view.findViewById(R.id.c2);
-        c3=view.findViewById(R.id.c3);
+        c1=view.findViewById(R.id.help);
+        c2=view.findViewById(R.id.developers);
+        c3=view.findViewById(R.id.blog);
 
         c1.setOnClickListener(new View.OnClickListener() {
             @Override
